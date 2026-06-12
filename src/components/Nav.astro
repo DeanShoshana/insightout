@@ -1,4 +1,5 @@
 ---
+import { readFileSync } from 'node:fs';
 import { navItems, ctaContact } from '../content/ui';
 import { withBase } from '../lib/url';
 
@@ -8,7 +9,13 @@ const isActive = (href: string) => {
   return target === pathname;
 };
 
-const iconSrc = withBase('/brand/insightout-icon-light.svg');
+// Icon inlined (same file, used as-is) so the speed lines — individually
+// animatable by design (CLAUDE.md rule 3) — can run their micro-animation.
+const iconSvg = readFileSync(
+  new URL('../../public/brand/insightout-icon-light.svg', import.meta.url),
+  'utf8'
+).replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
+
 const homeHref = withBase('/');
 const contactHref = `${withBase('/')}#contact`;
 ---
@@ -16,7 +23,7 @@ const contactHref = `${withBase('/')}#contact`;
 <header class="nav">
   <div class="container nav__inner">
     <a class="nav__brand" href={homeHref} aria-label="InsightOut — home">
-      <img class="nav__logo" src={iconSrc} alt="" width="40" height="40" aria-hidden="true" />
+      <span class="nav__logo" set:html={iconSvg} />
       <span class="nav__wordmark">InsightOut</span>
     </a>
 
@@ -43,7 +50,7 @@ const contactHref = `${withBase('/')}#contact`;
           ))
         }
       </ul>
-      <a class="nav__cta" href={contactHref}>{ctaContact}</a>
+      <a class="nav__cta" href={contactHref} data-magnetic>{ctaContact}</a>
     </nav>
   </div>
 </header>
@@ -117,6 +124,54 @@ const contactHref = `${withBase('/')}#contact`;
   .nav__logo {
     inline-size: 36px;
     block-size: 36px;
+  }
+
+  .nav__logo :global(svg) {
+    inline-size: 100%;
+    block-size: 100%;
+    display: block;
+  }
+
+  /* Speed-line micro-animation (M4): the lines stream out of the O once on
+     load, and again on brand hover. Decorative; reduced-motion collapses it. */
+  .nav__logo :global(#speedlines rect) {
+    animation: speedline-stream 0.9s var(--ease-luxe) both;
+    animation-delay: calc(300ms + var(--line, 0) * 55ms);
+  }
+
+  .nav__brand:hover .nav__logo :global(#speedlines rect) {
+    animation: speedline-stream-hover 0.9s var(--ease-luxe) both;
+    animation-delay: calc(var(--line, 0) * 55ms);
+  }
+
+  .nav__logo :global(#speedlines rect:nth-child(1)) { --line: 0; }
+  .nav__logo :global(#speedlines rect:nth-child(2)) { --line: 1; }
+  .nav__logo :global(#speedlines rect:nth-child(3)) { --line: 2; }
+  .nav__logo :global(#speedlines rect:nth-child(4)) { --line: 3; }
+  .nav__logo :global(#speedlines rect:nth-child(5)) { --line: 4; }
+  .nav__logo :global(#speedlines rect:nth-child(6)) { --line: 5; }
+  .nav__logo :global(#speedlines rect:nth-child(7)) { --line: 6; }
+
+  @keyframes speedline-stream {
+    from {
+      opacity: 0;
+      transform: translateX(-22px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes speedline-stream-hover {
+    from {
+      opacity: 0;
+      transform: translateX(-22px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
 
   .nav__wordmark {

@@ -52,8 +52,12 @@
 
   /* ---- Motion ---- */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* M4: the cinematic register — long deceleration, weighted settle. */
+  --ease-luxe: cubic-bezier(0.16, 1, 0.3, 1);
   --dur-fast: 180ms;
   --dur-med: 320ms;
+  --dur-hover: 450ms;
+  --dur-reveal: 1000ms;
 
   /* ---- Z layers ---- */
   --z-nav: 100;
