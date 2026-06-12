@@ -131,15 +131,18 @@ export const home = {
   },
 
   // §5.1 #6 — closing CTA. Minimal form: name, email, one-line message (§5.6).
+  // M2c: stronger invitation framing; "Work with InsightOut" kept as the kicker.
   contact: {
-    headline: 'Work with InsightOut',
-    body: 'Tell us where the decision is stuck. We’ll tell you what it takes to unstick it.',
+    kicker: 'Work with InsightOut',
+    headline: 'Bring the decision you’re sitting on.',
+    body: 'No brief, no deck — a few lines about where you’re stuck is enough. You’ll get a straight answer on whether InsightOut can help, and what it would take.',
     fields: {
       name: 'Name',
       email: 'Email',
       message: 'What are you working on?',
     },
-    submit: 'Send',
+    messagePlaceholder: 'Two or three lines is plenty.',
+    submit: 'Start the conversation',
     // Shown when the form backend isn't wired yet (M5). DRAFT COPY.
     pendingNote: 'The form goes live with the site launch — check back shortly.',
   },
