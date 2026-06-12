@@ -1,0 +1,149 @@
+---
+// Angular glass accents (M4c): faceted, crystalline forms in the brand's
+// glass/signal palette — gradient stops use the exact §6a token hexes
+// (#E9F1FF / #76A6F3 / #7FAFF8 / #2470E5), no new colors. Decorative only
+// (aria-hidden, pointer-events none), placed off to one side of thin
+// sections. One shape family, a different facet composition per page.
+//
+// Motion: a single scroll-reactive drift (few px + few degrees), rAF-lerped
+// from a passive scroll listener — rests at the extremes, no idle animation.
+// prefers-reduced-motion ⇒ the script never runs and the shape is static.
+
+interface Props {
+  shape: 'shards' | 'prism' | 'gem' | 'slivers';
+  /** Max drift in px across the section's viewport transit. */
+  driftY?: number;
+  /** Max rotation in degrees across the transit. */
+  rotate?: number;
+}
+
+const { shape, driftY = 18, rotate = 5 } = Astro.props;
+// Unique gradient ids per shape (one shape per page, so no collisions).
+const uid = `ga-${shape}`;
+---
+
+<div class="glass-accent" data-glass-accent data-drift={driftY} data-rot={rotate} aria-hidden="true">
+  <svg viewBox="0 0 320 360" class={`glass-accent__svg glass-accent__svg--${shape}`}>
+    <defs>
+      <linearGradient id={`${uid}-glass`} x1="0" y1="0" x2="0.4" y2="1">
+        <stop offset="0" stop-color="#E9F1FF"></stop>
+        <stop offset="0.55" stop-color="#B5D0FA"></stop>
+        <stop offset="1" stop-color="#76A6F3"></stop>
+      </linearGradient>
+      <linearGradient id={`${uid}-speed`} x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#7FAFF8"></stop>
+        <stop offset="1" stop-color="#2470E5"></stop>
+      </linearGradient>
+      <linearGradient id={`${uid}-sheen`} x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.85"></stop>
+        <stop offset="0.6" stop-color="#FFFFFF" stop-opacity="0"></stop>
+      </linearGradient>
+    </defs>
+
+    {
+      shape === 'shards' && (
+        <g>
+          {/* Services: a cluster of elongated shards. */}
+          <polygon points="148,12 216,44 182,332 128,298" fill={`url(#${uid}-glass)`} opacity="0.55" />
+          <polygon points="148,12 216,44 182,332 128,298" fill="none" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="1" />
+          <polygon points="148,12 216,44 196,210 152,186" fill={`url(#${uid}-sheen)`} opacity="0.5" />
+          <polygon points="232,86 282,114 256,288 218,260" fill={`url(#${uid}-speed)`} opacity="0.32" />
+          <polygon points="232,86 282,114 256,288 218,260" fill="none" stroke="#FFFFFF" stroke-opacity="0.45" stroke-width="1" />
+          <polygon points="86,128 124,148 110,262 80,238" fill={`url(#${uid}-glass)`} opacity="0.35" />
+        </g>
+      )
+    }
+    {
+      shape === 'prism' && (
+        <g>
+          {/* Industries: a leaning triangular prism with a side facet. */}
+          <polygon points="160,32 268,304 76,304" fill={`url(#${uid}-glass)`} opacity="0.5" />
+          <polygon points="160,32 268,304 76,304" fill="none" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="1" />
+          <polygon points="160,32 268,304 196,304" fill={`url(#${uid}-speed)`} opacity="0.26" />
+          <polygon points="160,32 132,160 76,304" fill={`url(#${uid}-sheen)`} opacity="0.55" />
+          <line x1="160" y1="32" x2="172" y2="304" stroke="#FFFFFF" stroke-opacity="0.4" stroke-width="1" />
+          <polygon points="268,304 296,272 288,236 252,262" fill={`url(#${uid}-glass)`} opacity="0.4" />
+        </g>
+      )
+    }
+    {
+      shape === 'gem' && (
+        <g>
+          {/* Approach: a low-poly gem, facets meeting at an off-center point. */}
+          <polygon points="160,40 268,124 236,300 84,300 52,124" fill={`url(#${uid}-glass)`} opacity="0.5" />
+          <polygon points="160,40 268,124 236,300 84,300 52,124" fill="none" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="1" />
+          <polygon points="160,40 268,124 144,168" fill={`url(#${uid}-sheen)`} opacity="0.6" />
+          <polygon points="52,124 144,168 84,300" fill={`url(#${uid}-glass)`} opacity="0.45" />
+          <polygon points="268,124 236,300 144,168" fill={`url(#${uid}-speed)`} opacity="0.22" />
+          <line x1="160" y1="40" x2="144" y2="168" stroke="#FFFFFF" stroke-opacity="0.45" stroke-width="1" />
+          <line x1="144" y1="168" x2="236" y2="300" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="1" />
+          <line x1="144" y1="168" x2="84" y2="300" stroke="#FFFFFF" stroke-opacity="0.35" stroke-width="1" />
+        </g>
+      )
+    }
+    {
+      shape === 'slivers' && (
+        <g>
+          {/* About: three thin slivers at staggered angles. */}
+          <polygon points="96,20 124,30 86,338 62,326" fill={`url(#${uid}-glass)`} opacity="0.5" />
+          <polygon points="96,20 124,30 86,338 62,326" fill="none" stroke="#FFFFFF" stroke-opacity="0.55" stroke-width="1" />
+          <polygon points="96,20 124,30 106,176 80,164" fill={`url(#${uid}-sheen)`} opacity="0.5" />
+          <polygon points="180,64 204,76 178,300 156,288" fill={`url(#${uid}-speed)`} opacity="0.28" />
+          <polygon points="252,110 272,122 254,264 236,252" fill={`url(#${uid}-glass)`} opacity="0.36" />
+        </g>
+      )
+    }
+  </svg>
+</div>
+
+<script>
+  // One shared handler for every accent on the page. Scroll-reactive only:
+  // progress of the shape through the viewport maps to a small translate +
+  // rotation, clamped so it rests outside the transit. Passive listener +
+  // rAF — scroll is never intercepted.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const accents = Array.from(document.querySelectorAll<HTMLElement>('[data-glass-accent]'));
+
+  if (!reduce && accents.length) {
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight;
+      for (const el of accents) {
+        const r = el.getBoundingClientRect();
+        const transit = vh + r.height;
+        const p = Math.min(1, Math.max(0, 1 - (r.top + r.height / 2) / transit));
+        const drift = p - 0.5; // -0.5 … 0.5, clamped (rests at the ends)
+        const dy = Number(el.dataset.drift ?? 18);
+        const rot = Number(el.dataset.rot ?? 5);
+        el.style.transform = `translateY(${(drift * -dy).toFixed(2)}px) rotate(${(drift * rot).toFixed(2)}deg)`;
+      }
+    };
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true }
+    );
+    update();
+  }
+</script>
+
+<style>
+  .glass-accent {
+    pointer-events: none;
+    will-change: transform;
+  }
+
+  .glass-accent__svg {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+  }
+</style>

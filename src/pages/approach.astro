@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
+import GlassAccent from '../components/GlassAccent.astro';
 import EngineDiagram from '../components/EngineDiagram.astro';
 import AdvisoryCircle from '../components/AdvisoryCircle.astro';
 import { approach } from '../content/approach';
@@ -14,7 +15,9 @@ const { intro, origin, model, engagements } = approach;
   description="Research-grade rigor applied to startup questions: three analytical engines feeding one seat at the decision table."
 >
   <!-- DRAFT COPY — Approach (SPEC §5.4): the differentiation page. -->
-  <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede} />
+  <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede}>
+    <GlassAccent slot="accent" shape="gem" driftY={18} rotate={3} />
+  </PageIntro>
 
   <!-- §5.4 #1 — origin arc -->
   <section class="origin" aria-labelledby="origin-headline">
