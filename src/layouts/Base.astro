@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { siteConfig } from '../../site.config';
+import { ui } from '../content/ui';
+import { withBase } from '../lib/url';
+
+interface Props {
+  /** Page title; brand name is appended automatically (home passes its own full title). */
+  title?: string;
+  description?: string;
+  /** Plumbed so a future Hebrew/RTL build flips direction without markup changes (rule 8). */
+  lang?: string;
+  dir?: 'ltr' | 'rtl';
+  /** Keep reserved/unlinked routes (/work, /insights) out of search until launched. */
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = siteConfig.tagline,
+  lang = 'en',
+  dir = 'ltr',
+  noindex = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} · ${siteConfig.name}` : `${siteConfig.name} — Product • Analytics • Strategy`;
+const faviconSvg = withBase('/brand/insightout-icon-light.svg');
+const ogImage = withBase('/brand/insightout-logo-dark.svg'); // placeholder; real OG raster at M4
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+---
+
+<!doctype html>
+<html lang={lang} dir={dir}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={faviconSvg} />
+    <link rel="canonical" href={canonical} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph (image is a placeholder until the M4 OG raster, SPEC §6a/§9) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Fonts (SPEC §6). display=swap + matched fallbacks; self-host + CLS hardening at M4. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+    />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">{ui.skipToContent}</a>
+    <Nav />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

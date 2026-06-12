@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import { siteConfig } from '../../site.config';
+
+// Reserved, UNLINKED route (SPEC §4): Blog / Insights.
+// Reserved at launch; gated by `showInsights` (default false).
+// Exists so the URL is stable; not in nav, noindexed until launched.
+const enabled = siteConfig.flags.showInsights;
+---
+
+<Base title="Insights" noindex={true}>
+  <section class="reserved">
+    <div class="container">
+      {
+        enabled ? (
+          <p>{/* Posts render here once showInsights is enabled. */}Insights</p>
+        ) : (
+          <>
+            <!-- DRAFT COPY — reserved route placeholder (M1). -->
+            <h1>Insights</h1>
+            <p class="reserved__note">
+              This section is reserved and not yet published.
+            </p>
+          </>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .reserved {
+    padding-block: var(--section-pad);
+  }
+  .reserved__note {
+    color: var(--graphite);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+</style>

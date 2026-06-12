@@ -1,0 +1,54 @@
+/*
+  InsightOut — design tokens.
+  Brand colors are FINAL (SPEC §6a, derived from the logo). Never invent colors.
+  Surface/text roles follow SPEC §6. One accent only (--signal); it spikes at
+  "insight" moments (CTA, Engine convergence) and is otherwise absent.
+*/
+
+:root {
+  /* ---- Brand (LOCKED, SPEC §6a) ---- */
+  --signal: #2470e5;        /* "OUT" wordmark / speed-line terminal blue — CTAs, active states */
+  --ink: #101828;           /* "INSIGHT" wordmark navy — primary text, dark scenes */
+  --glass-hi: #e9f1ff;      /* icon glass gradient, light variant */
+  --glass-lo: #76a6f3;
+  --speed-from: #7faff8;    /* speed-line gradient (motion/accent moments) */
+  --speed-to: #2470e5;
+
+  /* ---- Surfaces & text (SPEC §6) ---- */
+  --surface: #ffffff;       /* primary background (Google-white) */
+  --surface-2: #f6f8fa;     /* elevated / alternate section background */
+  --graphite: #5a6b78;      /* secondary text */
+  --hairline: #e3e8ed;      /* borders, rules */
+
+  /* derived */
+  --signal-hover: #1c5cc4;  /* darker --signal for hover/active (AA-safe on white) */
+  --on-ink: #ffffff;        /* text on ink surfaces */
+
+  /* ---- Typography (SPEC §6) ---- */
+  --font-sans: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --fs-hero: clamp(2.75rem, 7vw, 5rem);
+  --fs-body: 1.0625rem;
+  --lh-body: 1.6;
+  --tracking-display: -0.02em;
+
+  /* ---- Layout & rhythm (SPEC §6) ---- */
+  --content-max: 1140px;
+  --gutter: clamp(1.25rem, 4vw, 2rem);
+  --section-pad: clamp(4rem, 10vw, 10rem);   /* Apple-scale vertical rhythm */
+
+  /* ---- Surfaces / radii / elevation (Material-style, SPEC §6) ---- */
+  --radius-card: 20px;
+  --radius-sm: 12px;
+  --shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 8px 24px rgba(16, 24, 40, 0.06);
+  --shadow-card-hover: 0 2px 4px rgba(16, 24, 40, 0.06), 0 16px 40px rgba(16, 24, 40, 0.1);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur-med: 320ms;
+
+  /* ---- Z layers ---- */
+  --z-nav: 100;
+}
