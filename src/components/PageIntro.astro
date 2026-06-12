@@ -1,0 +1,38 @@
+---
+// Inner-page intro: kicker + h1 + lede, sharing the .section-head look.
+
+interface Props {
+  kicker: string;
+  headline: string;
+  lede?: string;
+}
+
+const { kicker, headline, lede } = Astro.props;
+---
+
+<header class="page-intro">
+  <div class="container">
+    <p class="section-head__kicker">{kicker}</p>
+    <h1 class="page-intro__headline">{headline}</h1>
+    {lede && <p class="page-intro__lede">{lede}</p>}
+  </div>
+</header>
+
+<style>
+  .page-intro {
+    padding-block: clamp(3.5rem, 8vw, 7rem) clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .page-intro__headline {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    max-inline-size: 18em;
+    margin-block-end: 1rem;
+  }
+
+  .page-intro__lede {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    color: var(--graphite);
+    max-inline-size: 44rem;
+    margin: 0;
+  }
+</style>

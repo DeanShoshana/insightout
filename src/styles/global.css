@@ -117,6 +117,32 @@ svg {
   scroll-margin-block-start: 84px;
 }
 
+/* ---- Shared section header (home sections + inner pages) ---- */
+.section-head {
+  max-inline-size: 46rem;
+  margin-block-end: clamp(2.5rem, 5vw, 4rem);
+}
+
+.section-head__kicker {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--signal-text);
+  margin-block-end: 0.75rem;
+}
+
+.section-head__headline {
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  margin-block-end: 0.75rem;
+}
+
+.section-head__lede {
+  font-size: 1.15rem;
+  color: var(--graphite);
+  margin: 0;
+}
+
 /* ---- Reveal system (SPEC §6): rise-on-enter, once only, IO-driven. ----
    Gated on .js (set inline in Base) so content is never hidden without JS,
    and on no-preference so reduced-motion users get instant final state. */
