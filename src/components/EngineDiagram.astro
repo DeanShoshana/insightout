@@ -18,66 +18,70 @@ const artifactLabel = artifact.toUpperCase();
 ---
 
 <figure class="engine" data-reveal>
-  <!-- Wide variant (≥720px): streams flow inline-start → inline-end. -->
+  <!-- Wide variant (≥720px), mirrored (M2c): the decision sits LEFT; the three
+       streams converge right→left into it. -->
   <svg class="engine__svg engine__svg--wide" viewBox="0 0 760 240" role="img" aria-label={aria}>
     <defs>
       <!-- userSpaceOnUse: bounding-box gradients are undefined on perfectly
-           horizontal lines (zero-height bbox) and silently fail to render. -->
-      <linearGradient id="eng-w-speed" gradientUnits="userSpaceOnUse" x1="437" y1="120" x2="580" y2="120">
+           horizontal lines (zero-height bbox) and silently fail to render.
+           Coordinates run node (light) → artifact (deep signal), right→left. -->
+      <linearGradient id="eng-w-speed" gradientUnits="userSpaceOnUse" x1="323" y1="120" x2="180" y2="120">
         <stop offset="0" stop-color="#7FAFF8"></stop>
         <stop offset="1" stop-color="#2470E5"></stop>
       </linearGradient>
     </defs>
 
     <g class="engine__labels">
-      <text x="16" y="45">{s1}</text>
-      <text x="16" y="125">{s2}</text>
-      <text x="16" y="205">{s3}</text>
+      <text x="744" y="45" text-anchor="end">{s1}</text>
+      <text x="744" y="125" text-anchor="end">{s2}</text>
+      <text x="744" y="205" text-anchor="end">{s3}</text>
     </g>
 
     <g class="engine__streams" fill="none">
-      <path class="engine__stream" d="M 110 40 C 260 40, 300 120, 430 120"></path>
-      <path class="engine__stream" d="M 70 120 L 430 120"></path>
-      <path class="engine__stream" d="M 100 200 C 260 200, 300 120, 430 120"></path>
+      <path class="engine__stream" d="M 650 40 C 500 40, 460 120, 330 120"></path>
+      <path class="engine__stream" d="M 690 120 L 330 120"></path>
+      <path class="engine__stream" d="M 660 200 C 500 200, 460 120, 330 120"></path>
     </g>
 
-    <circle class="engine__node" cx="430" cy="120" r="7"></circle>
-    <path class="engine__out" d="M 437 120 L 580 120" fill="none" stroke="url(#eng-w-speed)"></path>
+    <circle class="engine__node" cx="330" cy="120" r="7"></circle>
+    <path class="engine__out" d="M 323 120 L 180 120" fill="none" stroke="url(#eng-w-speed)"></path>
 
     <g class="engine__artifact">
-      <rect x="580" y="92" width="164" height="56" rx="14"></rect>
-      <text x="662" y="125" text-anchor="middle">{artifactLabel}</text>
+      <rect x="16" y="92" width="164" height="56" rx="14"></rect>
+      <text x="98" y="125" text-anchor="middle">{artifactLabel}</text>
     </g>
   </svg>
 
-  <!-- Tall variant (<720px): streams flow top → bottom so labels stay legible. -->
+  <!-- Tall variant (<720px), mirrored to match (M2c): the decision leads at the
+       top; streams converge bottom→top into it. -->
   <svg class="engine__svg engine__svg--tall" viewBox="0 0 320 340" role="img" aria-label={aria}>
     <defs>
-      <!-- userSpaceOnUse for the same zero-width-bbox reason (vertical line). -->
-      <linearGradient id="eng-t-speed" gradientUnits="userSpaceOnUse" x1="160" y1="173" x2="160" y2="250">
+      <!-- userSpaceOnUse for the same zero-width-bbox reason (vertical line).
+           Coordinates run node (light) → artifact (deep signal), bottom→top. -->
+      <linearGradient id="eng-t-speed" gradientUnits="userSpaceOnUse" x1="160" y1="167" x2="160" y2="90">
         <stop offset="0" stop-color="#7FAFF8"></stop>
         <stop offset="1" stop-color="#2470E5"></stop>
       </linearGradient>
     </defs>
 
-    <g class="engine__labels">
-      <text x="52" y="28" text-anchor="middle">{s1}</text>
-      <text x="160" y="28" text-anchor="middle">{s2}</text>
-      <text x="268" y="28" text-anchor="middle">{s3}</text>
+    <g class="engine__artifact">
+      <rect x="78" y="34" width="164" height="56" rx="14"></rect>
+      <text x="160" y="67" text-anchor="middle">{artifactLabel}</text>
     </g>
+
+    <circle class="engine__node" cx="160" cy="174" r="7"></circle>
+    <path class="engine__out" d="M 160 167 L 160 90" fill="none" stroke="url(#eng-t-speed)"></path>
 
     <g class="engine__streams" fill="none">
-      <path class="engine__stream" d="M 52 44 C 52 110, 130 130, 160 160"></path>
-      <path class="engine__stream" d="M 160 44 L 160 160"></path>
-      <path class="engine__stream" d="M 268 44 C 268 110, 190 130, 160 160"></path>
+      <path class="engine__stream" d="M 52 296 C 52 230, 130 210, 160 180"></path>
+      <path class="engine__stream" d="M 160 296 L 160 180"></path>
+      <path class="engine__stream" d="M 268 296 C 268 230, 190 210, 160 180"></path>
     </g>
 
-    <circle class="engine__node" cx="160" cy="166" r="7"></circle>
-    <path class="engine__out" d="M 160 173 L 160 250" fill="none" stroke="url(#eng-t-speed)"></path>
-
-    <g class="engine__artifact">
-      <rect x="78" y="250" width="164" height="56" rx="14"></rect>
-      <text x="160" y="283" text-anchor="middle">{artifactLabel}</text>
+    <g class="engine__labels">
+      <text x="52" y="318" text-anchor="middle">{s1}</text>
+      <text x="160" y="318" text-anchor="middle">{s2}</text>
+      <text x="268" y="318" text-anchor="middle">{s3}</text>
     </g>
   </svg>
 
