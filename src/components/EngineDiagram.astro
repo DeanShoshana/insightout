@@ -1,0 +1,158 @@
+---
+// Static Engine Diagram (SPEC §9 M2). Three labeled streams — Behavior, Data,
+// Market — converge into one line terminating at the decision artifact (the
+// seat). This is the InsightOut concept in one picture; the scroll-driven
+// animated version (§6 signature scene) replaces the static render at M4.
+// Stream paths carry stable classes so M4 can animate them without rework.
+// Labels and the accessible name come from the content file (rule 8).
+import { home } from '../content/home';
+
+interface Props {
+  caption?: string;
+}
+
+const { caption } = Astro.props;
+const { streams, artifact, aria } = home.services.diagram;
+const [s1, s2, s3] = streams.map((s) => s.toUpperCase());
+const artifactLabel = artifact.toUpperCase();
+---
+
+<figure class="engine" data-reveal>
+  <!-- Wide variant (≥720px): streams flow inline-start → inline-end. -->
+  <svg class="engine__svg engine__svg--wide" viewBox="0 0 760 240" role="img" aria-label={aria}>
+    <defs>
+      <!-- userSpaceOnUse: bounding-box gradients are undefined on perfectly
+           horizontal lines (zero-height bbox) and silently fail to render. -->
+      <linearGradient id="eng-w-speed" gradientUnits="userSpaceOnUse" x1="437" y1="120" x2="580" y2="120">
+        <stop offset="0" stop-color="#7FAFF8"></stop>
+        <stop offset="1" stop-color="#2470E5"></stop>
+      </linearGradient>
+    </defs>
+
+    <g class="engine__labels">
+      <text x="16" y="45">{s1}</text>
+      <text x="16" y="125">{s2}</text>
+      <text x="16" y="205">{s3}</text>
+    </g>
+
+    <g class="engine__streams" fill="none">
+      <path class="engine__stream" d="M 110 40 C 260 40, 300 120, 430 120"></path>
+      <path class="engine__stream" d="M 70 120 L 430 120"></path>
+      <path class="engine__stream" d="M 100 200 C 260 200, 300 120, 430 120"></path>
+    </g>
+
+    <circle class="engine__node" cx="430" cy="120" r="7"></circle>
+    <path class="engine__out" d="M 437 120 L 580 120" fill="none" stroke="url(#eng-w-speed)"></path>
+
+    <g class="engine__artifact">
+      <rect x="580" y="92" width="164" height="56" rx="14"></rect>
+      <text x="662" y="125" text-anchor="middle">{artifactLabel}</text>
+    </g>
+  </svg>
+
+  <!-- Tall variant (<720px): streams flow top → bottom so labels stay legible. -->
+  <svg class="engine__svg engine__svg--tall" viewBox="0 0 320 340" role="img" aria-label={aria}>
+    <defs>
+      <!-- userSpaceOnUse for the same zero-width-bbox reason (vertical line). -->
+      <linearGradient id="eng-t-speed" gradientUnits="userSpaceOnUse" x1="160" y1="173" x2="160" y2="250">
+        <stop offset="0" stop-color="#7FAFF8"></stop>
+        <stop offset="1" stop-color="#2470E5"></stop>
+      </linearGradient>
+    </defs>
+
+    <g class="engine__labels">
+      <text x="52" y="28" text-anchor="middle">{s1}</text>
+      <text x="160" y="28" text-anchor="middle">{s2}</text>
+      <text x="268" y="28" text-anchor="middle">{s3}</text>
+    </g>
+
+    <g class="engine__streams" fill="none">
+      <path class="engine__stream" d="M 52 44 C 52 110, 130 130, 160 160"></path>
+      <path class="engine__stream" d="M 160 44 L 160 160"></path>
+      <path class="engine__stream" d="M 268 44 C 268 110, 190 130, 160 160"></path>
+    </g>
+
+    <circle class="engine__node" cx="160" cy="166" r="7"></circle>
+    <path class="engine__out" d="M 160 173 L 160 250" fill="none" stroke="url(#eng-t-speed)"></path>
+
+    <g class="engine__artifact">
+      <rect x="78" y="250" width="164" height="56" rx="14"></rect>
+      <text x="160" y="283" text-anchor="middle">{artifactLabel}</text>
+    </g>
+  </svg>
+
+  {caption && <figcaption class="engine__caption">{caption}</figcaption>}
+</figure>
+
+<style>
+  .engine {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .engine__svg {
+    inline-size: 100%;
+    max-inline-size: 760px;
+    block-size: auto;
+  }
+
+  .engine__svg--tall {
+    display: none;
+    max-inline-size: 340px;
+  }
+
+  @media (max-width: 719px) {
+    .engine__svg--wide {
+      display: none;
+    }
+    .engine__svg--tall {
+      display: block;
+    }
+  }
+
+  .engine__labels text {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    fill: var(--graphite);
+  }
+
+  .engine__stream {
+    /* Graphite, not hairline: the streams are meaningful graphics and must
+       clear WCAG 1.4.11 (3:1) on both surface tokens. */
+    stroke: var(--graphite);
+    stroke-width: 2;
+    stroke-linecap: round;
+    opacity: 0.85;
+  }
+
+  .engine__node {
+    fill: var(--signal);
+  }
+
+  .engine__out {
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+
+  .engine__artifact rect {
+    fill: var(--ink);
+  }
+
+  .engine__artifact text {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    fill: var(--on-ink);
+  }
+
+  .engine__caption {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--graphite);
+    letter-spacing: 0.03em;
+  }
+</style>

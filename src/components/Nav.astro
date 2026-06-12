@@ -48,6 +48,23 @@ const contactHref = `${withBase('/')}#contact`;
   </div>
 </header>
 
+<script>
+  // §6 motion table: nav is transparent over the hero, frosted once scrolled
+  // past it. Pages without a hero (and no-JS visitors) keep the frosted nav.
+  const nav = document.querySelector('.nav');
+  const hero = document.querySelector('[data-hero]');
+  if (nav && hero) {
+    nav.classList.add('nav--overhero');
+    const io = new IntersectionObserver(
+      ([entry]) => nav.classList.toggle('nav--overhero', entry.isIntersecting),
+      // Shrink the root's top edge by the nav height: frost exactly when the
+      // hero's bottom passes under the nav.
+      { rootMargin: '-69px 0px 0px 0px', threshold: 0 }
+    );
+    io.observe(hero);
+  }
+</script>
+
 <style>
   .nav {
     position: sticky;
@@ -57,6 +74,23 @@ const contactHref = `${withBase('/')}#contact`;
     -webkit-backdrop-filter: saturate(180%) blur(12px);
     backdrop-filter: saturate(180%) blur(12px);
     border-block-end: 1px solid var(--hairline);
+    transition:
+      background var(--dur-med) var(--ease-out),
+      border-color var(--dur-med) var(--ease-out);
+  }
+
+  /* Transparent state while the hero is under the nav. */
+  .nav:global(.nav--overhero) {
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-block-end-color: transparent;
+  }
+
+  /* If the mobile menu opens while over the hero, re-solidify the bar so the
+     dropdown doesn't float off a transparent strip. */
+  .nav:global(.nav--overhero):has(.nav__checkbox:checked) {
+    background: var(--surface);
   }
 
   .nav__inner {

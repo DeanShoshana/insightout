@@ -7,7 +7,8 @@ const logoSrc = withBase('/brand/insightout-logo-light.svg');
 const year = new Date().getFullYear();
 ---
 
-<footer class="footer" id="contact">
+<!-- The #contact anchor now lives on the home ContactCTA section (nav CTA
+     targets {base}/#contact); the footer must not duplicate the id. --><footer class="footer">
   <div class="container footer__inner">
     <div class="footer__brand">
       <img class="footer__logo" src={logoSrc} alt={ui.logoAlt} width="220" height="66" />

@@ -1,0 +1,199 @@
+---
+import { withBase } from '../lib/url';
+
+interface Props {
+  /** Pillar name (SPEC §2), shown as the card kicker. */
+  pillar: string;
+  /** Outcome headline — leads the card (SPEC §5.1 #3). */
+  headline: string;
+  offerings: readonly string[];
+  /** Services-page anchor (route exists at M3; slugs are stable now). */
+  href: string;
+  /** Required and sourced from content files — no UI strings in components (rule 8). */
+  linkLabel: string;
+  /** 'engine' = white Material card; 'seat' = inverted Pillar 4 card (§6). */
+  variant?: 'engine' | 'seat';
+  /** Stagger offset for the rise-on-enter reveal (§6: 60–80ms steps). */
+  revealDelay?: number;
+  body?: string;
+}
+
+const {
+  pillar,
+  headline,
+  offerings,
+  href,
+  linkLabel,
+  variant = 'engine',
+  revealDelay = 0,
+  body,
+} = Astro.props;
+---
+
+<article
+  class:list={['card', `card--${variant}`]}
+  data-reveal
+  style={`--reveal-delay: ${revealDelay}ms`}
+>
+  <p class="card__kicker">{pillar}</p>
+  <h3 class="card__headline">{headline}</h3>
+  {body && <p class="card__body">{body}</p>}
+  <ul class="card__offerings">
+    {offerings.map((o) => <li>{o}</li>)}
+  </ul>
+  <a class="card__link" href={withBase(href)}>
+    {linkLabel}
+    <span aria-hidden="true" class="card__arrow">→</span>
+  </a>
+</article>
+
+<style>
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: clamp(1.5rem, 3vw, 2rem);
+    transition:
+      transform var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-fast) var(--ease-out);
+  }
+
+  /* Micro motion (§6): hover lift, transform + shadow only. */
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .card__kicker {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--signal);
+    margin-block-end: 0.75rem;
+  }
+
+  .card__headline {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    margin-block-end: 0.5rem;
+  }
+
+  .card__body {
+    color: var(--graphite);
+    margin-block-end: 0.5rem;
+  }
+
+  .card__offerings {
+    list-style: none;
+    margin: 0.5rem 0 1.25rem;
+    padding: 0;
+    color: var(--graphite);
+  }
+
+  .card__offerings li {
+    padding-block: 0.4rem;
+    padding-inline-start: 1.1rem;
+    position: relative;
+  }
+
+  .card__offerings li::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-start: 0.95em;
+    inline-size: 0.4rem;
+    block-size: 2px;
+    border-radius: 1px;
+    background: var(--signal);
+  }
+
+  .card__link {
+    margin-block-start: auto;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .card__arrow {
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .card__link:hover .card__arrow {
+    transform: translateX(3px);
+  }
+
+  /* ---- Pillar 4: the seat. Inverted — ink surface, white text, signal CTA (§6). ---- */
+  .card--seat {
+    background: var(--ink);
+    color: var(--on-ink);
+  }
+
+  .card--seat .card__kicker {
+    color: var(--speed-from);
+  }
+
+  .card--seat .card__headline {
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+  }
+
+  .card--seat .card__body,
+  .card--seat .card__offerings {
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .card--seat .card__link {
+    align-self: flex-start;
+    background: var(--signal);
+    color: var(--on-ink);
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-sm);
+    transition:
+      background var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+
+  .card--seat .card__link:hover {
+    background: var(--signal-hover);
+    transform: translateY(-2px);
+  }
+
+  /* Full-width seat panel gets a two-column internal layout on desktop. */
+  @media (min-width: 860px) {
+    .card--seat {
+      display: grid;
+      grid-template-areas:
+        'kicker offerings'
+        'headline offerings'
+        'body offerings'
+        'link offerings';
+      grid-template-columns: 1.15fr 1fr;
+      grid-template-rows: auto auto auto 1fr;
+      column-gap: clamp(2rem, 5vw, 4rem);
+      padding: clamp(2rem, 4vw, 3rem);
+    }
+
+    .card--seat .card__kicker {
+      grid-area: kicker;
+    }
+    .card--seat .card__headline {
+      grid-area: headline;
+    }
+    .card--seat .card__body {
+      grid-area: body;
+    }
+    .card--seat .card__offerings {
+      grid-area: offerings;
+      margin-block: 0.25rem 0;
+    }
+    .card--seat .card__link {
+      grid-area: link;
+      align-self: end;
+      justify-self: start;
+      margin-block-start: 1.5rem;
+    }
+  }
+</style>
