@@ -32,7 +32,7 @@ export const industries = {
         { label: 'Data & Business Intelligence', anchor: '/services#data' },
         { label: 'Product Strategy & Advisory', anchor: '/services#advisory' },
       ],
-      question: 'Which features actually move retention?',
+      question: 'What should we build next — and how do we defend that call?',
     },
     {
       label: 'E-Commerce & Retail',
