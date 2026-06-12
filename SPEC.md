@@ -14,7 +14,7 @@
 | Sub-positioning line | *Analytical and product services, grounded in business strategy.* |
 | Core concept | Internal data (product, behavioral) + external intelligence (market, OSINT) → insight delivered outward to the decision table. The name encodes the architecture. |
 | Founder positioning | Company-forward branding; founder credibility carried in About + Approach. Social-science research → product & analytics in startups is the differentiation story. |
-| Tone of voice | Senior, direct, analytical. No agency fluff, no buzzword inflation. Confident statements over adjectives. First person singular acceptable on About/Approach; company voice elsewhere. |
+| Tone of voice | Senior, direct, analytical. No agency fluff, no buzzword inflation. Confident statements over adjectives. **Company voice (InsightOut / "we") everywhere — no first person singular anywhere, including About/Approach** (reversed at M3b, 2026-06; supersedes the earlier first-person allowance). |
 
 **Pre-build action item (OPEN):** domain + trademark availability check for "InsightOut" in operating markets. Shortlist fallbacks if check fails: *Latent*, *Outsight*. Do not begin visual identity work until name is confirmed.
 
@@ -71,7 +71,7 @@ Locked labels:
 
 → Decision required before homepage build. Spec defaults to option 3 (three labels) if undecided, since it requires no copy changes later.
 
-**Presentation rule:** Industries are framed as *problem statements*, not bare labels — one short block each ("In e-commerce, I find where shoppers leak out of the funnel"). Mobile apps must appear in the Technology blurb text (the label "Tech" absorbed the former Mobile & Digital Products slot).
+**Presentation rule:** Industries are framed as *problem statements*, not bare labels — one short block each ("In e-commerce, the work is finding where shoppers leak out of the funnel" — example reworded to company voice at M3b). Mobile apps must appear in the Technology blurb text (the label "Tech" absorbed the former Mobile & Digital Products slot).
 
 ---
 
@@ -112,7 +112,7 @@ Home  ·  Services  ·  Industries  ·  Approach  ·  About  ·  [Let's talk]
 - No logos, no fake client grids.
 
 ### 5.4 Approach — LOCKED structure (the differentiation page)
-1. **Origin arc** — social-science research → behavioral analytics → product & strategy in startups. Why research-grade rigor at startup speed is the offer.
+1. **Origin arc** — research → behavioral analytics → product & strategy in startups. Why research-grade rigor at startup speed is the offer. Told in company voice (first person reversed at M3b, 2026-06; the phrase "social science" stays off visitor-facing copy per M3a).
 2. **The model** — three engines feed the seat. Diagram (see §6 signature element).
 3. **How engagements work** — three shapes: embedded (fractional senior analyst/PM), project (defined deliverable), advisory (the seat). Each: who it's for, typical duration, what you get.
 4. **[FLAGGED OFF] Advisory Circle** — profile grid: name, title, affiliation, LinkedIn, one line on when they're brought in. 5–6 profiles max.
