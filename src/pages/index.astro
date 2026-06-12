@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base>
+  <!-- DRAFT COPY — M1 skeleton placeholder. Home content (hero triad, problem framing,
+       pillar cards, industries strip, CTA) is built in Milestone 2 (SPEC §5.1). -->
+  <section class="placeholder">
+    <div class="container">
+      <p class="placeholder__kicker">Product • Analytics • Strategy</p>
+      <h1 class="placeholder__title">InsightOut</h1>
+      <p class="placeholder__lede">
+        Analytical and product services, grounded in business strategy.
+      </p>
+      <p class="placeholder__note">Skeleton — homepage content lands in Milestone 2.</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .placeholder {
+    padding-block: var(--section-pad);
+  }
+
+  .placeholder__kicker {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    color: var(--signal);
+    margin-block-end: 1rem;
+  }
+
+  .placeholder__title {
+    font-size: var(--fs-hero);
+    margin-block-end: 0.5rem;
+  }
+
+  .placeholder__lede {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--graphite);
+    max-inline-size: 32ch;
+  }
+
+  .placeholder__note {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--graphite);
+    margin-block-start: 2rem;
+  }
+</style>

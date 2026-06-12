@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import { siteConfig } from '../../site.config';
+
+// Reserved, UNLINKED route (SPEC §4): Case Studies / Work.
+// Added when 2–3 anonymized engagements exist; gated by `showWork` (default false).
+// Exists so the URL is stable; not in nav, noindexed until launched.
+const enabled = siteConfig.flags.showWork;
+---
+
+<Base title="Work" noindex={true}>
+  <section class="reserved">
+    <div class="container">
+      {
+        enabled ? (
+          <p>{/* Case studies render here once showWork is enabled. */}Work</p>
+        ) : (
+          <>
+            <!-- DRAFT COPY — reserved route placeholder (M1). -->
+            <h1>Work</h1>
+            <p class="reserved__note">
+              This section is reserved and not yet published.
+            </p>
+          </>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .reserved {
+    padding-block: var(--section-pad);
+  }
+  .reserved__note {
+    color: var(--graphite);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+  }
+</style>

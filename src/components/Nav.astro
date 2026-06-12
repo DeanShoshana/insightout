@@ -1,0 +1,253 @@
+---
+import { navItems, ui } from '../content/ui';
+import { withBase } from '../lib/url';
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => {
+  const target = withBase(href).replace(/\/$/, '') || '/';
+  return target === pathname;
+};
+
+const iconSrc = withBase('/brand/insightout-icon-light.svg');
+const homeHref = withBase('/');
+const contactHref = `${withBase('/')}#contact`;
+---
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a class="nav__brand" href={homeHref} aria-label={`${ui.logoAlt} — home`}>
+      <img class="nav__logo" src={iconSrc} alt="" width="40" height="40" aria-hidden="true" />
+      <span class="nav__wordmark">{ui.logoAlt}</span>
+    </a>
+
+    <!-- Zero-JS responsive menu: checkbox toggle drives the mobile dropdown.
+         On desktop the links are always shown and the toggle is hidden. -->
+    <input class="nav__checkbox" type="checkbox" id="nav-toggle" aria-label="Toggle menu" />
+    <label class="nav__toggle" for="nav-toggle">
+      <span class="nav__toggle-bars" aria-hidden="true"></span>
+    </label>
+
+    <nav class="nav__links" aria-label={ui.navAriaLabel}>
+      <ul>
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={withBase(item.href)}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                class:list={['nav__link', { 'is-active': isActive(item.href) }]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="nav__cta" href={contactHref}>{ui.ctaContact}</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--z-nav);
+    background: color-mix(in srgb, var(--surface) 80%, transparent);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-block-end: 1px solid var(--hairline);
+  }
+
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    block-size: 68px;
+  }
+
+  .nav__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: var(--tracking-display);
+  }
+
+  .nav__brand:hover {
+    color: var(--ink);
+  }
+
+  .nav__logo {
+    inline-size: 36px;
+    block-size: 36px;
+  }
+
+  .nav__wordmark {
+    font-size: 1.2rem;
+  }
+
+  /* Toggle is desktop-hidden; the checkbox that drives it is hidden but focusable. */
+  .nav__checkbox,
+  .nav__toggle {
+    display: none;
+  }
+
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  .nav__links ul {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.5vw, 2rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav__link {
+    color: var(--graphite);
+    font-size: 0.975rem;
+    font-weight: 500;
+    padding-block: 0.25rem;
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+
+  .nav__link:hover,
+  .nav__link.is-active {
+    color: var(--ink);
+  }
+
+  .nav__link.is-active {
+    box-shadow: inset 0 -2px 0 0 var(--signal);
+  }
+
+  .nav__cta {
+    display: inline-flex;
+    align-items: center;
+    background: var(--signal);
+    color: var(--on-ink);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: var(--radius-sm);
+    transition:
+      background var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+
+  .nav__cta:hover {
+    background: var(--signal-hover);
+    color: var(--on-ink);
+    transform: translateY(-1px);
+  }
+
+  /* ---- Mobile: collapse links into a checkbox-toggled dropdown ---- */
+  @media (max-width: 720px) {
+    /* Visually hidden but kept in the tab order so the menu is keyboard-operable. */
+    .nav__checkbox {
+      display: block;
+      position: absolute;
+      inline-size: 1px;
+      block-size: 1px;
+      margin: -1px;
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+
+    .nav__toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      inline-size: 44px;
+      block-size: 44px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    /* Visible focus ring on the label when the (hidden) checkbox is focused. */
+    .nav__checkbox:focus-visible + .nav__toggle {
+      outline: 2px solid var(--signal);
+      outline-offset: 2px;
+    }
+
+    .nav__toggle-bars,
+    .nav__toggle-bars::before,
+    .nav__toggle-bars::after {
+      content: '';
+      display: block;
+      inline-size: 22px;
+      block-size: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform var(--dur-fast) var(--ease-out);
+    }
+
+    .nav__toggle-bars {
+      position: relative;
+    }
+
+    .nav__toggle-bars::before {
+      position: absolute;
+      inset-block-start: -7px;
+    }
+
+    .nav__toggle-bars::after {
+      position: absolute;
+      inset-block-start: 7px;
+    }
+
+    /* Hamburger → X when open. */
+    .nav__checkbox:checked + .nav__toggle .nav__toggle-bars {
+      background: transparent;
+    }
+    .nav__checkbox:checked + .nav__toggle .nav__toggle-bars::before {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav__checkbox:checked + .nav__toggle .nav__toggle-bars::after {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav__links {
+      display: none;
+      position: absolute;
+      inset-inline: 0;
+      inset-block-start: 68px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5rem;
+      padding: 1rem var(--gutter) 1.5rem;
+      background: var(--surface);
+      border-block-end: 1px solid var(--hairline);
+      box-shadow: var(--shadow-card);
+    }
+
+    .nav__checkbox:checked ~ .nav__links {
+      display: flex;
+    }
+
+    .nav__links ul {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.25rem;
+    }
+
+    .nav__link {
+      display: block;
+      padding-block: 0.7rem;
+    }
+
+    .nav__cta {
+      justify-content: center;
+      margin-block-start: 0.5rem;
+    }
+  }
+</style>
