@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
+import GlassAccent from '../components/GlassAccent.astro';
 import { industries } from '../content/industries';
 import { withBase } from '../lib/url';
 
@@ -13,7 +14,9 @@ const { intro, items } = industries;
 >
   <!-- DRAFT COPY — Industries (SPEC §5.3): problem statements, engaged
        pillars, representative questions. No logos, no client grids. -->
-  <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede} />
+  <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede}>
+    <GlassAccent slot="accent" shape="prism" driftY={16} rotate={6} />
+  </PageIntro>
 
   <div class="industries">
     <div class="container">

@@ -1,5 +1,7 @@
 ---
 // Inner-page intro: kicker + h1 + lede, sharing the .section-head look.
+// Optional `accent` slot (M4c): an angular glass accent placed off to the
+// inline-end side of the intro's empty space, behind the text layer.
 
 interface Props {
   kicker: string;
@@ -11,7 +13,10 @@ const { kicker, headline, lede } = Astro.props;
 ---
 
 <header class="page-intro">
-  <div class="container">
+  <div class="page-intro__accent">
+    <slot name="accent" />
+  </div>
+  <div class="container page-intro__content">
     <p class="section-head__kicker">{kicker}</p>
     <h1 class="page-intro__headline">{headline}</h1>
     {lede && <p class="page-intro__lede">{lede}</p>}
@@ -20,7 +25,32 @@ const { kicker, headline, lede } = Astro.props;
 
 <style>
   .page-intro {
+    position: relative;
+    /* Accents tuck past the inline-end edge; clip instead of overflowing. */
+    overflow: clip;
     padding-block: clamp(3.5rem, 8vw, 7rem) clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .page-intro__accent {
+    position: absolute;
+    inset-block-start: clamp(0.5rem, 4vw, 2.5rem);
+    inset-inline-end: clamp(-3rem, -2vw, -1rem);
+    inline-size: clamp(170px, 24vw, 320px);
+    z-index: 0;
+  }
+
+  @media (max-width: 720px) {
+    /* Smaller, lighter, tucked further off the edge on phones. */
+    .page-intro__accent {
+      inline-size: 150px;
+      inset-inline-end: -3.5rem;
+      opacity: 0.65;
+    }
+  }
+
+  .page-intro__content {
+    position: relative;
+    z-index: 1;
   }
 
   .page-intro__headline {
