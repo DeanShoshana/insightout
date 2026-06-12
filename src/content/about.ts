@@ -18,6 +18,6 @@ export const about = {
   founder: {
     headline: 'The founder',
     // ~120-word placeholder bio — replace with Dean's final copy at M5.
-    bio: 'Dean Shoshana is the founder of InsightOut. Trained in social-science research and shaped by a decade in startups, Dean has spent his career carrying evidence into rooms where decisions get made — as an analyst, a product manager, and an advisor to founders, executives, and boards. His work spans behavioral analytics, business intelligence, and market research, with one constant: conclusions held to a research standard and delivered on a business clock. InsightOut is that practice, productized — three analytical engines feeding one seat at the table. He works in English and Hebrew, across B2B and consumer products, from early-stage teams to public-company leadership.',
+    bio: 'Dean Shoshana is the founder of InsightOut. Trained as a researcher and shaped by a decade in startups, Dean has spent his career carrying evidence into rooms where decisions get made — as an analyst, a product manager, and an advisor to founders, executives, and boards. His work spans behavioral analytics, business intelligence, and market research, with one constant: conclusions held to a research standard and delivered on a business clock. InsightOut is that practice, productized — three analytical engines feeding one seat at the table. He works in English and Hebrew, across B2B and consumer products, from early-stage teams to public-company leadership.',
   },
 } as const;

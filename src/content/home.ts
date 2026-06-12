@@ -96,11 +96,11 @@ export const home = {
     },
   },
 
-  // §5.1 #4 — the social-science → startup analytics arc. DRAFT COPY.
+  // §5.1 #4 — the research-rigor → startup analytics arc. DRAFT COPY.
   approach: {
     kicker: 'Approach',
     headline: 'Research-grade rigor, startup speed.',
-    body: 'InsightOut started in social-science research — careful questions, honest evidence, conclusions that survive scrutiny. That discipline moved into startups: product analytics, experimentation, executive decision support. The method stayed; the pace changed. You get analysis built to a research standard, delivered on a startup clock.',
+    body: 'InsightOut started in research — careful questions, honest evidence, conclusions that survive scrutiny. That discipline moved into startups: product analytics, experimentation, executive decision support. The method stayed; the pace changed. You get analysis built to a research standard, delivered on a startup clock.',
     linkLabel: 'Read the approach',
     href: '/approach',
   },

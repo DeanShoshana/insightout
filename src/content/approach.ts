@@ -7,14 +7,14 @@ export const approach = {
   intro: {
     kicker: 'Approach',
     headline: 'Research-grade rigor, startup speed.',
-    lede: 'The method comes from social science. The pace comes from a decade inside startups. The offer is both at once.',
+    lede: 'The method comes from research training. The pace comes from a decade inside startups. The offer is both at once.',
   },
 
   // §5.4 #1 — origin arc.
   origin: {
     headline: 'Where the method comes from',
     paragraphs: [
-      'I started in social-science research: careful questions, honest measurement, conclusions that survive scrutiny. The field has a low tolerance for convenient answers — your evidence either holds or it doesn’t.',
+      'I started as a researcher: careful questions, honest measurement, conclusions that survive scrutiny. Research has a low tolerance for convenient answers — your evidence either holds or it doesn’t.',
       'Startups taught the opposite lesson: a rigorous answer that arrives late is worth nothing. Product analytics, experimentation, growth — the questions are research questions, but the clock is a business clock.',
       'InsightOut is the merger of the two. Research standards applied to commercial questions, delivered at the speed those questions are actually decided.',
     ],
