@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
-import GlassAccent from '../components/GlassAccent.astro';
 import { about } from '../content/about';
 
 const { intro, thesis, founder } = about;
@@ -13,9 +12,7 @@ const { intro, thesis, founder } = about;
 >
   <!-- DRAFT COPY — About (SPEC §5.5). Bio is a ~120-word placeholder;
        final bio, headshot decision, and LinkedIn URL come from Dean at M5 (§8). -->
-  <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede}>
-    <GlassAccent slot="accent" shape="slivers" driftY={22} rotate={7} />
-  </PageIntro>
+  <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede} />
 
   <section class="thesis" aria-label="The InsightOut thesis">
     <div class="container">
