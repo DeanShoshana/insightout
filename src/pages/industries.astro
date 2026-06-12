@@ -1,0 +1,120 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { industries } from '../content/industries';
+import { withBase } from '../lib/url';
+
+const { intro, items } = industries;
+---
+
+<Base
+  title="Industries"
+  description="Technology, e-commerce & retail, and brands & CPG — framed as the problems each industry brings to the table."
+>
+  <!-- DRAFT COPY — Industries (SPEC §5.3): problem statements, engaged
+       pillars, representative questions. No logos, no client grids. -->
+  <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede} />
+
+  <div class="industries">
+    <div class="container">
+      {
+        items.map((item, i) => (
+          <article class="industry" data-reveal style={`--reveal-delay: ${i * 80}ms`}>
+            <div class="industry__head">
+              <h2 class="industry__label">{item.label}</h2>
+              <p class="industry__question">“{item.question}”</p>
+            </div>
+
+            <div class="industry__detail">
+              <p class="industry__problem">{item.problem}</p>
+              <p class="industry__pillars-label">Typically engages</p>
+              <ul class="industry__pillars">
+                {item.pillars.map((p) => (
+                  <li>
+                    <a href={withBase(p.anchor)}>{p.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</Base>
+
+<style>
+  .industries {
+    padding-block: clamp(1rem, 3vw, 2rem) var(--section-pad);
+  }
+
+  .industry {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    padding-block: clamp(2.5rem, 5vw, 4rem);
+    border-block-start: 2px solid var(--ink);
+  }
+
+  @media (max-width: 860px) {
+    .industry {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  .industry__label {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-block-end: 0.75rem;
+  }
+
+  .industry__question {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    color: var(--signal-text);
+    max-inline-size: 24rem;
+    margin: 0;
+  }
+
+  .industry__problem {
+    color: var(--graphite);
+    font-size: 1.1rem;
+    margin-block-end: 1.5rem;
+  }
+
+  .industry__pillars-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--graphite);
+    margin-block-end: 0.5rem;
+  }
+
+  .industry__pillars {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .industry__pillars a {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    background: var(--surface);
+    transition:
+      border-color var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+
+  .industry__pillars a:hover {
+    border-color: var(--signal);
+    transform: translateY(-1px);
+  }
+</style>

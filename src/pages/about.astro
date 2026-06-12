@@ -1,0 +1,77 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { about } from '../content/about';
+
+const { intro, thesis, founder } = about;
+---
+
+<Base
+  title="About"
+  description="Why InsightOut exists, and the founder behind it — research-grade analytics carried to the decision table."
+>
+  <!-- DRAFT COPY — About (SPEC §5.5). Bio is a ~120-word placeholder;
+       final bio, headshot decision, and LinkedIn URL come from Dean at M5 (§8). -->
+  <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede} />
+
+  <section class="thesis" aria-label="The InsightOut thesis">
+    <div class="container">
+      <p class="thesis__statement" data-reveal>{thesis}</p>
+    </div>
+  </section>
+
+  <section class="founder" aria-labelledby="founder-headline">
+    <div class="container founder__inner" data-reveal>
+      <h2 class="founder__headline" id="founder-headline">{founder.headline}</h2>
+      <div class="founder__bio">
+        <p>{founder.bio}</p>
+        <!-- Headshot slot: pending Dean's decision (§8). LinkedIn link lands
+             with the final bio at M5. -->
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thesis {
+    padding-block: clamp(2rem, 5vw, 4rem);
+  }
+
+  .thesis__statement {
+    font-size: clamp(1.3rem, 2.6vw, 1.8rem);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: var(--tracking-display);
+    max-inline-size: 34em;
+    margin: 0;
+  }
+
+  .founder {
+    background: var(--surface-2);
+    padding-block: var(--section-pad);
+  }
+
+  .founder__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  @media (max-width: 860px) {
+    .founder__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .founder__headline {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    margin: 0;
+  }
+
+  .founder__bio p {
+    color: var(--graphite);
+    font-size: 1.1rem;
+    margin: 0;
+  }
+</style>

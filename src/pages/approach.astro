@@ -1,0 +1,182 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import EngineDiagram from '../components/EngineDiagram.astro';
+import AdvisoryCircle from '../components/AdvisoryCircle.astro';
+import { approach } from '../content/approach';
+import { siteConfig } from '../../site.config';
+
+const { intro, origin, model, engagements } = approach;
+---
+
+<Base
+  title="Approach"
+  description="Social-science rigor applied to startup questions: three analytical engines feeding one seat at the decision table."
+>
+  <!-- DRAFT COPY — Approach (SPEC §5.4): the differentiation page. -->
+  <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede} />
+
+  <!-- §5.4 #1 — origin arc -->
+  <section class="origin" aria-labelledby="origin-headline">
+    <div class="container origin__inner" data-reveal>
+      <h2 class="origin__headline" id="origin-headline">{origin.headline}</h2>
+      <div class="origin__copy">
+        {origin.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- §5.4 #2 — the model: three engines feed the seat -->
+  <section class="model" aria-labelledby="model-headline">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <p class="section-head__kicker">The model</p>
+        <h2 class="section-head__headline" id="model-headline">{model.headline}</h2>
+        <p class="section-head__lede">{model.body}</p>
+      </header>
+      <EngineDiagram caption={model.diagramCaption} />
+    </div>
+  </section>
+
+  <!-- §5.4 #3 — how engagements work: three shapes -->
+  <section class="shapes" aria-labelledby="shapes-headline">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <p class="section-head__kicker">Working together</p>
+        <h2 class="section-head__headline" id="shapes-headline">{engagements.headline}</h2>
+        <p class="section-head__lede">{engagements.lede}</p>
+      </header>
+
+      <div class="shapes__grid">
+        {
+          engagements.shapes.map((shape, i) => (
+            <article class="shape" data-reveal style={`--reveal-delay: ${i * 80}ms`}>
+              <p class="shape__kicker">{shape.kicker}</p>
+              <h3 class="shape__name">{shape.name}</h3>
+              <dl class="shape__facts">
+                <dt>Who it’s for</dt>
+                <dd>{shape.who}</dd>
+                <dt>Typical duration</dt>
+                <dd>{shape.duration}</dd>
+                <dt>What you get</dt>
+                <dd>{shape.outcome}</dd>
+              </dl>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- §5.4 #4 — Advisory Circle: built, shipped dark until MOUs (§4). -->
+  {siteConfig.flags.showNetwork && <AdvisoryCircle />}
+</Base>
+
+<style>
+  .origin {
+    padding-block: clamp(2rem, 5vw, 4rem);
+  }
+
+  .origin__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
+  }
+
+  @media (max-width: 860px) {
+    .origin__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .origin__headline {
+    font-size: clamp(1.6rem, 3vw, 2.25rem);
+    margin: 0;
+  }
+
+  .origin__copy p {
+    color: var(--graphite);
+    font-size: 1.1rem;
+  }
+
+  .origin__copy p:last-child {
+    color: var(--ink);
+    margin-block-end: 0;
+  }
+
+  .model {
+    background: var(--surface-2);
+    padding-block: var(--section-pad);
+  }
+
+  .shapes {
+    padding-block: var(--section-pad);
+  }
+
+  .shapes__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+  }
+
+  @media (max-width: 980px) {
+    .shapes__grid {
+      grid-template-columns: 1fr;
+      max-inline-size: 560px;
+      margin-inline: auto;
+    }
+  }
+
+  .shape {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: clamp(1.5rem, 3vw, 2rem);
+    transition:
+      transform var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-fast) var(--ease-out);
+  }
+
+  .shape:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .shape__kicker {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--signal-text);
+    margin-block-end: 0.5rem;
+  }
+
+  .shape__name {
+    font-size: 1.4rem;
+    margin-block-end: 1rem;
+  }
+
+  .shape__facts {
+    margin: 0;
+  }
+
+  .shape__facts dt {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--graphite);
+    margin-block-end: 0.25rem;
+  }
+
+  .shape__facts dd {
+    margin: 0 0 1rem;
+    color: var(--graphite);
+  }
+
+  .shape__facts dd:last-child {
+    margin-block-end: 0;
+    color: var(--ink);
+  }
+</style>

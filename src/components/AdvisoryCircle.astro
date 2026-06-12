@@ -1,0 +1,81 @@
+---
+// Advisory Circle (SPEC §5.4 #4 / §4) — BUILT BUT SHIPPED DARK. Rendered only
+// when siteConfig.flags.showNetwork is true, which requires signed MOUs
+// (consent, rates, confidentiality, non-circumvention). Profile data in
+// approach.ts is placeholder-only until then. 5–6 profiles max.
+import { approach } from '../content/approach';
+
+const { network } = approach;
+---
+
+<section class="circle" aria-labelledby="circle-headline">
+  <div class="container">
+    <header class="section-head" data-reveal>
+      <p class="section-head__kicker">Network</p>
+      <h2 class="section-head__headline" id="circle-headline">{network.headline}</h2>
+      <p class="section-head__lede">{network.lede}</p>
+    </header>
+
+    <ul class="circle__grid">
+      {
+        network.profiles.map((p, i) => (
+          <li class="circle__card" data-reveal style={`--reveal-delay: ${i * 60}ms`}>
+            <p class="circle__name">{p.name}</p>
+            <p class="circle__title">
+              {p.title} · {p.affiliation}
+            </p>
+            <p class="circle__note">{p.note}</p>
+            <a class="circle__link" href={p.linkedin} rel="noopener">
+              LinkedIn
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .circle {
+    padding-block: var(--section-pad);
+    background: var(--surface-2);
+  }
+
+  .circle__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .circle__card {
+    background: var(--surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    padding: 1.5rem;
+  }
+
+  .circle__name {
+    font-weight: 600;
+    margin-block-end: 0.25rem;
+  }
+
+  .circle__title {
+    color: var(--graphite);
+    font-size: 0.925rem;
+    margin-block-end: 0.75rem;
+  }
+
+  .circle__note {
+    color: var(--graphite);
+    font-size: 0.95rem;
+    margin-block-end: 1rem;
+  }
+
+  .circle__link {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+</style>
