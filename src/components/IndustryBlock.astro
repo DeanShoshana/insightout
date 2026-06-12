@@ -1,0 +1,34 @@
+---
+// One industry slot in the strip (SPEC §5.1 #5, §3). Framed as a problem
+// statement, not a bare label. No logos, no fake client grids (§5.3).
+
+interface Props {
+  label: string;
+  blurb: string;
+  revealDelay?: number;
+}
+
+const { label, blurb, revealDelay = 0 } = Astro.props;
+---
+
+<div class="industry" data-reveal style={`--reveal-delay: ${revealDelay}ms`}>
+  <h3 class="industry__label">{label}</h3>
+  <p class="industry__blurb">{blurb}</p>
+</div>
+
+<style>
+  .industry {
+    padding-block: 1.5rem;
+    border-block-start: 2px solid var(--ink);
+  }
+
+  .industry__label {
+    font-size: 1.15rem;
+    margin-block-end: 0.5rem;
+  }
+
+  .industry__blurb {
+    color: var(--graphite);
+    margin: 0;
+  }
+</style>

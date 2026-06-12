@@ -1,50 +1,226 @@
 ---
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import PillarCard from '../components/PillarCard.astro';
+import EngineDiagram from '../components/EngineDiagram.astro';
+import IndustryBlock from '../components/IndustryBlock.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import { home } from '../content/home';
+import { withBase } from '../lib/url';
 ---
 
 <Base>
-  <!-- DRAFT COPY — M1 skeleton placeholder. Home content (hero triad, problem framing,
-       pillar cards, industries strip, CTA) is built in Milestone 2 (SPEC §5.1). -->
-  <section class="placeholder">
+  <!-- §5.1 #1 — Hero -->
+  <Hero />
+
+  <!-- §5.1 #2 — Problem framing. DRAFT COPY -->
+  <section class="problem">
     <div class="container">
-      <p class="placeholder__kicker">Product • Analytics • Strategy</p>
-      <h1 class="placeholder__title">InsightOut</h1>
-      <p class="placeholder__lede">
-        Analytical and product services, grounded in business strategy.
-      </p>
-      <p class="placeholder__note">Skeleton — homepage content lands in Milestone 2.</p>
+      <h2 class="visually-hidden">The problem</h2>
+      <p class="problem__statement" data-reveal>{home.problem.statement}</p>
     </div>
   </section>
+
+  <!-- §5.1 #3 — Outcome-first services narrative. Leads with Pillar 4's
+       outcome; the three engines follow as "how that gets built". DRAFT COPY -->
+  <section class="services">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <p class="section-head__kicker">{home.services.kicker}</p>
+        <h2 class="section-head__headline">{home.services.headline}</h2>
+        <p class="section-head__lede">{home.services.lede}</p>
+      </header>
+
+      <PillarCard
+        variant="seat"
+        pillar={home.services.seat.pillar}
+        headline={home.services.seat.headline}
+        body={home.services.seat.body}
+        offerings={home.services.seat.offerings}
+        href={home.services.seat.href}
+        linkLabel={home.services.seat.linkLabel}
+      />
+
+      <p class="services__engines-intro" data-reveal>{home.services.enginesIntro}</p>
+
+      <EngineDiagram caption={home.services.diagramCaption} />
+
+      <div class="services__grid">
+        {
+          home.services.engines.map((engine, i) => (
+            <PillarCard
+              pillar={engine.pillar}
+              headline={engine.headline}
+              offerings={engine.offerings}
+              href={engine.href}
+              linkLabel={home.services.engineLinkLabel}
+              revealDelay={i * 80}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- §5.1 #4 — Approach teaser. DRAFT COPY -->
+  <section class="approach">
+    <div class="container approach__inner" data-reveal>
+      <p class="section-head__kicker">{home.approach.kicker}</p>
+      <h2 class="section-head__headline">{home.approach.headline}</h2>
+      <p class="approach__body">{home.approach.body}</p>
+      <a class="approach__link" href={withBase(home.approach.href)}>
+        {home.approach.linkLabel}
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- §5.1 #5 — Industries strip, three-label default (§3 OPEN). DRAFT COPY -->
+  <section class="industries">
+    <div class="container">
+      <header class="section-head" data-reveal>
+        <p class="section-head__kicker">{home.industries.kicker}</p>
+        <h2 class="section-head__headline">{home.industries.headline}</h2>
+      </header>
+      <div class="industries__grid">
+        {
+          home.industries.items.map((item, i) => (
+            <IndustryBlock label={item.label} blurb={item.blurb} revealDelay={i * 80} />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- §5.1 #6 — Closing CTA -->
+  <ContactCTA />
 </Base>
 
 <style>
-  .placeholder {
+  /* ---- Shared section header ---- */
+  .section-head {
+    max-inline-size: 46rem;
+    margin-block-end: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .section-head__kicker {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--signal);
+    margin-block-end: 0.75rem;
+  }
+
+  .section-head__headline {
+    font-size: clamp(1.9rem, 4.2vw, 3rem);
+    margin-block-end: 0.75rem;
+  }
+
+  .section-head__lede {
+    font-size: 1.15rem;
+    color: var(--graphite);
+    margin: 0;
+  }
+
+  /* ---- Problem framing: one oversized, quiet statement ---- */
+  .problem {
     padding-block: var(--section-pad);
   }
 
-  .placeholder__kicker {
+  .problem__statement {
+    font-size: clamp(1.4rem, 3vw, 2.1rem);
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: var(--tracking-display);
+    max-inline-size: 30em;
+    margin: 0;
+  }
+
+  /* ---- Services narrative ---- */
+  .services {
+    background: var(--surface-2);
+    padding-block: var(--section-pad);
+  }
+
+  /* AA: --signal on --surface-2 is 4.36:1 (< 4.5 for small text); the darker
+     derived hover token reads 5.84:1 on this surface. */
+  .services .section-head__kicker {
+    color: var(--signal-hover);
+  }
+
+  .services__engines-intro {
     font-family: var(--font-mono);
-    font-size: 0.875rem;
-    letter-spacing: 0.04em;
-    color: var(--signal);
-    margin-block-end: 1rem;
-  }
-
-  .placeholder__title {
-    font-size: var(--fs-hero);
-    margin-block-end: 0.5rem;
-  }
-
-  .placeholder__lede {
-    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--graphite);
-    max-inline-size: 32ch;
+    text-align: center;
+    margin-block: clamp(3rem, 6vw, 5rem) 1.5rem;
   }
 
-  .placeholder__note {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
+  .services__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+    margin-block-start: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  @media (max-width: 980px) {
+    .services__grid {
+      grid-template-columns: 1fr;
+      max-inline-size: 560px;
+      margin-inline: auto;
+    }
+  }
+
+  /* ---- Approach teaser ---- */
+  .approach {
+    padding-block: var(--section-pad);
+  }
+
+  .approach__inner {
+    max-inline-size: calc(46rem + 2 * var(--gutter));
+  }
+
+  .approach__body {
+    font-size: 1.1rem;
     color: var(--graphite);
-    margin-block-start: 2rem;
+    margin-block-end: 1.5rem;
+  }
+
+  .approach__link {
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .approach__link span {
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .approach__link:hover span {
+    transform: translateX(3px);
+  }
+
+  /* ---- Industries strip ---- */
+  .industries {
+    padding-block: var(--section-pad);
+    /* sits between two white sections; hairline rules give it structure */
+    border-block: 1px solid var(--hairline);
+  }
+
+  .industries__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  @media (max-width: 860px) {
+    .industries__grid {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
   }
 </style>

@@ -109,7 +109,33 @@ svg {
   inset-block-start: 0.75rem;
 }
 
-/* Motion discipline (SPEC §6): reduced motion is non-negotiable. */
+/* Anchored sections land below the sticky nav. */
+[id] {
+  scroll-margin-block-start: 84px;
+}
+
+/* ---- Reveal system (SPEC §6): rise-on-enter, once only, IO-driven. ----
+   Gated on .js (set inline in Base) so content is never hidden without JS,
+   and on no-preference so reduced-motion users get instant final state. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.6s var(--ease-out),
+      transform 0.6s var(--ease-out);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .js [data-reveal].in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Motion discipline (SPEC §6): reduced motion is non-negotiable.
+   Delays are zeroed too — otherwise `animation-fill-mode: both` cascades
+   (hero) would hold their hidden `from` state through the delay. */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -118,8 +144,10 @@ svg {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
     scroll-behavior: auto !important;
   }
 }

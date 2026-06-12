@@ -1,0 +1,167 @@
+---
+import { home } from '../content/home';
+import { withBase } from '../lib/url';
+
+const logoSrc = withBase('/brand/insightout-logo-light.svg');
+const { triad, subline, cta } = home.hero;
+---
+
+<!-- Hero (SPEC §5.1 #1). Load cascade per §6: logo settles first, triad words
+     stagger in (~120ms offsets), sub-line and CTA follow. Pure CSS keyframes —
+     content is never JS-gated, and the global reduced-motion rule collapses the
+     cascade to an instant final state. -->
+<section class="hero" data-hero>
+  <div class="container hero__inner" data-hero-inner>
+    <img class="hero__logo" src={logoSrc} alt="InsightOut" width="300" height="90" />
+
+    <h1 class="hero__triad">
+      {
+        triad.map((word, i) => (
+          <>
+            {i > 0 && (
+              <span class="hero__dot" aria-hidden="true">
+                •
+              </span>
+            )}
+            <span class="hero__word" style={`--cascade: ${i}`}>
+              {word}
+            </span>
+          </>
+        ))
+      }
+    </h1>
+
+    <p class="hero__sub">{subline}</p>
+    <a class="hero__cta" href="#contact">{cta}</a>
+  </div>
+</section>
+
+<script>
+  // Scroll-linked hero exit (SPEC §6): content eases up/out with slight
+  // scale-down as the user scrolls toward problem framing. Scroll position
+  // drives the animation — no pinning, no scroll-jacking. GSAP is allowed
+  // here and for the Engine scene only (SPEC §7).
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to('[data-hero-inner]', {
+      yPercent: -10,
+      scale: 0.96,
+      opacity: 0.3,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '[data-hero]',
+        start: 'top top',
+        end: 'bottom 25%',
+        scrub: true,
+      },
+    });
+  }
+</script>
+
+<style>
+  .hero {
+    /* Tall, airy stage; nav sits transparent on top of it. */
+    min-block-size: calc(88svh - 68px);
+    display: flex;
+    align-items: center;
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transform-origin: 50% 0;
+    will-change: transform, opacity;
+  }
+
+  .hero__logo {
+    inline-size: clamp(200px, 24vw, 300px);
+    block-size: auto;
+    margin-block-end: clamp(2rem, 5vw, 3.5rem);
+    animation: hero-rise 0.7s var(--ease-out) both;
+  }
+
+  .hero__triad {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.15em 0.35em;
+    font-size: var(--fs-hero);
+    font-weight: 700;
+    letter-spacing: var(--tracking-display);
+    margin-block-end: 1.25rem;
+  }
+
+  .hero__word {
+    display: inline-block;
+    /* Cascade: word i lands at 350ms + i × 120ms (logo settles first). */
+    animation: hero-rise 0.6s var(--ease-out) both;
+    animation-delay: calc(350ms + var(--cascade, 0) * 120ms);
+  }
+
+  .hero__dot {
+    color: var(--signal);
+    font-size: 0.5em;
+    animation: hero-fade 0.6s var(--ease-out) both;
+    animation-delay: calc(410ms + var(--cascade, 0) * 120ms);
+  }
+
+  .hero__sub {
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    color: var(--graphite);
+    max-inline-size: 38ch;
+    margin-block-end: 2.25rem;
+    animation: hero-rise 0.6s var(--ease-out) both;
+    animation-delay: 800ms;
+  }
+
+  .hero__cta {
+    display: inline-flex;
+    align-items: center;
+    background: var(--signal);
+    color: var(--on-ink);
+    font-weight: 600;
+    font-size: 1.05rem;
+    padding: 0.85rem 1.9rem;
+    border-radius: var(--radius-sm);
+    animation: hero-rise 0.6s var(--ease-out) both;
+    animation-delay: 920ms;
+    transition:
+      background var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-fast) var(--ease-out);
+  }
+
+  .hero__cta:hover {
+    background: var(--signal-hover);
+    color: var(--on-ink);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(36, 112, 229, 0.28);
+  }
+
+  @keyframes hero-rise {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes hero-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>

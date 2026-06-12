@@ -36,6 +36,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).hr
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Reveal styles are gated on .js so content never hides without JS. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
     <link rel="icon" type="image/svg+xml" href={faviconSvg} />
     <link rel="canonical" href={canonical} />
 
@@ -68,5 +72,28 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).hr
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // Rise-on-enter reveals (SPEC §6): IntersectionObserver, once only.
+      // Reduced-motion users (and no-IO browsers) get everything instantly.
+      const els = document.querySelectorAll('[data-reveal]');
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || !('IntersectionObserver' in window)) {
+        els.forEach((el) => el.classList.add('in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('in');
+                io.unobserve(entry.target);
+              }
+            }
+          },
+          { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
+        );
+        els.forEach((el) => io.observe(el));
+      }
+    </script>
   </body>
 </html>
