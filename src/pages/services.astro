@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
-import GlassAccent from '../components/GlassAccent.astro';
 import { services } from '../content/services';
 
 const { intro, pillars, toolingNote } = services;
@@ -12,9 +11,7 @@ const { intro, pillars, toolingNote } = services;
   description="Behavioral analytics, business intelligence, market intelligence, and product strategy advisory — four practices, one ascent."
 >
   <!-- DRAFT COPY — Services (SPEC §5.2): one page, four anchored sections. -->
-  <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede}>
-    <GlassAccent slot="accent" shape="shards" driftY={20} rotate={4} />
-  </PageIntro>
+  <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede} />
 
   <!-- Sticky sub-nav: four pillar anchors, scrollspy active state (§6 micro). -->
   <nav class="subnav" aria-label="Service practices">
