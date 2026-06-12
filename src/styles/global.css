@@ -1,6 +1,7 @@
 /*
-  Global baseline. Logical properties throughout so a future Hebrew/RTL build
-  is not blocked (CLAUDE.md rule 8). Transforms + opacity only for motion (SPEC §6).
+  Global baseline. Logical CSS properties are used as standard modern practice
+  (no i18n motive — the site is permanently English-only, LTR).
+  Transforms + opacity only for motion (SPEC §6).
 */
 
 @import './tokens.css';
@@ -50,7 +51,9 @@ p {
 }
 
 a {
-  color: var(--signal);
+  /* --signal-text, not --signal: body-size link text must hold AA on the
+     warmed surfaces (tokens.css). Filled buttons keep --signal backgrounds. */
+  color: var(--signal-text);
   text-decoration: none;
 }
 

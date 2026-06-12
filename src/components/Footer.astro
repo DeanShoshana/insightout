@@ -1,5 +1,5 @@
 ---
-import { navItems, ui } from '../content/ui';
+import { navItems } from '../content/ui';
 import { siteConfig } from '../../site.config';
 import { withBase } from '../lib/url';
 
@@ -11,8 +11,8 @@ const year = new Date().getFullYear();
      targets {base}/#contact); the footer must not duplicate the id. --><footer class="footer">
   <div class="container footer__inner">
     <div class="footer__brand">
-      <img class="footer__logo" src={logoSrc} alt={ui.logoAlt} width="220" height="66" />
-      <p class="footer__tagline">{ui.footerTagline}</p>
+      <img class="footer__logo" src={logoSrc} alt="InsightOut" width="220" height="66" />
+      <p class="footer__tagline">{siteConfig.tagline}</p>
     </div>
 
     <nav class="footer__nav" aria-label="Footer">
@@ -29,7 +29,7 @@ const year = new Date().getFullYear();
   </div>
 
   <div class="container footer__base">
-    <p class="footer__copy">© {year} {siteConfig.name}. {ui.footerRights}</p>
+    <p class="footer__copy">© {year} {siteConfig.name}. All rights reserved.</p>
   </div>
 </footer>
 

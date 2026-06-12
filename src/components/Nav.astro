@@ -1,5 +1,5 @@
 ---
-import { navItems, ui } from '../content/ui';
+import { navItems, ctaContact } from '../content/ui';
 import { withBase } from '../lib/url';
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -15,9 +15,9 @@ const contactHref = `${withBase('/')}#contact`;
 
 <header class="nav">
   <div class="container nav__inner">
-    <a class="nav__brand" href={homeHref} aria-label={`${ui.logoAlt} — home`}>
+    <a class="nav__brand" href={homeHref} aria-label="InsightOut — home">
       <img class="nav__logo" src={iconSrc} alt="" width="40" height="40" aria-hidden="true" />
-      <span class="nav__wordmark">{ui.logoAlt}</span>
+      <span class="nav__wordmark">InsightOut</span>
     </a>
 
     <!-- Zero-JS responsive menu: checkbox toggle drives the mobile dropdown.
@@ -27,7 +27,7 @@ const contactHref = `${withBase('/')}#contact`;
       <span class="nav__toggle-bars" aria-hidden="true"></span>
     </label>
 
-    <nav class="nav__links" aria-label={ui.navAriaLabel}>
+    <nav class="nav__links" aria-label="Primary">
       <ul>
         {
           navItems.map((item) => (
@@ -43,7 +43,7 @@ const contactHref = `${withBase('/')}#contact`;
           ))
         }
       </ul>
-      <a class="nav__cta" href={contactHref}>{ui.ctaContact}</a>
+      <a class="nav__cta" href={contactHref}>{ctaContact}</a>
     </nav>
   </div>
 </header>

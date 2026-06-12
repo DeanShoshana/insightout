@@ -219,7 +219,7 @@ Remaining: favicon set (.ico + PNG sizes) and OG image generated at Milestone 4 
 | Hosting | **GitHub Pages** via Actions workflow | Free, in Dean's GitHub, custom domain ready when the domain check resolves. |
 | Forms | Formspree (or Web3Forms) | Static-host compatible. |
 | Analytics | Plausible or GoatCounter | Privacy-first, no cookie banner needed; an analytics consultancy shipping GA4 + consent walls is off-brand. |
-| i18n | **English only at launch.** Architecture must not block a future Hebrew/RTL version: logical CSS properties (`margin-inline-start` etc.), strings in content files not components. | Dean's bilingual deliverable history; keep the door open cheaply. |
+| i18n | **English only, permanently** (decided at M2b review, 2026-06: there will be no Hebrew/RTL version). No RTL/translation hedging in the architecture. | Scope clarity; copy stays in content files for editability, not translation. |
 
 ### Repo structure (Astro)
 ```

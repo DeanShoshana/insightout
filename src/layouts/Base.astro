@@ -3,27 +3,17 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { siteConfig } from '../../site.config';
-import { ui } from '../content/ui';
 import { withBase } from '../lib/url';
 
 interface Props {
   /** Page title; brand name is appended automatically (home passes its own full title). */
   title?: string;
   description?: string;
-  /** Plumbed so a future Hebrew/RTL build flips direction without markup changes (rule 8). */
-  lang?: string;
-  dir?: 'ltr' | 'rtl';
   /** Keep reserved/unlinked routes (/work, /insights) out of search until launched. */
   noindex?: boolean;
 }
 
-const {
-  title,
-  description = siteConfig.tagline,
-  lang = 'en',
-  dir = 'ltr',
-  noindex = false,
-} = Astro.props;
+const { title, description = siteConfig.tagline, noindex = false } = Astro.props;
 
 const pageTitle = title ? `${title} · ${siteConfig.name}` : `${siteConfig.name} — Product • Analytics • Strategy`;
 const faviconSvg = withBase('/brand/insightout-icon-light.svg');
@@ -32,7 +22,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).hr
 ---
 
 <!doctype html>
-<html lang={lang} dir={dir}>
+<!-- English-only, LTR — permanent scope decision (M2b review, 2026-06). -->
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -66,7 +57,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).hr
   </head>
 
   <body>
-    <a class="skip-link" href="#main">{ui.skipToContent}</a>
+    <a class="skip-link" href="#main">Skip to content</a>
     <Nav />
     <main id="main">
       <slot />

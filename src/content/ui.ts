@@ -1,5 +1,5 @@
-// UI strings live in a content file, not in components, so a future Hebrew/RTL
-// build can swap them without touching markup (CLAUDE.md rule 8, SPEC §7 i18n).
+// Navigation config — shared by Nav and Footer. Page copy lives in
+// src/content/<page>.ts so content-lock edits never touch markup.
 
 export interface NavItem {
   label: string;
@@ -18,12 +18,5 @@ export const navItems: NavItem[] = [
   { label: 'About', href: '/about' },
 ];
 
-export const ui = {
-  // Primary CTA — opens contact (SPEC §4: scrolls to footer/contact section).
-  ctaContact: "Let's talk",
-  navAriaLabel: 'Primary',
-  skipToContent: 'Skip to content',
-  logoAlt: 'InsightOut',
-  footerTagline: 'Analytical and product services, grounded in business strategy.',
-  footerRights: 'All rights reserved.',
-} as const;
+// Primary CTA label — appears in the nav and the mobile menu (SPEC §4).
+export const ctaContact = "Let's talk";
