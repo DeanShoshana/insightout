@@ -1,5 +1,5 @@
-// Home page copy (SPEC §5.1). UI strings live in content files, not components,
-// so a future Hebrew/RTL build swaps copy without touching markup (CLAUDE.md rule 8).
+// Home page copy (SPEC §5.1). Copy lives here, not in components, so
+// content-lock edits (M5) never touch markup.
 //
 // DRAFT COPY — everything below is placeholder until content lock (M5).
 // Register: senior, direct, analytical. Company voice. No agency fluff.

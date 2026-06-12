@@ -9,7 +9,7 @@ interface Props {
   offerings: readonly string[];
   /** Services-page anchor (route exists at M3; slugs are stable now). */
   href: string;
-  /** Required and sourced from content files — no UI strings in components (rule 8). */
+  /** Sourced from the page's content file alongside the rest of the copy. */
   linkLabel: string;
   /** 'engine' = white Material card; 'seat' = inverted Pillar 4 card (§6). */
   variant?: 'engine' | 'seat';
@@ -71,7 +71,7 @@ const {
     font-size: 0.8rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    color: var(--signal);
+    color: var(--signal-text);
     margin-block-end: 0.75rem;
   }
 

@@ -25,9 +25,10 @@ content, and architecture decision is already made there; do not re-litigate loc
    anywhere on the site (SPEC.md §2, Pillar 3).
 7. Copy register: senior, direct, no agency fluff. When writing placeholder copy,
    mark it `<!-- DRAFT COPY -->` so it's findable before content lock.
-8. Future Hebrew/RTL must not be blocked: logical CSS properties
-   (`margin-inline-*`, `padding-inline-*`), UI strings in content files, `dir` attribute
-   plumbed through the base layout.
+8. The site is English-only, LTR, **permanently** (owner decision, 2026-06, at M2b).
+   Do not add RTL or translation hedging in any milestone. Logical CSS properties
+   stay as standard modern practice; page copy stays in `src/content/` files so
+   content-lock edits don't touch markup.
 
 ## Stack (SPEC.md §7)
 Astro (static) · plain CSS with custom properties · GSAP + ScrollTrigger only for the

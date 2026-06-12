@@ -15,23 +15,29 @@
   --speed-to: #2470e5;
 
   /* ---- Surfaces & text (SPEC §6) ---- */
-  --surface: #ffffff;       /* primary background (Google-white) */
+  --surface: #fcfcfa;       /* primary background — subtly warmed white (M2b review) */
   --surface-2: #f6f8fa;     /* elevated / alternate section background */
   --graphite: #5a6b78;      /* secondary text */
   --hairline: #e3e8ed;      /* borders, rules */
 
   /* derived */
-  --signal-hover: #1c5cc4;  /* darker --signal for hover/active (AA-safe on white) */
+  --signal-hover: #1c5cc4;  /* darker --signal for hover/active states */
+  --signal-text: #1c5cc4;   /* small signal-colored text (links, kickers): --signal is
+                               4.4–4.5:1 on the warmed surfaces — this shade holds ≥5.8:1 */
   --on-ink: #ffffff;        /* text on ink surfaces */
 
   /* ---- Typography (SPEC §6) ---- */
   --font-sans: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
-  --fs-hero: clamp(2.75rem, 7vw, 5rem);
+  /* M2b review: hero scale reduced (was clamp(2.75rem, 7vw, 5rem)) and given
+     tighter tracking + lighter weight for a more elegant triad. */
+  --fs-hero: clamp(2.5rem, 5.5vw, 4rem);
   --fs-body: 1.0625rem;
   --lh-body: 1.6;
   --tracking-display: -0.02em;
+  --tracking-hero: -0.035em;
+  --fw-hero: 600;
 
   /* ---- Layout & rhythm (SPEC §6) ---- */
   --content-max: 1140px;
