@@ -7,6 +7,10 @@ plan; this file tracks enhancements raised in reviews so they aren't lost.
 
 ### Entry A — Pillar cards: Apple-lineup visual treatment (M4)
 
+**Status: BUILT at M4 (m4-motion).** Gradient hero zones (tokens only), four
+brand-native motifs (funnel / trend / network / converging streams), seat
+polish, acceptance criteria verified in the M4 PR.
+
 **Problem:** the current pillar cards on the homepage read flat — "like a
 slide." **Goal:** give them the visual presence of Apple's product-lineup row
 (reference: gradient-backed cards with a floating hero zone, rounded depth,
@@ -36,6 +40,11 @@ for any text over gradients; no new color tokens; build green; no horizontal
 overflow at 360/390/1440.
 
 ### Entry B — Richer supporting motion (M4)
+
+**Status: BUILT at M4 (m4-motion)** under Apple-cinematic art direction:
+pinned scrubbed Engine scene, weighted reveals/cascade, logo speed-line
+micro-animation, magnetic CTAs, cursor spotlight on cards. Scrollspy kept
+from M3.
 
 **Problem:** the page currently reads as a quiet static page; reveals are
 intentionally subtle (16px rise). M4 should make the site feel cutting-edge

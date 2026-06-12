@@ -33,6 +33,7 @@ import { withBase } from '../lib/url';
 
       <PillarCard
         variant="seat"
+        motif="streams"
         pillar={home.services.seat.pillar}
         headline={home.services.seat.headline}
         body={home.services.seat.body}
@@ -41,9 +42,13 @@ import { withBase } from '../lib/url';
         linkLabel={home.services.seat.linkLabel}
       />
 
-      <p class="services__engines-intro" data-reveal>{home.services.enginesIntro}</p>
-
-      <EngineDiagram caption={home.services.diagramCaption} />
+      <!-- The signature scene (§6, M4): pins briefly while scroll scrubs the
+           streams' draw-in → convergence → pulse → decision resolve. With
+           reduced motion or no JS, this is simply the static diagram. -->
+      <div class="engine-scene" data-engine-scene>
+        <p class="services__engines-intro" data-reveal>{home.services.enginesIntro}</p>
+        <EngineDiagram caption={home.services.diagramCaption} />
+      </div>
 
       <div class="services__grid">
         {
@@ -55,6 +60,7 @@ import { withBase } from '../lib/url';
               href={engine.href}
               linkLabel={home.services.engineLinkLabel}
               revealDelay={i * 80}
+              motif={(['funnel', 'trend', 'network'] as const)[i]}
             />
           ))
         }
@@ -96,6 +102,83 @@ import { withBase } from '../lib/url';
   <ContactCTA />
 </Base>
 
+<script>
+  // The pinned Engine scene (SPEC §6 signature scene, M4 art direction:
+  // Apple-cinematic). Scroll position scrubs the whole sequence — scrub: 1
+  // adds a weighted lag, native scroll speed is never overridden, and the
+  // pin releases after convergence. Every hidden initial state is set HERE
+  // via JS: with reduced motion or no JS the diagram is simply its final,
+  // fully-converged self with no pin.
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  const scene = document.querySelector('[data-engine-scene]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (scene && !reduce) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const tl = gsap.timeline({
+      defaults: { ease: 'power2.inOut' },
+      scrollTrigger: {
+        trigger: scene,
+        start: 'top top',
+        end: '+=130%',
+        pin: true,
+        scrub: 1,
+        anticipatePin: 1,
+      },
+    });
+
+    // Both responsive variants (wide/tall) are choreographed identically at
+    // the same timeline positions; only one is visible at a time.
+    scene.querySelectorAll('.engine__svg').forEach((svg) => {
+      const streams = Array.from(svg.querySelectorAll<SVGPathElement>('.engine__stream'));
+      const labels = Array.from(svg.querySelectorAll('.engine__labels text'));
+      const node = svg.querySelector('.engine__node');
+      const pulse = svg.querySelector('.engine__pulse');
+      const out = svg.querySelector<SVGPathElement>('.engine__out');
+      const artifact = svg.querySelector('.engine__artifact');
+      if (!node || !pulse || !out || !artifact) return;
+
+      // Initial states — JS-only, so non-animated visitors see the final state.
+      streams.forEach((p) => {
+        const len = p.getTotalLength();
+        gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
+      });
+      const outLen = out.getTotalLength();
+      gsap.set(out, { strokeDasharray: outLen, strokeDashoffset: outLen });
+      gsap.set(labels, { opacity: 0 });
+      gsap.set(node, { scale: 0 });
+      gsap.set(artifact, { opacity: 0, y: 12, scale: 0.96 });
+
+      // 1) Streams draw in sequentially, each label resolving with its stream.
+      streams.forEach((p, i) => {
+        tl.to(p, { strokeDashoffset: 0, duration: 1.2, ease: 'power3.inOut' }, i * 0.8);
+        if (labels[i]) tl.to(labels[i], { opacity: 1, duration: 0.5, ease: 'power2.out' }, i * 0.8 + 0.55);
+      });
+
+      // 2) Convergence: the node lands with weight.
+      tl.to(node, { scale: 1, duration: 0.45, ease: 'back.out(2.5)' }, 2.75);
+
+      // 3) The accent line runs out toward the decision…
+      tl.to(out, { strokeDashoffset: 0, duration: 0.85, ease: 'power2.inOut' }, 3.2);
+
+      // 4) …the node pulses once on the accent (immediateRender off: the
+      // ring must stay invisible until the playhead actually reaches it)…
+      tl.fromTo(
+        pulse,
+        { opacity: 0.7, scale: 1 },
+        { opacity: 0, scale: 3, duration: 0.7, ease: 'power2.out', immediateRender: false },
+        3.3
+      );
+
+      // 5) …and THE DECISION resolves in.
+      tl.to(artifact, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power3.out' }, 3.7);
+    });
+  }
+</script>
+
 <style>
   /* Section headers use the shared .section-head classes (global.css). */
 
@@ -126,13 +209,27 @@ import { withBase } from '../lib/url';
     text-transform: uppercase;
     color: var(--graphite);
     text-align: center;
-    margin-block: clamp(3rem, 6vw, 5rem) 1.5rem;
+    margin-block: 0 1.5rem;
+  }
+
+  .engine-scene {
+    margin-block-start: clamp(3rem, 6vw, 5rem);
+  }
+
+  /* With JS the scene is a full-viewport frame so the pin reads composed.
+     Without JS it stays an ordinary block (no dead space). */
+  :global(html.js) .engine-scene {
+    min-block-size: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   .services__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: clamp(1rem, 2.5vw, 1.75rem);
+    /* M4: more generous lineup spacing (BACKLOG Entry A). */
+    gap: clamp(1.25rem, 3vw, 2.25rem);
     margin-block-start: clamp(2.5rem, 5vw, 4rem);
   }
 

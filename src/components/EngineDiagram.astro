@@ -44,6 +44,9 @@ const artifactLabel = artifact.toUpperCase();
     </g>
 
     <circle class="engine__node" cx="330" cy="120" r="7"></circle>
+    <!-- Pulse ring: invisible by default; the pinned scene (M4) flares it
+         once at convergence. Pure decoration. -->
+    <circle class="engine__pulse" cx="330" cy="120" r="10" fill="none" stroke="#2470E5" stroke-width="2"></circle>
     <path class="engine__out" d="M 323 120 L 180 120" fill="none" stroke="url(#eng-w-speed)"></path>
 
     <g class="engine__artifact">
@@ -70,6 +73,7 @@ const artifactLabel = artifact.toUpperCase();
     </g>
 
     <circle class="engine__node" cx="160" cy="174" r="7"></circle>
+    <circle class="engine__pulse" cx="160" cy="174" r="10" fill="none" stroke="#2470E5" stroke-width="2"></circle>
     <path class="engine__out" d="M 160 167 L 160 90" fill="none" stroke="url(#eng-t-speed)"></path>
 
     <g class="engine__streams" fill="none">
@@ -135,6 +139,18 @@ const artifactLabel = artifact.toUpperCase();
 
   .engine__node {
     fill: var(--signal);
+  }
+
+  .engine__pulse {
+    opacity: 0;
+  }
+
+  /* SVG transforms in the pinned scene scale from element centers. */
+  .engine__node,
+  .engine__pulse,
+  .engine__artifact {
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
   .engine__out {
