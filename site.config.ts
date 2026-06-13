@@ -33,7 +33,7 @@ export interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  name: 'InsightOut',
+  name: 'Claritix',
   tagline: 'Analytical and product services, grounded in business strategy.',
 
   flags: {

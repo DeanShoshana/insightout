@@ -27,7 +27,7 @@ export const home = {
   // §5.1 #2 — names the gap between dashboards and decisions. DRAFT COPY.
   problem: {
     statement:
-      'Most companies don’t have a data problem — they have a decision problem. Dashboards multiply, reports pile up, and the calls that matter are still made on instinct. InsightOut closes the gap between what the data shows and what the business decides.',
+      'Most companies don’t have a data problem — they have a decision problem. Dashboards multiply, reports pile up, and the calls that matter are still made on instinct. Claritix closes the gap between what the data shows and what the business decides.',
   },
 
   // §5.1 #3 — outcome-first services narrative. Leads with Pillar 4's outcome,
@@ -100,7 +100,7 @@ export const home = {
   approach: {
     kicker: 'Approach',
     headline: 'Research-grade rigor, startup speed.',
-    body: 'InsightOut started in research — careful questions, honest evidence, conclusions that survive scrutiny. That discipline moved into startups: product analytics, experimentation, executive decision support. The method stayed; the pace changed. You get analysis built to a research standard, delivered on a startup clock.',
+    body: 'Claritix started in research — careful questions, honest evidence, conclusions that survive scrutiny. That discipline moved into startups: product analytics, experimentation, executive decision support. The method stayed; the pace changed. You get analysis built to a research standard, delivered on a startup clock.',
     linkLabel: 'Read the approach',
     href: '/approach',
   },
@@ -131,11 +131,11 @@ export const home = {
   },
 
   // §5.1 #6 — closing CTA. Minimal form: name, email, one-line message (§5.6).
-  // M2c: stronger invitation framing; "Work with InsightOut" kept as the kicker.
+  // M2c: stronger invitation framing; "Work with Claritix" kept as the kicker.
   contact: {
-    kicker: 'Work with InsightOut',
+    kicker: 'Work with Claritix',
     headline: 'Bring the decision you’re sitting on.',
-    body: 'No brief, no deck — a few lines about where you’re stuck is enough. You’ll get a straight answer on whether InsightOut can help, and what it would take.',
+    body: 'No brief, no deck — a few lines about where you’re stuck is enough. You’ll get a straight answer on whether Claritix can help, and what it would take.',
     fields: {
       name: 'Name',
       email: 'Email',
