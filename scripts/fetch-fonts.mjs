@@ -32,7 +32,7 @@ for (const fam of families) {
     const file = `${slug}.woff2`;
     const buf = Buffer.from(await (await fetch(url, { headers: { 'User-Agent': UA } })).arrayBuffer());
     writeFileSync(new URL(`../public/fonts/${file}`, import.meta.url), buf);
-    out += `@font-face{font-family:'${famName}';font-style:normal;font-weight:${weight};font-display:swap;src:url('/insightout/fonts/${file}') format('woff2');}\n`;
+    out += `@font-face{font-family:'${famName}';font-style:normal;font-weight:${weight};font-display:swap;src:url('/fonts/${file}') format('woff2');}\n`;
     console.log('fetched', file, buf.length, 'bytes');
   }
 }
