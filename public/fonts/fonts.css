@@ -1,0 +1,23 @@
+/* Self-hosted brand fonts (latin subset), generated via scripts/fetch-fonts.mjs
+   then deduped — Instrument Sans is a variable font (one file, weight range). */
+@font-face {
+  font-family: 'Instrument Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/insightout/fonts/instrument-sans.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/insightout/fonts/ibm-plex-mono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/insightout/fonts/ibm-plex-mono-500.woff2') format('woff2');
+}

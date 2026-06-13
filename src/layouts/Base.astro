@@ -16,9 +16,43 @@ interface Props {
 const { title, description = siteConfig.tagline, noindex = false } = Astro.props;
 
 const pageTitle = title ? `${title} · ${siteConfig.name}` : `${siteConfig.name} — Product • Analytics • Strategy`;
-const faviconSvg = withBase('/brand/insightout-icon-light.svg');
-const ogImage = withBase('/brand/insightout-logo-dark.svg'); // placeholder; real OG raster at M4
-const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).href;
+const origin = Astro.site ?? new URL(Astro.url.origin);
+const canonical = new URL(Astro.url.pathname, origin).href;
+const ogImage = new URL(withBase('/og-image.png'), origin).href; // 1200×630 raster (M4e)
+const homeUrl = new URL(withBase('/'), origin).href;
+
+// JSON-LD (SPEC §7). ProfessionalService + the founder as Person. The bio is a
+// DRAFT placeholder and sameAs/email are intentionally omitted until M5 content
+// lock (§8) — better absent than fabricated. Emitted once, site-wide.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      '@id': `${homeUrl}#org`,
+      name: siteConfig.name,
+      url: homeUrl,
+      description: siteConfig.tagline,
+      image: ogImage,
+      slogan: 'Product • Analytics • Strategy',
+      knowsAbout: [
+        'Behavioral & User Analytics',
+        'Data & Business Intelligence',
+        'Market & Consumer Intelligence',
+        'Product Strategy & Advisory',
+      ],
+      founder: { '@id': `${homeUrl}#founder` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${homeUrl}#founder`,
+      name: 'Dean Shoshana',
+      jobTitle: 'Founder',
+      worksFor: { '@id': `${homeUrl}#org` },
+      // TODO(M5): add `sameAs` (LinkedIn) and `email` from Dean (SPEC §8).
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -31,29 +65,43 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin).hr
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
-    <link rel="icon" type="image/svg+xml" href={faviconSvg} />
+    <!-- Favicons (M4e) — ink tiles, legible on light/dark chrome. -->
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
+    <link rel="manifest" href={withBase('/site.webmanifest')} />
+    <meta name="theme-color" content="#101828" />
     <link rel="canonical" href={canonical} />
 
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-    <!-- Open Graph (image is a placeholder until the M4 OG raster, SPEC §6a/§9) -->
+    <!-- Open Graph / Twitter (1200×630 raster, SPEC §6a/§9) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteConfig.name} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="InsightOut — Product • Analytics • Strategy" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
 
-    <!-- Fonts (SPEC §6). display=swap + matched fallbacks; self-host + CLS hardening at M4. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Fonts (SPEC §6) — self-hosted latin woff2 (M4e): no third-party
+         round-trip, no render-blocking request. Preload the primary family. -->
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap"
+      rel="preload"
+      href={withBase('/fonts/instrument-sans.woff2')}
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
+    <link rel="stylesheet" href={withBase('/fonts/fonts.css')} />
   </head>
 
   <body>
