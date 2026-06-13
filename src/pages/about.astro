@@ -3,15 +3,14 @@ import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
 import { about } from '../content/about';
 
-const { intro, thesis, founder } = about;
+const { intro, thesis, sections } = about;
 ---
 
 <Base
   title="About"
-  description="Why Claritix exists, and the founder behind it — research-grade analytics carried to the decision table."
+  description="Why Claritix exists and how the firm turns data and research into the decisions leaders actually have to make."
 >
-  <!-- DRAFT COPY — About (SPEC §5.5). Bio is a ~120-word placeholder;
-       final bio, headshot decision, and LinkedIn URL come from Dean at M5 (§8). -->
+  <!-- DRAFT COPY — About (SPEC §5.5, revised M5a): a company story, no founder. -->
   <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede} />
 
   <section class="thesis" aria-label="The Claritix thesis">
@@ -20,16 +19,21 @@ const { intro, thesis, founder } = about;
     </div>
   </section>
 
-  <section class="founder" aria-labelledby="founder-headline">
-    <div class="container founder__inner" data-reveal>
-      <h2 class="founder__headline" id="founder-headline">{founder.headline}</h2>
-      <div class="founder__bio">
-        <p>{founder.bio}</p>
-        <!-- Headshot slot: pending Dean's decision (§8). LinkedIn link lands
-             with the final bio at M5. -->
-      </div>
-    </div>
-  </section>
+  {
+    sections.map((s, i) => (
+      <section
+        class:list={['story', { 'story--alt': i % 2 === 0 }]}
+        aria-labelledby={`${s.id}-headline`}
+      >
+        <div class="container story__inner" data-reveal>
+          <h2 class="story__headline" id={`${s.id}-headline`}>
+            {s.headline}
+          </h2>
+          <p class="story__body">{s.body}</p>
+        </div>
+      </section>
+    ))
+  }
 </Base>
 
 <style>
@@ -46,12 +50,16 @@ const { intro, thesis, founder } = about;
     margin: 0;
   }
 
-  .founder {
-    background: var(--surface-2);
+  .story {
     padding-block: var(--section-pad);
   }
 
-  .founder__inner {
+  /* Alternate surface so the two blocks read as distinct steps. */
+  .story--alt {
+    background: var(--surface-2);
+  }
+
+  .story__inner {
     display: grid;
     grid-template-columns: 1fr 1.6fr;
     gap: clamp(1.5rem, 4vw, 4rem);
@@ -59,17 +67,17 @@ const { intro, thesis, founder } = about;
   }
 
   @media (max-width: 860px) {
-    .founder__inner {
+    .story__inner {
       grid-template-columns: 1fr;
     }
   }
 
-  .founder__headline {
+  .story__headline {
     font-size: clamp(1.6rem, 3vw, 2.25rem);
     margin: 0;
   }
 
-  .founder__bio p {
+  .story__body {
     color: var(--graphite);
     font-size: 1.1rem;
     margin: 0;

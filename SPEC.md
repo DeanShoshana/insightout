@@ -117,10 +117,15 @@ Home  ·  Services  ·  Industries  ·  Approach  ·  About  ·  [Let's talk]
 3. **How engagements work** — three shapes: embedded (fractional senior analyst/PM), project (defined deliverable), advisory (the seat). Each: who it's for, typical duration, what you get.
 4. **[FLAGGED OFF] Advisory Circle** — profile grid: name, title, affiliation, LinkedIn, one line on when they're brought in. 5–6 profiles max.
 
-### 5.5 About — LOCKED structure
-- Founder bio: short, senior, no life story. The arc in ~120 words. Optional headshot.
-- One paragraph on why the company exists (the InsightOut thesis).
-- **Content needed from Dean:** final bio copy, headshot decision, LinkedIn URL.
+### 5.5 About — REVISED at M5a (company story, no founder)
+- **Reversal (2026-06, M5a):** About is a pure company story about Claritix the
+  firm — no founder bio, no individual named. Supersedes the original
+  founder-bio structure below.
+- Company-voice sections: the Claritix thesis (research-grade rigor → the
+  decision), how Claritix works (three engines feed the seat), what makes the
+  approach distinct (analytical depth + product/strategy instinct, action over
+  dashboards, exec/board altitude).
+- *(Original, superseded: founder bio ~120 words + headshot + LinkedIn.)*
 
 ### 5.6 Contact (footer/modal) — LOCKED
 - Minimal form: name, email, message. No dropdowns, no budget selectors at launch.
@@ -246,7 +251,7 @@ insightout/
 
 | Item | Needed for | Status |
 |---|---|---|
-| Final founder bio (~120 words) + LinkedIn URL | About | ☐ |
+| ~~Final founder bio (~120 words) + LinkedIn URL~~ — dropped at M5a (About is a company story, no founder) | About | ✓ n/a |
 | Headshot decision (yes/no, asset) | About | ☐ |
 | One example deliverable line per pillar | Services | ☐ (can draft together) |
 | Industry problem statements (or approve drafts) | Industries, Home | ☐ |
@@ -277,7 +282,7 @@ Each milestone is a PR. Review between milestones; design tokens reviewed at end
 
 **Blocking before M5:**
 - [ ] Name/domain/trademark check (§1)
-- [ ] Founder bio + contact email (§8)
+- [ ] Contact email (§8) — founder bio dropped at M5a (About is now a company story)
 - [ ] Form backend choice (§5.6)
 
 **Non-blocking (flagged off):**
