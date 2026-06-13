@@ -143,7 +143,9 @@ export const home = {
     },
     messagePlaceholder: 'Two or three lines is plenty.',
     submit: 'Start the conversation',
-    // Shown when the form backend isn't wired yet (M5). DRAFT COPY.
-    pendingNote: 'The form goes live with the site launch — check back shortly.',
+    sending: 'Sending…',
+    // Post-submit states (M5b — form wired to Formspree). DRAFT COPY.
+    successNote: 'Thanks — your message is on its way. We’ll be in touch.',
+    errorNote: 'That didn’t send. Please try again in a moment.',
   },
 } as const;
