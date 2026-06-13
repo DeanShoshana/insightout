@@ -2,7 +2,7 @@
 import { home } from '../content/home';
 import { withBase } from '../lib/url';
 
-const logoSrc = withBase('/brand/insightout-logo-light.svg');
+const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
 const { triad, subline, cta } = home.hero;
 ---
 
@@ -12,7 +12,7 @@ const { triad, subline, cta } = home.hero;
      cascade to an instant final state. -->
 <section class="hero" data-hero>
   <div class="container hero__inner" data-hero-inner>
-    <img class="hero__logo" src={logoSrc} alt="InsightOut" width="300" height="90" />
+    <img class="hero__logo" src={logoSrc} alt="Claritix" width="900" height="217" />
 
     <h1 class="hero__triad">
       {
@@ -80,7 +80,8 @@ const { triad, subline, cta } = home.hero;
   }
 
   .hero__logo {
-    inline-size: clamp(200px, 24vw, 300px);
+    /* Wide wordmark (4.15:1) — sized by width; min stays within 360px gutters. */
+    inline-size: clamp(240px, 40vw, 460px);
     block-size: auto;
     margin-block-end: clamp(2rem, 5vw, 3.5rem);
     animation: hero-rise 1.2s var(--ease-luxe) both;

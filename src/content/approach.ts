@@ -17,7 +17,7 @@ export const approach = {
     paragraphs: [
       'The practice began in research: careful questions, honest measurement, conclusions that survive scrutiny. Research has a low tolerance for convenient answers — the evidence either holds or it doesn’t.',
       'Startups taught the opposite lesson: a rigorous answer that arrives late is worth nothing. Product analytics, experimentation, growth — the questions are research questions, but the clock is a business clock.',
-      'InsightOut is the merger of the two. Research standards applied to commercial questions, delivered at the speed those questions are actually decided.',
+      'Claritix is the merger of the two. Research standards applied to commercial questions, delivered at the speed those questions are actually decided.',
     ],
   },
 
