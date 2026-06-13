@@ -1,11 +1,10 @@
 import { defineConfig } from 'astro/config';
 
-// GitHub Pages project site: served from https://<username>.github.io/insightout/
-// `site` + `base` make asset URLs and links resolve correctly under the subpath.
-// When the custom domain (SPEC §10) resolves, set base back to '/' and update `site`.
+// Served from the custom domain claritix.co at the root path.
+// (Was a GitHub Pages project site at /insightout/; moved to the apex domain.)
 export default defineConfig({
-  site: 'https://deanshoshana.github.io',
-  base: '/insightout',
+  site: 'https://claritix.co',
+  base: '/',
   output: 'static',
   trailingSlash: 'ignore',
 });
