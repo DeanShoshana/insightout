@@ -1,17 +1,16 @@
 ---
 // Closing CTA (SPEC §5.1 #6 / §5.6): "Work with Claritix" — name, email,
-// one-line message. No dropdowns, no budget selectors. The backend choice is
-// OPEN (§5.6); wiring happens at M5. Until siteConfig.contact.target is set,
-// submit shows an honest "not live yet" note instead of pretending to send.
+// one-line message. No dropdowns, no budget selectors.
+// M5b: wired to Formspree. The endpoint is public by design; the destination
+// address stays server-side — no email is ever rendered into the markup.
 import { home } from '../content/home';
 import { siteConfig } from '../../site.config';
 
 const { contact } = home;
 const { mode, target } = siteConfig.contact;
-
-// Forward-compatible: when M5 sets a target, the form posts without code changes.
-const action =
-  target === '' ? undefined : mode === 'endpoint' ? target : `mailto:${target}`;
+const action = mode === 'endpoint' ? target : target ? `mailto:${target}` : undefined;
+// Only endpoint submissions are AJAX-enhanced; mailto (if ever used) falls back.
+const ajax = mode === 'endpoint' && !!action;
 ---
 
 <section class="contact" id="contact">
@@ -25,11 +24,15 @@ const action =
 
     <form
       class="contact__form"
-      method={action ? 'POST' : 'GET'}
+      method="POST"
       action={action}
       data-reveal
+      data-ajax={ajax ? 'true' : 'false'}
+      data-sending={contact.sending}
+      data-submit={contact.submit}
+      data-success={contact.successNote}
+      data-error={contact.errorNote}
       style="--reveal-delay: 80ms"
-      data-wired={action ? 'true' : 'false'}
     >
       <div class="contact__row">
         <div class="contact__field">
@@ -53,22 +56,76 @@ const action =
           required></textarea>
       </div>
 
+      <!-- Formspree honeypot: bots fill it, humans never see it; if set,
+           Formspree silently drops the submission. -->
+      <input
+        class="contact__gotcha"
+        type="text"
+        name="_gotcha"
+        tabindex="-1"
+        autocomplete="off"
+        aria-hidden="true"
+      />
+
       <button class="contact__submit" type="submit" data-magnetic>{contact.submit}</button>
 
-      <!-- DRAFT COPY -->
-      <p class="contact__pending" role="status" hidden>{contact.pendingNote}</p>
+      <!-- DRAFT COPY — post-submit states, announced politely. -->
+      <p class="contact__status" role="status" aria-live="polite" hidden></p>
     </form>
   </div>
 </section>
 
 <script>
-  // Until the backend is wired (M5), block submission and show the honest note.
   const form = document.querySelector<HTMLFormElement>('.contact__form');
-  if (form && form.dataset.wired === 'false') {
-    form.addEventListener('submit', (e) => {
+  if (form && form.dataset.ajax === 'true') {
+    const status = form.querySelector<HTMLElement>('.contact__status')!;
+    const submit = form.querySelector<HTMLButtonElement>('.contact__submit')!;
+    const successNote = form.dataset.success!;
+    const errorNote = form.dataset.error!;
+    const sending = form.dataset.sending!;
+    const submitLabel = form.dataset.submit!;
+
+    const setStatus = (msg: string, kind: 'error' | '') => {
+      status.textContent = msg;
+      status.hidden = false;
+      status.classList.toggle('is-error', kind === 'error');
+    };
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const note = form.querySelector<HTMLElement>('.contact__pending');
-      if (note) note.hidden = false;
+      // Let native required/email validation gate the submit.
+      if (!form.reportValidity()) return;
+
+      submit.disabled = true;
+      submit.textContent = sending;
+      status.hidden = true;
+      status.classList.remove('is-error');
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (res.ok) {
+          // Replace the form with the success message (no reload jank). A state
+          // class hides every field/control — the `hidden` attribute alone is
+          // overridden by the fields' own display rules (equal specificity).
+          form.reset();
+          form.classList.add('is-sent');
+          setStatus(successNote, '');
+          status.setAttribute('tabindex', '-1');
+          status.focus();
+        } else {
+          setStatus(errorNote, 'error');
+          submit.disabled = false;
+          submit.textContent = submitLabel;
+        }
+      } catch {
+        setStatus(errorNote, 'error');
+        submit.disabled = false;
+        submit.textContent = submitLabel;
+      }
     });
   }
 </script>
@@ -209,10 +266,46 @@ const action =
     box-shadow: 0 8px 24px rgba(36, 112, 229, 0.28);
   }
 
-  .contact__pending {
+  /* Honeypot: removed from layout and the a11y tree, off-screen for bots. */
+  .contact__gotcha {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  /* Sent state: hide every field/control, leave only the status message.
+     Higher specificity than the fields' own display rules, so it wins. */
+  .contact__form.is-sent > :not(.contact__status) {
+    display: none;
+  }
+
+  .contact__status {
     margin: 0;
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--graphite);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .contact__form.is-sent .contact__status {
+    font-size: clamp(1.1rem, 2vw, 1.3rem);
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  /* Error keeps the form visible for retry (the success path hides it), so it
+     reads as an error from context — no new color token introduced. */
+  .contact__status.is-error {
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: var(--ink);
+  }
+
+  .contact__status:focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 4px;
   }
 </style>

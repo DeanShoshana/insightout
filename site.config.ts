@@ -43,8 +43,10 @@ export const siteConfig: SiteConfig = {
   },
 
   contact: {
-    mode: 'mailto',
-    target: '',
+    // Formspree endpoint (M5b). Public by design — the destination address
+    // stays server-side with Formspree; no email appears in the markup.
+    mode: 'endpoint',
+    target: 'https://formspree.io/f/xjgdpndn',
   },
 
   analytics: {
