@@ -20,59 +20,73 @@ const ajax = mode === 'endpoint' && !!action;
       <p class="contact__kicker">{contact.kicker}</p>
       <h2 class="contact__headline">{contact.headline}</h2>
       <p class="contact__body">{contact.body}</p>
+      <div class="contact__constellation" aria-hidden="true">
+        <span>Product question</span>
+        <span>Evidence base</span>
+        <span>Decision frame</span>
+      </div>
     </div>
 
-    <form
-      class="contact__form"
-      method="POST"
-      action={action}
-      data-reveal
-      data-ajax={ajax ? 'true' : 'false'}
-      data-sending={contact.sending}
-      data-submit={contact.submit}
-      data-success={contact.successNote}
-      data-error={contact.errorNote}
-      data-spotlight
-      style="--reveal-delay: 80ms"
-    >
-      <div class="contact__row">
-        <div class="contact__field">
-          <label for="contact-name">{contact.fields.name}</label>
-          <input id="contact-name" name="name" type="text" autocomplete="name" required />
+    <div class="contact__workspace" data-reveal data-spotlight style="--reveal-delay: 80ms">
+      <div class="contact__motion" aria-hidden="true">
+        <span class="contact__motion-card contact__motion-card--one"></span>
+        <span class="contact__motion-card contact__motion-card--two"></span>
+        <span class="contact__motion-card contact__motion-card--three"></span>
+        <span class="contact__motion-line contact__motion-line--one"></span>
+        <span class="contact__motion-line contact__motion-line--two"></span>
+        <span class="contact__motion-node contact__motion-node--one"></span>
+        <span class="contact__motion-node contact__motion-node--two"></span>
+      </div>
+
+      <form
+        class="contact__form"
+        method="POST"
+        action={action}
+        data-ajax={ajax ? 'true' : 'false'}
+        data-sending={contact.sending}
+        data-submit={contact.submit}
+        data-success={contact.successNote}
+        data-error={contact.errorNote}
+      >
+        <div class="contact__row">
+          <div class="contact__field">
+            <label for="contact-name">{contact.fields.name}</label>
+            <input id="contact-name" name="name" type="text" autocomplete="name" required />
+          </div>
+
+          <div class="contact__field">
+            <label for="contact-email">{contact.fields.email}</label>
+            <input id="contact-email" name="email" type="email" autocomplete="email" required />
+          </div>
         </div>
 
         <div class="contact__field">
-          <label for="contact-email">{contact.fields.email}</label>
-          <input id="contact-email" name="email" type="email" autocomplete="email" required />
+          <label for="contact-message">{contact.fields.message}</label>
+          <textarea
+            id="contact-message"
+            name="message"
+            rows="3"
+            placeholder={contact.messagePlaceholder}
+            required></textarea>
         </div>
-      </div>
 
-      <div class="contact__field">
-        <label for="contact-message">{contact.fields.message}</label>
-        <textarea
-          id="contact-message"
-          name="message"
-          rows="3"
-          placeholder={contact.messagePlaceholder}
-          required></textarea>
-      </div>
+        <!-- Formspree honeypot: bots fill it, humans never see it; if set,
+             Formspree silently drops the submission. -->
+        <input
+          class="contact__gotcha"
+          type="text"
+          name="_gotcha"
+          tabindex="-1"
+          autocomplete="off"
+          aria-hidden="true"
+        />
 
-      <!-- Formspree honeypot: bots fill it, humans never see it; if set,
-           Formspree silently drops the submission. -->
-      <input
-        class="contact__gotcha"
-        type="text"
-        name="_gotcha"
-        tabindex="-1"
-        autocomplete="off"
-        aria-hidden="true"
-      />
+        <button class="contact__submit" type="submit" data-magnetic>{contact.submit}</button>
 
-      <button class="contact__submit" type="submit" data-magnetic>{contact.submit}</button>
-
-      <!-- DRAFT COPY - post-submit states, announced politely. -->
-      <p class="contact__status" role="status" aria-live="polite" hidden></p>
-    </form>
+        <!-- DRAFT COPY - post-submit states, announced politely. -->
+        <p class="contact__status" role="status" aria-live="polite" hidden></p>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -163,9 +177,9 @@ const ajax = mode === 'endpoint' && !!action;
   .contact__inner {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
     gap: clamp(2rem, 6vw, 5rem);
-    align-items: start;
+    align-items: center;
   }
 
   @media (max-width: 860px) {
@@ -194,8 +208,196 @@ const ajax = mode === 'endpoint' && !!action;
     max-inline-size: 34ch;
   }
 
+  .contact__constellation {
+    display: grid;
+    gap: 0.65rem;
+    max-inline-size: 22rem;
+    margin-block-start: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .contact__constellation span {
+    position: relative;
+    min-block-size: 2.6rem;
+    display: flex;
+    align-items: center;
+    padding-inline: 0.85rem 2.3rem;
+    border: 1px solid color-mix(in srgb, var(--signal) 18%, var(--hairline));
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--surface) 58%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    color: var(--ink);
+    font-weight: 650;
+    box-shadow: 0 16px 40px color-mix(in srgb, var(--ink) 5%, transparent);
+  }
+
+  .contact__constellation span::after {
+    content: '';
+    position: absolute;
+    inset-inline-end: 0.85rem;
+    inset-block-start: 50%;
+    inline-size: 0.55rem;
+    block-size: 0.55rem;
+    transform: translateY(-50%);
+    border-radius: 999px;
+    background: var(--signal);
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--signal) 12%, transparent);
+  }
+
+  .contact__workspace {
+    position: relative;
+    min-block-size: clamp(520px, 44vw, 640px);
+    display: grid;
+    align-items: end;
+    padding: clamp(1rem, 2vw, 1.4rem);
+    border-radius: calc(var(--radius-card) + 8px);
+    background:
+      radial-gradient(
+        520px circle at 74% 16%,
+        color-mix(in srgb, var(--signal) 18%, transparent),
+        transparent 64%
+      ),
+      linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--surface) 92%, var(--glass-hi)) 0%,
+        color-mix(in srgb, var(--surface-2) 82%, var(--surface)) 100%
+      );
+    box-shadow:
+      0 28px 90px color-mix(in srgb, var(--ink) 10%, transparent),
+      inset 0 1px 0 color-mix(in srgb, white 58%, transparent);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .contact__workspace::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      420px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      color-mix(in srgb, var(--signal) 13%, transparent),
+      transparent 70%
+    );
+    opacity: var(--spot-o, 0);
+    transition: opacity 0.7s var(--ease-luxe);
+  }
+
+  .contact__motion {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .contact__motion-card {
+    position: absolute;
+    border: 1px solid color-mix(in srgb, var(--signal) 22%, var(--hairline));
+    border-radius: 22px;
+    background:
+      linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--surface) 74%, transparent),
+        color-mix(in srgb, var(--glass-hi) 45%, transparent)
+      );
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 70px color-mix(in srgb, var(--ink) 9%, transparent);
+  }
+
+  .contact__motion-card::before,
+  .contact__motion-card::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: 16%;
+    block-size: 3px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--glass-lo) 70%, transparent);
+  }
+
+  .contact__motion-card::before {
+    inset-block-start: 34%;
+    inline-size: 54%;
+  }
+
+  .contact__motion-card::after {
+    inset-block-start: 54%;
+    inline-size: 34%;
+    background: var(--signal);
+  }
+
+  .contact__motion-card--one {
+    inline-size: 36%;
+    aspect-ratio: 1.65;
+    inset-inline-start: 8%;
+    inset-block-start: 9%;
+    transform: rotate(-6deg);
+  }
+
+  .contact__motion-card--two {
+    inline-size: 24%;
+    aspect-ratio: 0.72;
+    inset-inline-end: 11%;
+    inset-block-start: 14%;
+    transform: rotate(5deg);
+  }
+
+  .contact__motion-card--three {
+    inline-size: 30%;
+    aspect-ratio: 1.45;
+    inset-inline-start: 32%;
+    inset-block-start: 34%;
+    transform: rotate(2deg);
+  }
+
+  .contact__motion-line {
+    position: absolute;
+    block-size: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--signal) 64%, transparent),
+      transparent
+    );
+    opacity: 0.72;
+  }
+
+  .contact__motion-line--one {
+    inline-size: 62%;
+    inset-inline-start: 17%;
+    inset-block-start: 32%;
+    transform: rotate(8deg);
+  }
+
+  .contact__motion-line--two {
+    inline-size: 56%;
+    inset-inline-start: 22%;
+    inset-block-start: 48%;
+    transform: rotate(-7deg);
+  }
+
+  .contact__motion-node {
+    position: absolute;
+    inline-size: 10px;
+    block-size: 10px;
+    border-radius: 999px;
+    background: var(--signal);
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--signal) 12%, transparent);
+  }
+
+  .contact__motion-node--one {
+    inset-inline-start: 28%;
+    inset-block-start: 31%;
+  }
+
+  .contact__motion-node--two {
+    inset-inline-end: 25%;
+    inset-block-start: 47%;
+  }
+
   .contact__form {
     position: relative;
+    z-index: 1;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -204,26 +406,14 @@ const ajax = mode === 'endpoint' && !!action;
       linear-gradient(180deg, color-mix(in srgb, var(--surface) 94%, var(--on-ink)) 0%, var(--surface) 100%);
     border: 1px solid color-mix(in srgb, var(--hairline) 78%, transparent);
     border-radius: var(--radius-card);
-    box-shadow: var(--shadow-card);
+    box-shadow:
+      var(--shadow-card-hover),
+      0 18px 60px color-mix(in srgb, var(--signal) 9%, transparent);
     padding: clamp(1.5rem, 3vw, 2rem);
     transition:
       border-color var(--dur-med) var(--ease-out),
       box-shadow var(--dur-med) var(--ease-out),
       transform var(--dur-med) var(--ease-out);
-  }
-
-  .contact__form::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: radial-gradient(
-      420px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-      color-mix(in srgb, var(--signal) 12%, transparent),
-      transparent 70%
-    );
-    opacity: var(--spot-o, 0);
-    transition: opacity 0.7s var(--ease-luxe);
   }
 
   .contact__form:focus-within {
@@ -245,6 +435,98 @@ const ajax = mode === 'endpoint' && !!action;
     background: linear-gradient(90deg, var(--speed-from), var(--speed-to));
   }
 
+  @media (prefers-reduced-motion: no-preference) {
+    .contact__motion-card--one {
+      animation: contact-float-a 11s var(--ease-luxe) infinite;
+    }
+
+    .contact__motion-card--two {
+      animation: contact-float-b 10s var(--ease-luxe) infinite;
+    }
+
+    .contact__motion-card--three {
+      animation: contact-float-c 12s var(--ease-luxe) infinite;
+    }
+
+    .contact__motion-node {
+      animation: contact-node 4.2s var(--ease-luxe) infinite;
+    }
+
+    .contact__motion-node--two {
+      animation-delay: -1.7s;
+    }
+
+    .contact__constellation span {
+      animation: contact-chip 8s var(--ease-luxe) infinite;
+    }
+
+    .contact__constellation span:nth-child(2) {
+      animation-delay: -1.6s;
+    }
+
+    .contact__constellation span:nth-child(3) {
+      animation-delay: -3.1s;
+    }
+  }
+
+  @keyframes contact-float-a {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(-6deg);
+    }
+
+    50% {
+      transform: translate3d(18px, -14px, 0) rotate(-3deg);
+    }
+  }
+
+  @keyframes contact-float-b {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(5deg);
+    }
+
+    50% {
+      transform: translate3d(-14px, 18px, 0) rotate(2deg);
+    }
+  }
+
+  @keyframes contact-float-c {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(2deg);
+    }
+
+    50% {
+      transform: translate3d(-12px, -10px, 0) rotate(5deg);
+    }
+  }
+
+  @keyframes contact-node {
+    0%,
+    54%,
+    100% {
+      opacity: 0.5;
+      transform: scale(0.92);
+    }
+
+    20% {
+      opacity: 1;
+      transform: scale(1.14);
+    }
+  }
+
+  @keyframes contact-chip {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+
+    50% {
+      transform: translate3d(8px, -8px, 0);
+    }
+  }
+
   .contact__row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -254,6 +536,33 @@ const ajax = mode === 'endpoint' && !!action;
   @media (max-width: 560px) {
     .contact__row {
       grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 860px) {
+    .contact__workspace {
+      min-block-size: auto;
+      padding: 0.9rem;
+    }
+
+    .contact__motion {
+      opacity: 0.5;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .contact__constellation {
+      display: none;
+    }
+
+    .contact__motion-card--three,
+    .contact__motion-line--two,
+    .contact__motion-node--two {
+      display: none;
+    }
+
+    .contact__form {
+      padding: 1rem;
     }
   }
 

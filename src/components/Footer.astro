@@ -11,7 +11,7 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
      targets {base}/#contact); the footer must not duplicate the id. --><footer class="footer">
   <div class="container footer__inner">
     <div class="footer__brand">
-      <img class="footer__logo" src={logoSrc} alt="Claritix" width="200" height="48" />
+      <img class="footer__logo" src={logoSrc} alt="Claritix" width="900" height="217" />
       <p class="footer__tagline">{siteConfig.tagline}</p>
     </div>
 
@@ -53,9 +53,11 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
   }
 
   .footer__logo {
-    inline-size: auto;
-    block-size: 44px;
+    inline-size: 182px;
+    block-size: auto;
     margin-block-end: 1rem;
+    transform: translateZ(0);
+    image-rendering: auto;
   }
 
   .footer__tagline {
