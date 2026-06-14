@@ -1,10 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
+import ServiceVisual, { type ServiceVisualVariant } from '../components/ServiceVisual.astro';
 import { industries } from '../content/industries';
 import { withBase } from '../lib/url';
 
 const { intro, items, closing } = industries;
+const visualMap: Record<(typeof items)[number]['visual'], ServiceVisualVariant> = {
+  product: 'product',
+  behavior: 'behavior',
+  data: 'data',
+  market: 'market',
+};
 ---
 
 <Base
@@ -17,17 +24,33 @@ const { intro, items, closing } = industries;
 
   <div class="industries">
     <div class="container">
+      <div class="industries__thread" data-reveal>
+        <span>Product reality</span>
+        <span>Behavioral signal</span>
+        <span>Operating data</span>
+        <span>Market context</span>
+      </div>
+
       {
         items.map((item, i) => (
-          <article class="industry" data-reveal style={`--reveal-delay: ${i * 80}ms`}>
-            <div class="industry__head">
+          <article class="industry" data-reveal data-spotlight style={`--reveal-delay: ${i * 80}ms`}>
+            <div class="industry__visual" aria-hidden="true">
+              <ServiceVisual variant={visualMap[item.visual]} size="feature" />
+            </div>
+
+            <div class="industry__story">
               <h2 class="industry__label">{item.label}</h2>
               <p class="industry__entry">{item.entry}</p>
-              <p class="industry__question">“{item.question}”</p>
+              <p class="industry__problem">{item.problem}</p>
             </div>
 
             <div class="industry__detail">
-              <p class="industry__problem">{item.problem}</p>
+              <p class="industry__detail-label">Representative question</p>
+              <p class="industry__question">“{item.question}”</p>
+
+              <p class="industry__detail-label">Added value</p>
+              <p class="industry__value">{item.value}</p>
+
               <p class="industry__pillars-label">Typically engages</p>
               <ul class="industry__pillars">
                 {item.pillars.map((p) => (
@@ -36,6 +59,11 @@ const { intro, items, closing } = industries;
                   </li>
                 ))}
               </ul>
+
+              <a class="industry__cta" href={withBase(item.cta.anchor)}>
+                {item.cta.label}
+                <span aria-hidden="true">→</span>
+              </a>
             </div>
           </article>
         ))
@@ -57,12 +85,104 @@ const { intro, items, closing } = industries;
     padding-block: clamp(1rem, 3vw, 2rem) var(--section-pad);
   }
 
-  .industry {
+  .industries__thread {
     display: grid;
-    grid-template-columns: 1fr 1.4fr;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-block: 0 clamp(2rem, 5vw, 4rem);
+  }
+
+  .industries__thread span {
+    position: relative;
+    min-block-size: 4.25rem;
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    color: var(--graphite);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+  }
+
+  .industries__thread span::after {
+    content: '';
+    position: absolute;
+    inset-inline: 1rem;
+    inset-block-end: 0.8rem;
+    block-size: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--speed-from), var(--signal));
+    opacity: 0.72;
+  }
+
+  .industry {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(210px, 0.72fr) minmax(0, 1fr) minmax(290px, 0.9fr);
     gap: clamp(1.5rem, 4vw, 4rem);
-    padding-block: clamp(2.5rem, 5vw, 4rem);
-    border-block-start: 2px solid var(--ink);
+    align-items: center;
+    margin-block-end: clamp(1.25rem, 3vw, 2rem);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border-radius: var(--radius-card);
+    background:
+      radial-gradient(
+        420px circle at var(--spot-x, 72%) var(--spot-y, 18%),
+        color-mix(in srgb, var(--signal) 10%, transparent),
+        transparent 64%
+      ),
+      var(--surface);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition:
+      transform var(--dur-hover) var(--ease-luxe),
+      box-shadow var(--dur-hover) var(--ease-luxe);
+  }
+
+  .industry:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .industry::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: radial-gradient(
+      360px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      color-mix(in srgb, var(--signal) 9%, transparent),
+      transparent 70%
+    );
+    opacity: var(--spot-o, 0);
+    transition: opacity 0.6s var(--ease-luxe);
+  }
+
+  .industry__visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1.08;
+    border-radius: calc(var(--radius-card) - 4px);
+    background:
+      radial-gradient(
+        260px circle at 68% 22%,
+        color-mix(in srgb, var(--signal) 15%, transparent),
+        transparent 62%
+      ),
+      linear-gradient(
+        150deg,
+        var(--surface) 0%,
+        var(--glass-hi) 58%,
+        color-mix(in srgb, var(--glass-lo) 34%, var(--glass-hi)) 100%
+      );
+    overflow: hidden;
+  }
+
+  .industry__visual :global(.service-visual) {
+    inline-size: min(86%, 320px);
   }
 
   @media (max-width: 860px) {
@@ -70,16 +190,45 @@ const { intro, items, closing } = industries;
       grid-template-columns: 1fr;
       gap: 1rem;
     }
+
+    .industry__visual {
+      max-inline-size: 340px;
+      inline-size: 100%;
+      margin-inline: auto;
+    }
   }
 
   .industry__label {
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-size: clamp(1.8rem, 3.4vw, 2.65rem);
     margin-block-end: 0.75rem;
   }
 
   .industry__entry {
-    color: var(--graphite);
+    font-weight: 600;
+    color: var(--ink);
     margin-block-end: 1rem;
+  }
+
+  .industry__problem {
+    color: var(--graphite);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  .industry__detail {
+    position: relative;
+    z-index: 1;
+    padding-inline-start: clamp(0rem, 2vw, 1.25rem);
+    border-inline-start: 1px solid var(--hairline);
+  }
+
+  .industry__detail-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--graphite);
+    margin-block: 0 0.35rem;
   }
 
   .industry__question {
@@ -87,12 +236,12 @@ const { intro, items, closing } = industries;
     font-size: 0.95rem;
     color: var(--signal-text);
     max-inline-size: 24rem;
-    margin: 0;
+    margin-block: 0 1.35rem;
   }
 
-  .industry__problem {
+  .industry__value {
     color: var(--graphite);
-    font-size: 1.1rem;
+    font-size: 0.98rem;
     margin-block-end: 1.5rem;
   }
 
@@ -132,6 +281,22 @@ const { intro, items, closing } = industries;
     transform: translateY(-1px);
   }
 
+  .industry__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-block-start: 1.5rem;
+    font-weight: 700;
+  }
+
+  .industry__cta span {
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .industry__cta:hover span {
+    transform: translateX(3px);
+  }
+
   .industries__closing {
     max-inline-size: 52rem;
     margin-block-start: clamp(2rem, 5vw, 4rem);
@@ -168,5 +333,53 @@ const { intro, items, closing } = industries;
 
   .industries__closing a:hover span {
     transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .industry:hover {
+      transform: translateY(-6px);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .industries__thread {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem;
+    }
+
+    .industries__thread span {
+      min-block-size: 3.7rem;
+      padding: 0.75rem 0.8rem;
+      font-size: 0.68rem;
+    }
+
+    .industry {
+      padding: 1rem;
+    }
+
+    .industry__detail {
+      padding-inline-start: 0;
+      border-inline-start: 0;
+      border-block-start: 1px solid var(--hairline);
+      padding-block-start: 1rem;
+    }
+
+    .industry__visual {
+      max-inline-size: 310px;
+    }
+
+    .industry__label {
+      font-size: clamp(1.9rem, 9vw, 2.35rem);
+    }
+
+    .industry__problem,
+    .industry__value {
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .industries__closing {
+      padding: 1.25rem;
+    }
   }
 </style>
