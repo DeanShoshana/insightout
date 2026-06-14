@@ -36,13 +36,13 @@ export const approach = {
     parts: [
       {
         name: 'Product',
-        kicker: 'Question framing',
-        body: 'Clarify the product decision before touching the data: which user, which journey, which business outcome, which tradeoff.',
+        kicker: 'Characterization & growth fit',
+        body: 'Characterize the product before it becomes a build list: connect the market, growth question, user journey, and business model, then turn mockups into production-ready product direction.',
       },
       {
         name: 'Technology',
-        kicker: 'Buildable direction',
-        body: 'Translate strategy into product surfaces, instrumentation, requirements, and implementation-ready choices the team can use.',
+        kicker: 'Feasibility & implementation',
+        body: 'Translate that direction into technical reality: surfaces, instrumentation, requirements, constraints, and implementation choices the team can actually ship.',
       },
       {
         name: 'Analytics',

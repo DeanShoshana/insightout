@@ -57,9 +57,9 @@ export const home = {
       {
         pillar: 'Technology & Product',
         engine: 'Product',
-        headline: 'Turn product questions into buildable direction.',
+        headline: 'Turn product questions into production-ready direction.',
         offerings: [
-          'Product discovery & opportunity framing',
+          'Product characterization & opportunity framing',
           'Mobile and web experience characterization',
           'Analytics instrumentation planning',
         ],
