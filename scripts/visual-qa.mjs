@@ -89,7 +89,9 @@ async function main() {
       for (const [viewportName, viewport] of viewports) {
         const context = await browser.newContext({
           viewport,
-          reducedMotion: 'no-preference',
+          // Full-page screenshots should capture the complete static fallback,
+          // not below-the-fold elements still waiting for scroll reveal.
+          reducedMotion: 'reduce',
         });
         await context.addInitScript((theme) => {
           localStorage.setItem('theme', theme);
