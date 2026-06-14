@@ -1,7 +1,7 @@
 {
   "name": "Claritix",
   "short_name": "Claritix",
-  "description": "Analytical and product services, grounded in business strategy.",
+  "description": "Your product and analytics function, on demand.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

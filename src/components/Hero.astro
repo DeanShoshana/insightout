@@ -7,7 +7,7 @@ const { triad, subline, cta } = home.hero;
 ---
 
 <!-- Hero (SPEC §5.1 #1). Load cascade per §6: logo settles first, triad words
-     stagger in (~120ms offsets), sub-line and CTA follow. Pure CSS keyframes —
+     stagger in (~120ms offsets), sub-line and CTA follow. Pure CSS keyframes -
      content is never JS-gated, and the global reduced-motion rule collapses the
      cascade to an instant final state. -->
 <section class="hero" data-hero>
@@ -39,7 +39,7 @@ const { triad, subline, cta } = home.hero;
 <script>
   // Scroll-linked hero exit (SPEC §6): content eases up/out with slight
   // scale-down as the user scrolls toward problem framing. Scroll position
-  // drives the animation — no pinning, no scroll-jacking. GSAP is allowed
+  // drives the animation - no pinning, no scroll-jacking. GSAP is allowed
   // here and for the Engine scene only (SPEC §7).
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -80,7 +80,7 @@ const { triad, subline, cta } = home.hero;
   }
 
   .hero__logo {
-    /* Wide wordmark (4.15:1) — sized by width; min stays within 360px gutters. */
+    /* Wide wordmark (4.15:1) - sized by width; min stays within 360px gutters. */
     inline-size: clamp(240px, 40vw, 460px);
     block-size: auto;
     margin-block-end: clamp(2rem, 5vw, 3.5rem);

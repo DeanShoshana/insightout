@@ -1,8 +1,8 @@
 ---
-// Closing CTA (SPEC §5.1 #6 / §5.6): "Work with Claritix" — name, email,
+// Closing CTA (SPEC §5.1 #6 / §5.6): "Work with Claritix" - name, email,
 // one-line message. No dropdowns, no budget selectors.
 // M5b: wired to Formspree. The endpoint is public by design; the destination
-// address stays server-side — no email is ever rendered into the markup.
+// address stays server-side - no email is ever rendered into the markup.
 import { home } from '../content/home';
 import { siteConfig } from '../../site.config';
 
@@ -69,7 +69,7 @@ const ajax = mode === 'endpoint' && !!action;
 
       <button class="contact__submit" type="submit" data-magnetic>{contact.submit}</button>
 
-      <!-- DRAFT COPY — post-submit states, announced politely. -->
+      <!-- DRAFT COPY - post-submit states, announced politely. -->
       <p class="contact__status" role="status" aria-live="polite" hidden></p>
     </form>
   </div>
@@ -109,7 +109,7 @@ const ajax = mode === 'endpoint' && !!action;
         });
         if (res.ok) {
           // Replace the form with the success message (no reload jank). A state
-          // class hides every field/control — the `hidden` attribute alone is
+          // class hides every field/control - the `hidden` attribute alone is
           // overridden by the fields' own display rules (equal specificity).
           form.reset();
           form.classList.add('is-sent');
@@ -181,7 +181,7 @@ const ajax = mode === 'endpoint' && !!action;
     padding: clamp(1.5rem, 3vw, 2rem);
   }
 
-  /* Speed-line accent (§6: the one accent spikes at insight/CTA moments) —
+  /* Speed-line accent (§6: the one accent spikes at insight/CTA moments) -
      lifts the card out of default-contact-box territory. */
   .contact__form::before {
     content: '';
@@ -297,7 +297,7 @@ const ajax = mode === 'endpoint' && !!action;
   }
 
   /* Error keeps the form visible for retry (the success path hides it), so it
-     reads as an error from context — no new color token introduced. */
+     reads as an error from context - no new color token introduced. */
   .contact__status.is-error {
     font-weight: 400;
     font-size: 0.9rem;

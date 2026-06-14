@@ -1,4 +1,4 @@
-# CLAUDE.md - Claritix Website
+# AGENTS.md - Claritix Website
 
 ## What this project is
 Marketing site for **Claritix** - a boutique product, analytics, and strategy consultancy.
