@@ -1,10 +1,28 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
+import ServiceVisual, { type ServiceVisualVariant } from '../components/ServiceVisual.astro';
 import { industries } from '../content/industries';
+import { services } from '../content/services';
 import { withBase } from '../lib/url';
 
 const { intro, items, closing } = industries;
+const serviceNav = services.pillars.map(({ id, navLabel }) => ({ id, navLabel }));
+const visualMap: Record<(typeof items)[number]['visual'], ServiceVisualVariant> = {
+  product: 'product',
+  behavior: 'behavior',
+  data: 'data',
+  market: 'market',
+};
+const signalCards = [
+  { label: 'Concept', body: 'Shape the product before it becomes a backlog.' },
+  { label: 'Market', body: 'Connect the product to category and buyer reality.' },
+  { label: 'Workflow', body: 'Map the user, team, and operational context.' },
+  { label: 'Evidence', body: 'Define the signals that make the decision defensible.' },
+  { label: 'Build', body: 'Translate direction into requirements and mockups.' },
+  { label: 'Data', body: 'Connect product behavior to operating evidence.' },
+  { label: 'Decision', body: 'Carry the recommendation into the business frame.' },
+];
 ---
 
 <Base
@@ -15,19 +33,59 @@ const { intro, items, closing } = industries;
        pillars, representative questions. No logos, no client grids. -->
   <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede} />
 
+  <nav class="subnav" aria-label="Service practices">
+    <div class="container subnav__inner">
+      <ul>
+        {
+          serviceNav.map((p) => (
+            <li>
+              <a class="subnav__link" href={withBase(`/services#${p.id}`)}>
+                {p.navLabel}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </nav>
+
   <div class="industries">
+    <div class="industries__marquee" data-reveal aria-label="Evidence signals Claritix connects across industries">
+      <div class="industries__marquee-track">
+        {[0, 1].map((setIndex) => (
+          <div class="industries__marquee-set" aria-hidden={setIndex === 1 ? 'true' : undefined}>
+            {signalCards.map((card) => (
+              <article class="signal-card">
+                <p>{card.label}</p>
+                <span>{card.body}</span>
+              </article>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+
     <div class="container">
       {
         items.map((item, i) => (
-          <article class="industry" data-reveal style={`--reveal-delay: ${i * 80}ms`}>
-            <div class="industry__head">
+          <article class="industry" data-reveal data-spotlight style={`--reveal-delay: ${i * 80}ms`}>
+            <div class="industry__visual" aria-hidden="true">
+              <ServiceVisual variant={visualMap[item.visual]} size="feature" />
+            </div>
+
+            <div class="industry__story">
               <h2 class="industry__label">{item.label}</h2>
               <p class="industry__entry">{item.entry}</p>
-              <p class="industry__question">“{item.question}”</p>
+              <p class="industry__problem">{item.problem}</p>
             </div>
 
             <div class="industry__detail">
-              <p class="industry__problem">{item.problem}</p>
+              <p class="industry__detail-label">Representative question</p>
+              <p class="industry__question">“{item.question}”</p>
+
+              <p class="industry__detail-label">Added value</p>
+              <p class="industry__value">{item.value}</p>
+
               <p class="industry__pillars-label">Typically engages</p>
               <ul class="industry__pillars">
                 {item.pillars.map((p) => (
@@ -36,6 +94,11 @@ const { intro, items, closing } = industries;
                   </li>
                 ))}
               </ul>
+
+              <a class="industry__cta" href={withBase(item.cta.anchor)}>
+                {item.cta.label}
+                <span aria-hidden="true">→</span>
+              </a>
             </div>
           </article>
         ))
@@ -54,15 +117,198 @@ const { intro, items, closing } = industries;
 
 <style>
   .industries {
-    padding-block: clamp(1rem, 3vw, 2rem) var(--section-pad);
+    padding-block: 0 var(--section-pad);
+  }
+
+  .subnav {
+    position: sticky;
+    inset-block-start: 68px;
+    z-index: calc(var(--z-nav) - 1);
+    background: color-mix(in srgb, var(--surface) 85%, transparent);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-block: 1px solid var(--hairline);
+  }
+
+  .subnav__inner ul {
+    display: flex;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .subnav__link {
+    display: inline-block;
+    padding-block: 0.85rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--graphite);
+    white-space: nowrap;
+    border-block-end: 2px solid transparent;
+    transition:
+      color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .subnav__link:hover {
+    color: var(--ink);
+    border-block-end-color: var(--signal);
+  }
+
+  .industries__marquee {
+    margin-block: clamp(0.5rem, 2vw, 1.5rem) clamp(2.5rem, 5vw, 4rem);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 9%, black 91%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 9%, black 91%, transparent);
+  }
+
+  .industries__marquee-track {
+    display: flex;
+    inline-size: max-content;
+  }
+
+  .industries__marquee-set {
+    display: flex;
+    gap: 0.9rem;
+    padding-inline-end: 0.9rem;
+  }
+
+  .signal-card {
+    flex: 0 0 clamp(220px, 22vw, 310px);
+    min-block-size: 124px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: var(--radius-card);
+    background:
+      radial-gradient(
+        180px circle at 78% 18%,
+        color-mix(in srgb, var(--signal) 13%, transparent),
+        transparent 64%
+      ),
+      linear-gradient(
+        150deg,
+        var(--surface) 0%,
+        var(--glass-hi) 56%,
+        color-mix(in srgb, var(--glass-lo) 28%, var(--glass-hi)) 100%
+      );
+    box-shadow: var(--shadow-card);
+  }
+
+  .signal-card p {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--signal-text);
+    margin: 0;
+  }
+
+  .signal-card span {
+    display: block;
+    color: var(--ink);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .industries__marquee-track {
+      animation: industries-marquee 34s linear infinite;
+      will-change: transform;
+    }
+
+    .industries__marquee:hover .industries__marquee-track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes industries-marquee {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .industries__marquee {
+      overflow-x: auto;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    .industries__marquee-track {
+      padding-inline: var(--gutter);
+    }
   }
 
   .industry {
+    position: relative;
     display: grid;
-    grid-template-columns: 1fr 1.4fr;
+    grid-template-columns: minmax(210px, 0.72fr) minmax(0, 1fr) minmax(290px, 0.9fr);
     gap: clamp(1.5rem, 4vw, 4rem);
-    padding-block: clamp(2.5rem, 5vw, 4rem);
-    border-block-start: 2px solid var(--ink);
+    align-items: center;
+    margin-block-end: clamp(1.25rem, 3vw, 2rem);
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border-radius: var(--radius-card);
+    background:
+      radial-gradient(
+        420px circle at var(--spot-x, 72%) var(--spot-y, 18%),
+        color-mix(in srgb, var(--signal) 10%, transparent),
+        transparent 64%
+      ),
+      var(--surface);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition:
+      transform var(--dur-hover) var(--ease-luxe),
+      box-shadow var(--dur-hover) var(--ease-luxe);
+  }
+
+  .industry:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .industry::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: radial-gradient(
+      360px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      color-mix(in srgb, var(--signal) 9%, transparent),
+      transparent 70%
+    );
+    opacity: var(--spot-o, 0);
+    transition: opacity 0.6s var(--ease-luxe);
+  }
+
+  .industry__visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1.08;
+    border-radius: calc(var(--radius-card) - 4px);
+    background:
+      radial-gradient(
+        260px circle at 68% 22%,
+        color-mix(in srgb, var(--signal) 15%, transparent),
+        transparent 62%
+      ),
+      linear-gradient(
+        150deg,
+        var(--surface) 0%,
+        var(--glass-hi) 58%,
+        color-mix(in srgb, var(--glass-lo) 34%, var(--glass-hi)) 100%
+      );
+    overflow: hidden;
+  }
+
+  .industry__visual :global(.service-visual) {
+    inline-size: min(86%, 320px);
   }
 
   @media (max-width: 860px) {
@@ -70,16 +316,45 @@ const { intro, items, closing } = industries;
       grid-template-columns: 1fr;
       gap: 1rem;
     }
+
+    .industry__visual {
+      max-inline-size: 340px;
+      inline-size: 100%;
+      margin-inline: auto;
+    }
   }
 
   .industry__label {
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-size: clamp(1.8rem, 3.4vw, 2.65rem);
     margin-block-end: 0.75rem;
   }
 
   .industry__entry {
-    color: var(--graphite);
+    font-weight: 600;
+    color: var(--ink);
     margin-block-end: 1rem;
+  }
+
+  .industry__problem {
+    color: var(--graphite);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  .industry__detail {
+    position: relative;
+    z-index: 1;
+    padding-inline-start: clamp(0rem, 2vw, 1.25rem);
+    border-inline-start: 1px solid var(--hairline);
+  }
+
+  .industry__detail-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--graphite);
+    margin-block: 0 0.35rem;
   }
 
   .industry__question {
@@ -87,12 +362,12 @@ const { intro, items, closing } = industries;
     font-size: 0.95rem;
     color: var(--signal-text);
     max-inline-size: 24rem;
-    margin: 0;
+    margin-block: 0 1.35rem;
   }
 
-  .industry__problem {
+  .industry__value {
     color: var(--graphite);
-    font-size: 1.1rem;
+    font-size: 0.98rem;
     margin-block-end: 1.5rem;
   }
 
@@ -132,6 +407,22 @@ const { intro, items, closing } = industries;
     transform: translateY(-1px);
   }
 
+  .industry__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-block-start: 1.5rem;
+    font-weight: 700;
+  }
+
+  .industry__cta span {
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+
+  .industry__cta:hover span {
+    transform: translateX(3px);
+  }
+
   .industries__closing {
     max-inline-size: 52rem;
     margin-block-start: clamp(2rem, 5vw, 4rem);
@@ -168,5 +459,42 @@ const { intro, items, closing } = industries;
 
   .industries__closing a:hover span {
     transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .industry:hover {
+      transform: translateY(-6px);
+    }
+  }
+
+  @media (max-width: 720px) {
+    .industry {
+      padding: 1rem;
+    }
+
+    .industry__detail {
+      padding-inline-start: 0;
+      border-inline-start: 0;
+      border-block-start: 1px solid var(--hairline);
+      padding-block-start: 1rem;
+    }
+
+    .industry__visual {
+      max-inline-size: 310px;
+    }
+
+    .industry__label {
+      font-size: clamp(1.9rem, 9vw, 2.35rem);
+    }
+
+    .industry__problem,
+    .industry__value {
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .industries__closing {
+      padding: 1.25rem;
+    }
   }
 </style>
