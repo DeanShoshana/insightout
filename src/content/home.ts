@@ -131,7 +131,7 @@ export const home = {
       {
         label: 'Technology',
         blurb:
-          'In software and mobile apps, Claritix enters where product bets need evidence: which journeys retain, which releases matter, and what to build next.',
+          'In software, SaaS, internal tools, and mobile apps, Claritix enters where product ideas need shape: what to build, how it should work, and what evidence makes the direction defensible.',
       },
       {
         label: 'E-Commerce & Retail',
