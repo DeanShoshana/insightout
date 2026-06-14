@@ -46,7 +46,13 @@ const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant
         aria-labelledby={`${p.id}-headline`}
       >
         <div class="container pillar__inner">
-          <div class="pillar__visual" data-reveal style={`--reveal-delay: ${i * 50}ms`} aria-hidden="true">
+          <div
+            class="pillar__visual"
+            data-reveal
+            data-spotlight
+            style={`--reveal-delay: ${i * 50}ms`}
+            aria-hidden="true"
+          >
             <ServiceVisual variant={visualMap[p.visual]} size="feature" />
           </div>
 
@@ -169,7 +175,7 @@ const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant
     display: grid;
     grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.05fr) minmax(0, 1fr);
     gap: clamp(1.75rem, 4vw, 4rem);
-    align-items: start;
+    align-items: center;
   }
 
   @media (max-width: 1060px) {
@@ -212,8 +218,56 @@ const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant
         var(--surface) 0%,
         var(--glass-hi) 56%,
         color-mix(in srgb, var(--glass-lo) 34%, var(--glass-hi)) 100%
-      );
+    );
     box-shadow: var(--shadow-card);
+    isolation: isolate;
+    transition:
+      box-shadow var(--dur-hover) var(--ease-luxe),
+      transform var(--dur-hover) var(--ease-luxe);
+  }
+
+  .pillar__visual::before,
+  .pillar__visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .pillar__visual::before {
+    z-index: 0;
+    background:
+      radial-gradient(
+        230px circle at 22% 22%,
+        color-mix(in srgb, var(--surface) 82%, transparent),
+        transparent 68%
+      ),
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--surface) 34%, transparent),
+        transparent 64%
+      );
+    opacity: 0.72;
+    transition: opacity var(--dur-hover) var(--ease-luxe);
+  }
+
+  .pillar__visual::after {
+    z-index: 2;
+    border-radius: inherit;
+    background: radial-gradient(
+      320px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      color-mix(in srgb, var(--signal) 10%, transparent),
+      transparent 70%
+    );
+    opacity: var(--spot-o, 0);
+    transition: opacity 0.6s var(--ease-luxe);
+  }
+
+  .pillar__visual :global(.service-visual) {
+    position: relative;
+    z-index: 1;
+    inline-size: min(88%, 360px);
+    transition: transform var(--dur-hover) var(--ease-luxe);
   }
 
   .pillar--seat .pillar__visual {
@@ -229,6 +283,42 @@ const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant
         color-mix(in srgb, var(--signal) 14%, var(--ink-surface)) 68%,
         color-mix(in srgb, var(--signal) 26%, var(--ink-surface)) 100%
       );
+  }
+
+  .pillar--seat .pillar__visual::before {
+    background:
+      radial-gradient(
+        250px circle at 24% 24%,
+        color-mix(in srgb, var(--speed-from) 18%, transparent),
+        transparent 70%
+      ),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 62%);
+  }
+
+  .pillar--seat .pillar__visual::after {
+    background: radial-gradient(
+      340px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      color-mix(in srgb, var(--speed-from) 13%, transparent),
+      transparent 72%
+    );
+  }
+
+  .pillar__visual:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pillar__visual:hover {
+      transform: translate3d(0, -6px, 0);
+    }
+
+    .pillar__visual:hover::before {
+      opacity: 0.9;
+    }
+
+    .pillar__visual:hover :global(.service-visual) {
+      transform: translate3d(0, -3px, 0) scale(1.02);
+    }
   }
 
   .pillar__count {
