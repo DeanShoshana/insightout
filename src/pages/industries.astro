@@ -15,13 +15,11 @@ const visualMap: Record<(typeof items)[number]['visual'], ServiceVisualVariant> 
   market: 'market',
 };
 const signalCards = [
-  { label: 'Concept', body: 'Shape the product before it becomes a backlog.' },
-  { label: 'Market', body: 'Connect the product to category and buyer reality.' },
-  { label: 'Workflow', body: 'Map the user, team, and operational context.' },
-  { label: 'Evidence', body: 'Define the signals that make the decision defensible.' },
-  { label: 'Build', body: 'Translate direction into requirements and mockups.' },
-  { label: 'Data', body: 'Connect product behavior to operating evidence.' },
-  { label: 'Decision', body: 'Carry the recommendation into the business frame.' },
+  { label: 'Product reality', body: 'Concept, requirements, mockups, and production-ready direction.' },
+  { label: 'Behavioral signal', body: 'User journeys, adoption patterns, friction, and conversion quality.' },
+  { label: 'Operating data', body: 'Dashboards, KPI logic, data quality, and decision evidence.' },
+  { label: 'Market context', body: 'Category movement, buyer pressure, competitive signal, and pricing logic.' },
+  { label: 'Business decision', body: 'A single evidence base leaders can act on with confidence.' },
 ];
 ---
 
@@ -50,13 +48,17 @@ const signalCards = [
   </nav>
 
   <div class="industries">
-    <div class="industries__marquee" data-reveal aria-label="Evidence signals Claritix connects across industries">
-      <div class="industries__marquee-track">
+    <div class="industries__signal" data-reveal aria-label="Evidence signals Claritix connects across industries">
+      <div class="industries__signal-glow" aria-hidden="true"></div>
+      <div class="industries__signal-track">
         {[0, 1].map((setIndex) => (
-          <div class="industries__marquee-set" aria-hidden={setIndex === 1 ? 'true' : undefined}>
-            {signalCards.map((card) => (
-              <article class="signal-card">
-                <p>{card.label}</p>
+          <div class="industries__signal-set" aria-hidden={setIndex === 1 ? 'true' : undefined}>
+            {signalCards.map((card, i) => (
+              <article class="signal-card" style={`--signal-card-index: ${i}`}>
+                <div class="signal-card__meta">
+                  <span>{String(i + 1).padStart(2, '0')}</span>
+                  <p>{card.label}</p>
+                </div>
                 <span>{card.body}</span>
               </article>
             ))}
@@ -158,45 +160,134 @@ const signalCards = [
     border-block-end-color: var(--signal);
   }
 
-  .industries__marquee {
-    margin-block: clamp(0.5rem, 2vw, 1.5rem) clamp(2.5rem, 5vw, 4rem);
+  .industries__signal {
+    position: relative;
+    margin-block: clamp(0.75rem, 2vw, 1.75rem) clamp(2.75rem, 5vw, 4.5rem);
+    padding-block: clamp(1.1rem, 3vw, 1.65rem);
     overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent, black 9%, black 91%, transparent);
-    mask-image: linear-gradient(90deg, transparent, black 9%, black 91%, transparent);
+    background:
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--surface) 0%, transparent),
+        color-mix(in srgb, var(--surface-2) 72%, transparent) 16%,
+        color-mix(in srgb, var(--surface-2) 72%, transparent) 84%,
+        color-mix(in srgb, var(--surface) 0%, transparent)
+      );
+    border-block: 1px solid color-mix(in srgb, var(--hairline) 76%, transparent);
+    isolation: isolate;
   }
 
-  .industries__marquee-track {
+  .industries__signal::before,
+  .industries__signal::after {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    z-index: 2;
+    inline-size: clamp(2.5rem, 10vw, 9rem);
+    pointer-events: none;
+  }
+
+  .industries__signal::before {
+    inset-inline-start: 0;
+    background: linear-gradient(90deg, var(--surface), transparent);
+  }
+
+  .industries__signal::after {
+    inset-inline-end: 0;
+    background: linear-gradient(270deg, var(--surface), transparent);
+  }
+
+  .industries__signal-glow {
+    position: absolute;
+    inset: 1px 0 auto;
+    block-size: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--signal) 45%, transparent),
+      transparent
+    );
+    opacity: 0.85;
+  }
+
+  .industries__signal-track {
     display: flex;
     inline-size: max-content;
+    gap: 0;
   }
 
-  .industries__marquee-set {
+  .industries__signal-set {
     display: flex;
-    gap: 0.9rem;
-    padding-inline-end: 0.9rem;
+    align-items: stretch;
+    gap: clamp(0.9rem, 2vw, 1.25rem);
+    padding-inline-end: clamp(0.9rem, 2vw, 1.25rem);
   }
 
   .signal-card {
-    flex: 0 0 clamp(220px, 22vw, 310px);
-    min-block-size: 124px;
+    position: relative;
+    flex: 0 0 clamp(260px, 27vw, 390px);
+    min-block-size: 156px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1rem;
-    border-radius: var(--radius-card);
+    gap: 1.4rem;
+    padding: clamp(1.1rem, 2vw, 1.35rem);
+    border-radius: calc(var(--radius-card) + 2px);
     background:
       radial-gradient(
-        180px circle at 78% 18%,
-        color-mix(in srgb, var(--signal) 13%, transparent),
+        220px circle at 78% 14%,
+        color-mix(in srgb, var(--signal) 14%, transparent),
         transparent 64%
       ),
       linear-gradient(
         150deg,
-        var(--surface) 0%,
-        var(--glass-hi) 56%,
-        color-mix(in srgb, var(--glass-lo) 28%, var(--glass-hi)) 100%
+        color-mix(in srgb, var(--surface) 96%, var(--glass-hi)) 0%,
+        color-mix(in srgb, var(--glass-hi) 58%, var(--surface)) 58%,
+        color-mix(in srgb, var(--glass-lo) 30%, var(--glass-hi)) 100%
       );
-    box-shadow: var(--shadow-card);
+    box-shadow:
+      0 20px 60px color-mix(in srgb, var(--ink) 8%, transparent),
+      inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
+    overflow: hidden;
+  }
+
+  .signal-card::before {
+    content: '';
+    position: absolute;
+    inset-inline: clamp(1.1rem, 2vw, 1.35rem);
+    inset-block-start: 50%;
+    block-size: 1px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--signal) 12%, transparent),
+      color-mix(in srgb, var(--signal) 68%, transparent),
+      color-mix(in srgb, var(--signal) 12%, transparent)
+    );
+    opacity: 0.45;
+  }
+
+  .signal-card::after {
+    content: '';
+    position: absolute;
+    inset-block-start: calc(50% - 4px);
+    inset-inline-start: clamp(1.1rem, 2vw, 1.35rem);
+    inline-size: 9px;
+    block-size: 9px;
+    border-radius: 999px;
+    background: var(--signal);
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--signal) 14%, transparent);
+  }
+
+  .signal-card__meta {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+  }
+
+  .signal-card__meta span {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: color-mix(in srgb, var(--signal-text) 70%, var(--graphite));
   }
 
   .signal-card p {
@@ -208,40 +299,91 @@ const signalCards = [
     margin: 0;
   }
 
-  .signal-card span {
+  .signal-card > span {
     display: block;
     color: var(--ink);
-    font-weight: 600;
+    font-weight: 650;
     line-height: 1.35;
+    max-inline-size: 19rem;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .industries__marquee-track {
-      animation: industries-marquee 34s linear infinite;
+    .industries__signal-track {
+      animation: industries-signal 38s linear infinite;
       will-change: transform;
     }
 
-    .industries__marquee:hover .industries__marquee-track {
+    .industries__signal:hover .industries__signal-track {
       animation-play-state: paused;
+    }
+
+    .signal-card::after {
+      animation: signal-node 3.8s var(--ease-luxe) infinite;
+      animation-delay: calc(var(--signal-card-index) * 180ms);
     }
   }
 
-  @keyframes industries-marquee {
+  @keyframes industries-signal {
     to {
       transform: translate3d(-50%, 0, 0);
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .industries__marquee {
-      overflow-x: auto;
-      -webkit-mask-image: none;
-      mask-image: none;
+  @keyframes signal-node {
+    0%,
+    48%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.72;
     }
 
-    .industries__marquee-track {
+    18% {
+      transform: translate3d(calc(100% + 15rem), 0, 0) scale(1.08);
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .industries__signal {
+      overflow-x: auto;
+    }
+
+    .industries__signal::before,
+    .industries__signal::after {
+      display: none;
+    }
+
+    .industries__signal-track {
       padding-inline: var(--gutter);
     }
+  }
+
+  [data-theme='dark'] .industries__signal {
+    background:
+      linear-gradient(
+        90deg,
+        transparent,
+        color-mix(in srgb, var(--surface-2) 70%, transparent) 18%,
+        color-mix(in srgb, var(--surface-2) 70%, transparent) 82%,
+        transparent
+      );
+  }
+
+  [data-theme='dark'] .signal-card {
+    background:
+      radial-gradient(
+        260px circle at 78% 14%,
+        color-mix(in srgb, var(--signal) 22%, transparent),
+        transparent 66%
+      ),
+      linear-gradient(
+        150deg,
+        color-mix(in srgb, var(--surface) 88%, var(--ink)) 0%,
+        color-mix(in srgb, var(--surface-2) 82%, var(--glass-hi)) 100%
+      );
+    box-shadow:
+      0 24px 72px color-mix(in srgb, black 34%, transparent),
+      inset 0 1px 0 color-mix(in srgb, white 9%, transparent);
   }
 
   .industry {
