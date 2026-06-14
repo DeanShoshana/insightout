@@ -195,7 +195,32 @@ const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant
     }
 
     .pillar__visual {
-      max-inline-size: 360px;
+      max-inline-size: min(100%, 340px);
+      margin-inline: auto;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .pillar {
+      padding-block: clamp(3.5rem, 15vw, 5rem);
+    }
+
+    .pillar__inner {
+      gap: 1.35rem;
+    }
+
+    .pillar__visual {
+      max-inline-size: 320px;
+    }
+
+    .pillar__headline {
+      font-size: clamp(1.85rem, 8.8vw, 2.35rem);
+      line-height: 1.08;
+    }
+
+    .pillar__body {
+      font-size: 1rem;
+      line-height: 1.55;
     }
   }
 
