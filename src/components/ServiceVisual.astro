@@ -1,0 +1,196 @@
+---
+export type ServiceVisualVariant = 'product' | 'behavior' | 'data' | 'market' | 'advisory';
+
+interface Props {
+  variant: ServiceVisualVariant;
+  size?: 'card' | 'feature';
+}
+
+const { variant, size = 'card' } = Astro.props;
+---
+
+<figure class:list={['service-visual', `service-visual--${variant}`, `service-visual--${size}`]} aria-hidden="true">
+  <svg class="service-visual__svg" viewBox="0 0 360 220" focusable="false">
+    {variant === 'product' && (
+      <g>
+        <rect class="visual-panel visual-panel--large" x="54" y="56" width="168" height="96" rx="22" />
+        <path class="visual-path visual-path--accent" d="M 82 118 C 112 96, 136 124, 164 96 S 210 78, 220 72" />
+        <path class="visual-path visual-path--soft" d="M 92 144 H 154" />
+        <rect class="visual-panel visual-panel--small" x="214" y="84" width="64" height="104" rx="20" />
+        <path class="visual-path visual-path--soft" d="M 234 116 H 260" />
+        <path class="visual-path visual-path--accent" d="M 234 140 H 254" />
+        <circle class="visual-node visual-node--accent" cx="246" cy="170" r="5" />
+      </g>
+    )}
+
+    {variant === 'behavior' && (
+      <g>
+        <path class="visual-path visual-path--soft" d="M 94 150 L 156 106 L 116 58 M 156 106 L 232 76 L 270 142 L 156 106 M 94 150 L 232 166" />
+        <circle class="visual-node" cx="116" cy="58" r="13" />
+        <circle class="visual-node" cx="94" cy="150" r="13" />
+        <circle class="visual-node visual-node--accent" cx="156" cy="106" r="19" />
+        <circle class="visual-node" cx="232" cy="76" r="13" />
+        <circle class="visual-node" cx="270" cy="142" r="13" />
+        <circle class="visual-node" cx="232" cy="166" r="13" />
+      </g>
+    )}
+
+    {variant === 'data' && (
+      <g>
+        <rect class="visual-panel visual-panel--large" x="62" y="48" width="236" height="136" rx="24" />
+        <rect class="visual-tile" x="86" y="74" width="72" height="34" rx="10" />
+        <rect class="visual-tile" x="176" y="74" width="78" height="34" rx="10" />
+        <rect class="visual-bar" x="88" y="132" width="24" height="36" rx="6" />
+        <rect class="visual-bar" x="122" y="144" width="24" height="24" rx="6" />
+        <rect class="visual-bar" x="156" y="118" width="24" height="50" rx="6" />
+        <path class="visual-path visual-path--accent" d="M 92 162 C 124 146, 144 162, 166 134 S 214 122, 256 96" />
+        <circle class="visual-node visual-node--accent" cx="256" cy="96" r="7" />
+      </g>
+    )}
+
+    {variant === 'market' && (
+      <g>
+        <path class="visual-path visual-path--soft" d="M 76 66 C 122 78, 142 110, 178 118" />
+        <path class="visual-path visual-path--soft" d="M 78 174 C 122 154, 142 128, 178 118" />
+        <path class="visual-path visual-path--soft" d="M 286 72 C 238 80, 214 108, 178 118" />
+        <path class="visual-path visual-path--soft" d="M 284 172 C 238 160, 214 132, 178 118" />
+        <circle class="visual-node" cx="76" cy="66" r="13" />
+        <circle class="visual-node" cx="78" cy="174" r="13" />
+        <circle class="visual-node" cx="286" cy="72" r="13" />
+        <circle class="visual-node" cx="284" cy="172" r="13" />
+        <circle class="visual-node visual-node--accent" cx="178" cy="118" r="20" />
+        <path class="visual-path visual-path--accent" d="M 196 118 H 250" />
+        <rect class="visual-chip" x="250" y="104" width="54" height="28" rx="10" />
+      </g>
+    )}
+
+    {variant === 'advisory' && (
+      <g>
+        <path class="visual-path visual-path--soft" d="M 72 72 C 120 72, 136 110, 174 110" />
+        <path class="visual-path visual-path--soft" d="M 72 148 C 120 148, 136 110, 174 110" />
+        <path class="visual-path visual-path--soft" d="M 72 110 H 174" />
+        <circle class="visual-node visual-node--accent" cx="174" cy="110" r="7" />
+        <path class="visual-path visual-path--accent" d="M 184 110 H 238" />
+        <rect class="visual-panel visual-panel--decision" x="238" y="66" width="76" height="88" rx="18" />
+        <path class="visual-path visual-path--soft visual-path--decision" d="M 254 94 H 296" />
+        <path class="visual-path visual-path--soft visual-path--decision" d="M 254 114 H 286" />
+        <path class="visual-path visual-path--soft visual-path--decision" d="M 254 134 H 302" />
+      </g>
+    )}
+  </svg>
+</figure>
+
+<style>
+  .service-visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+    inline-size: 100%;
+    margin: 0;
+    isolation: isolate;
+  }
+
+  .service-visual::before {
+    content: '';
+    position: absolute;
+    inset: 10% 14%;
+    z-index: -1;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--signal) 16%, transparent);
+    filter: blur(26px);
+    opacity: 0.58;
+  }
+
+  .service-visual__svg {
+    inline-size: 100%;
+    max-inline-size: var(--visual-max, 260px);
+    block-size: auto;
+    overflow: visible;
+  }
+
+  .service-visual--card {
+    --visual-max: 210px;
+  }
+
+  .service-visual--feature {
+    --visual-max: 360px;
+  }
+
+  .visual-panel,
+  .visual-tile,
+  .visual-chip {
+    fill: color-mix(in srgb, var(--glass-hi) 80%, var(--surface));
+    stroke: color-mix(in srgb, var(--glass-lo) 72%, var(--surface));
+    stroke-width: 3;
+  }
+
+  .visual-panel--decision {
+    fill: color-mix(in srgb, var(--ink-surface) 88%, var(--signal));
+    stroke: color-mix(in srgb, var(--speed-from) 26%, transparent);
+  }
+
+  .visual-path {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .visual-path--soft {
+    stroke: color-mix(in srgb, var(--glass-lo) 76%, var(--graphite));
+    stroke-width: 4;
+    opacity: 0.82;
+  }
+
+  .visual-path--accent {
+    stroke: var(--signal);
+    stroke-width: 4.5;
+  }
+
+  .visual-path--decision {
+    stroke: var(--speed-from);
+    stroke-width: 3;
+    opacity: 0.9;
+  }
+
+  .visual-node,
+  .visual-bar {
+    fill: color-mix(in srgb, var(--glass-lo) 78%, var(--surface));
+  }
+
+  .visual-node--accent {
+    fill: var(--signal);
+  }
+
+  .visual-bar {
+    opacity: 0.95;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .service-visual * {
+      transform-box: fill-box;
+      transform-origin: center;
+      transition:
+        transform var(--dur-hover) var(--ease-luxe),
+        opacity var(--dur-hover) var(--ease-luxe);
+    }
+
+    :global(.card:hover) .service-visual--product .visual-panel--small,
+    :global(.pillar:hover) .service-visual--product .visual-panel--small {
+      transform: translate3d(7px, 4px, 0);
+    }
+
+    :global(.card:hover) .service-visual--behavior .visual-node--accent,
+    :global(.pillar:hover) .service-visual--behavior .visual-node--accent,
+    :global(.card:hover) .service-visual--market .visual-node--accent,
+    :global(.pillar:hover) .service-visual--market .visual-node--accent,
+    :global(.card:hover) .service-visual--data .visual-node--accent,
+    :global(.pillar:hover) .service-visual--data .visual-node--accent {
+      transform: scale(1.12);
+    }
+
+    :global(.card:hover) .service-visual--advisory .visual-panel--decision,
+    :global(.pillar:hover) .service-visual--advisory .visual-panel--decision {
+      transform: translate3d(6px, 0, 0);
+    }
+  }
+</style>

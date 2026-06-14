@@ -1,9 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
+import ServiceVisual, { type ServiceVisualVariant } from '../components/ServiceVisual.astro';
 import { services } from '../content/services';
 
 const { intro, pillars, toolingNote } = services;
+const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant> = {
+  devices: 'product',
+  behavior: 'behavior',
+  dashboard: 'data',
+  signals: 'market',
+  decision: 'advisory',
+};
 ---
 
 <Base
@@ -39,68 +47,7 @@ const { intro, pillars, toolingNote } = services;
       >
         <div class="container pillar__inner">
           <div class="pillar__visual" data-reveal style={`--reveal-delay: ${i * 50}ms`} aria-hidden="true">
-            {p.visual === 'devices' && (
-              <svg viewBox="0 0 360 260" class="service-viz service-viz--devices">
-                <rect class="viz-panel" x="52" y="46" width="196" height="126" rx="22" />
-                <path class="viz-line viz-line--signal" d="M 82 122 C 116 96, 142 128, 174 96 S 218 78, 230 72" />
-                <path class="viz-line viz-line--soft" d="M 96 152 H 168" />
-                <rect class="viz-phone" x="224" y="92" width="72" height="118" rx="20" />
-                <path class="viz-line viz-line--soft" d="M 244 122 H 276" />
-                <path class="viz-line viz-line--signal" d="M 244 146 H 270" />
-                <circle class="viz-dot" cx="260" cy="190" r="5" />
-              </svg>
-            )}
-            {p.visual === 'behavior' && (
-              <svg viewBox="0 0 360 260" class="service-viz service-viz--behavior">
-                <path class="viz-line" d="M 92 160 L 156 112 L 114 62 M 156 112 L 242 84 L 272 150 L 156 112 M 92 160 L 242 178" />
-                <circle class="viz-node" cx="114" cy="62" r="16" />
-                <circle class="viz-node" cx="92" cy="160" r="15" />
-                <circle class="viz-node viz-node--signal" cx="156" cy="112" r="21" />
-                <circle class="viz-node" cx="242" cy="84" r="15" />
-                <circle class="viz-node" cx="272" cy="150" r="14" />
-                <circle class="viz-node" cx="242" cy="178" r="15" />
-              </svg>
-            )}
-            {p.visual === 'dashboard' && (
-              <svg viewBox="0 0 360 260" class="service-viz service-viz--dashboard">
-                <rect class="viz-panel" x="58" y="52" width="244" height="156" rx="24" />
-                <rect class="viz-tile" x="80" y="78" width="82" height="46" rx="12" />
-                <rect class="viz-tile" x="178" y="78" width="82" height="46" rx="12" />
-                <path class="viz-line viz-line--signal" d="M 88 176 C 120 160, 142 178, 164 150 S 212 138, 252 112" />
-                <rect class="viz-bar" x="84" y="142" width="28" height="44" rx="6" />
-                <rect class="viz-bar" x="122" y="154" width="28" height="32" rx="6" />
-                <rect class="viz-bar" x="160" y="130" width="28" height="56" rx="6" />
-                <circle class="viz-dot" cx="252" cy="112" r="7" />
-              </svg>
-            )}
-            {p.visual === 'signals' && (
-              <svg viewBox="0 0 360 260" class="service-viz service-viz--signals">
-                <path class="viz-line" d="M 76 70 C 124 82, 142 116, 176 130" />
-                <path class="viz-line" d="M 80 192 C 124 174, 142 146, 176 130" />
-                <path class="viz-line" d="M 282 78 C 236 86, 212 112, 176 130" />
-                <path class="viz-line" d="M 284 188 C 238 178, 212 146, 176 130" />
-                <circle class="viz-node" cx="76" cy="70" r="15" />
-                <circle class="viz-node" cx="80" cy="192" r="15" />
-                <circle class="viz-node" cx="282" cy="78" r="15" />
-                <circle class="viz-node" cx="284" cy="188" r="15" />
-                <circle class="viz-node viz-node--signal" cx="176" cy="130" r="23" />
-                <path class="viz-line viz-line--signal" d="M 176 130 L 226 130" />
-                <rect class="viz-chip" x="226" y="116" width="64" height="28" rx="10" />
-              </svg>
-            )}
-            {p.visual === 'decision' && (
-              <svg viewBox="0 0 360 260" class="service-viz service-viz--decision">
-                <path class="viz-line" d="M 74 82 C 128 82, 138 130, 178 130" />
-                <path class="viz-line" d="M 74 178 C 128 178, 138 130, 178 130" />
-                <path class="viz-line" d="M 74 130 L 178 130" />
-                <circle class="viz-dot" cx="178" cy="130" r="8" />
-                <path class="viz-line viz-line--signal" d="M 186 130 L 238 130" />
-                <rect class="viz-panel" x="238" y="82" width="76" height="96" rx="16" />
-                <rect class="viz-chip" x="254" y="106" width="44" height="8" rx="4" />
-                <rect class="viz-chip" x="254" y="128" width="34" height="8" rx="4" />
-                <rect class="viz-chip" x="254" y="150" width="52" height="8" rx="4" />
-              </svg>
-            )}
+            <ServiceVisual variant={visualMap[p.visual]} size="feature" />
           </div>
 
           <header data-reveal>
@@ -282,96 +229,6 @@ const { intro, pillars, toolingNote } = services;
         color-mix(in srgb, var(--signal) 14%, var(--ink-surface)) 68%,
         color-mix(in srgb, var(--signal) 26%, var(--ink-surface)) 100%
       );
-  }
-
-  .service-viz {
-    inline-size: 92%;
-    block-size: auto;
-  }
-
-  .viz-panel,
-  .viz-phone {
-    fill: color-mix(in srgb, var(--glass-hi) 76%, var(--surface));
-    stroke: var(--glass-lo);
-    stroke-width: 4;
-  }
-
-  .pillar--seat .viz-panel,
-  .pillar--seat .viz-phone {
-    fill: color-mix(in srgb, var(--surface) 8%, var(--ink-surface));
-  }
-
-  .viz-screen,
-  .viz-tile {
-    fill: color-mix(in srgb, var(--glass-hi) 86%, var(--surface));
-  }
-
-  .viz-chip,
-  .viz-bar {
-    fill: var(--glass-lo);
-  }
-
-  .viz-dot,
-  .viz-node--signal {
-    fill: var(--signal);
-  }
-
-  .viz-node {
-    fill: var(--glass-lo);
-  }
-
-  .viz-line {
-    fill: none;
-    stroke: var(--glass-lo);
-    stroke-width: 4;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    opacity: 0.9;
-  }
-
-  .viz-line--soft {
-    stroke: var(--glass-lo);
-  }
-
-  .viz-line--signal {
-    stroke: var(--signal);
-    opacity: 1;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .service-viz * {
-      transform-box: fill-box;
-      transform-origin: center;
-    }
-
-    .pillar:hover .viz-node,
-    .pillar:hover .viz-dot {
-      transform: scale(1.08);
-    }
-
-    .pillar:hover .viz-line--signal {
-      transform: translate3d(3px, 0, 0);
-    }
-
-    .service-viz--devices .viz-phone,
-    .service-viz--dashboard .viz-dot,
-    .service-viz--signals .viz-node--signal,
-    .service-viz--decision .viz-panel {
-      transition: transform var(--dur-hover) var(--ease-luxe);
-    }
-
-    .pillar:hover .service-viz--devices .viz-phone {
-      transform: translate3d(6px, 3px, 0);
-    }
-
-    .pillar:hover .service-viz--dashboard .viz-dot,
-    .pillar:hover .service-viz--signals .viz-node--signal {
-      transform: scale(1.14);
-    }
-
-    .pillar:hover .service-viz--decision .viz-panel {
-      transform: translate3d(5px, 0, 0);
-    }
   }
 
   .pillar__count {
