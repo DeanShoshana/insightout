@@ -32,19 +32,19 @@ export const industries = {
     {
       label: 'Technology',
       visual: 'product',
-      entry: 'Product direction, retention, instrumentation, and roadmap evidence.',
+      entry: 'Enterprise platforms, SaaS products, internal tools, mobile apps, and customer-facing systems - from concept to production-ready direction.',
       value:
-        'The value is sharper product judgment: fewer roadmap debates based on taste, clearer build priorities, and evidence the leadership team can defend.',
+        'The value is sharper product definition: clearer product logic, stronger market connection, buildable requirements, and evidence the leadership team can defend before production begins.',
       problem:
-        'In software and mobile apps, teams ship fast and measure late. Feature lists grow, retention stays flat, and nobody can say which bets paid off. Claritix enters where product direction needs evidence: which journeys matter, which features create movement, and which bets should stop.',
+        'In enterprise platforms, SaaS products, internal tools, mobile apps, and customer-facing systems, teams often move from idea to backlog before the product is fully characterized. Claritix enters where a product needs to move from concept to production-ready direction: market logic, user flows, business requirements, mockups, measurement hooks, and the build choices that make the product coherent.',
       pillars: [
         { label: 'Technology & Product', anchor: '/services#product' },
         { label: 'Behavioral & User Analytics', anchor: '/services#behavioral' },
         { label: 'Data & Business Intelligence', anchor: '/services#data' },
         { label: 'Product Strategy & Advisory', anchor: '/services#advisory' },
       ],
-      question: 'What should we build next - and how do we defend that call?',
-      cta: { label: 'Shape the product question', anchor: '/services#product' },
+      question: 'How do we turn this product idea into something the team can build and the market can understand?',
+      cta: { label: 'Shape the product from concept to build', anchor: '/services#product' },
     },
     {
       label: 'E-Commerce & Retail',

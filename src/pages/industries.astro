@@ -3,15 +3,24 @@ import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
 import ServiceVisual, { type ServiceVisualVariant } from '../components/ServiceVisual.astro';
 import { industries } from '../content/industries';
+import { services } from '../content/services';
 import { withBase } from '../lib/url';
 
 const { intro, items, closing } = industries;
+const serviceNav = services.pillars.map(({ id, navLabel }) => ({ id, navLabel }));
 const visualMap: Record<(typeof items)[number]['visual'], ServiceVisualVariant> = {
   product: 'product',
   behavior: 'behavior',
   data: 'data',
   market: 'market',
 };
+const signalCards = [
+  { label: 'Product reality', body: 'Concept, requirements, mockups, and production-ready direction.' },
+  { label: 'Behavioral signal', body: 'User journeys, adoption patterns, friction, and conversion quality.' },
+  { label: 'Operating data', body: 'Dashboards, KPI logic, data quality, and decision evidence.' },
+  { label: 'Market context', body: 'Category movement, buyer pressure, competitive signal, and pricing logic.' },
+  { label: 'Business decision', body: 'A single evidence base leaders can act on with confidence.' },
+];
 ---
 
 <Base
@@ -22,15 +31,43 @@ const visualMap: Record<(typeof items)[number]['visual'], ServiceVisualVariant> 
        pillars, representative questions. No logos, no client grids. -->
   <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede} />
 
-  <div class="industries">
-    <div class="container">
-      <div class="industries__thread" data-reveal>
-        <span>Product reality</span>
-        <span>Behavioral signal</span>
-        <span>Operating data</span>
-        <span>Market context</span>
-      </div>
+  <nav class="subnav" aria-label="Service practices">
+    <div class="container subnav__inner">
+      <ul>
+        {
+          serviceNav.map((p) => (
+            <li>
+              <a class="subnav__link" href={withBase(`/services#${p.id}`)}>
+                {p.navLabel}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </nav>
 
+  <div class="industries">
+    <div class="industries__signal" data-reveal aria-label="Evidence signals Claritix connects across industries">
+      <div class="industries__signal-glow" aria-hidden="true"></div>
+      <div class="industries__signal-track">
+        {[0, 1].map((setIndex) => (
+          <div class="industries__signal-set" aria-hidden={setIndex === 1 ? 'true' : undefined}>
+            {signalCards.map((card, i) => (
+              <article class="signal-card" style={`--signal-card-index: ${i}`}>
+                <div class="signal-card__meta">
+                  <span>{String(i + 1).padStart(2, '0')}</span>
+                  <p>{card.label}</p>
+                </div>
+                <span>{card.body}</span>
+              </article>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="container">
       {
         items.map((item, i) => (
           <article class="industry" data-reveal data-spotlight style={`--reveal-delay: ${i * 80}ms`}>
@@ -82,40 +119,271 @@ const visualMap: Record<(typeof items)[number]['visual'], ServiceVisualVariant> 
 
 <style>
   .industries {
-    padding-block: clamp(1rem, 3vw, 2rem) var(--section-pad);
+    padding-block: 0 var(--section-pad);
   }
 
-  .industries__thread {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
-    margin-block: 0 clamp(2rem, 5vw, 4rem);
+  .subnav {
+    position: sticky;
+    inset-block-start: 68px;
+    z-index: calc(var(--z-nav) - 1);
+    background: color-mix(in srgb, var(--surface) 85%, transparent);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-block: 1px solid var(--hairline);
   }
 
-  .industries__thread span {
-    position: relative;
-    min-block-size: 4.25rem;
+  .subnav__inner ul {
     display: flex;
-    align-items: center;
-    padding: 0.8rem 1rem;
-    border: 1px solid var(--hairline);
-    border-radius: var(--radius-sm);
-    background: var(--surface);
-    color: var(--graphite);
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    text-transform: uppercase;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .industries__thread span::after {
+  .subnav__link {
+    display: inline-block;
+    padding-block: 0.85rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--graphite);
+    white-space: nowrap;
+    border-block-end: 2px solid transparent;
+    transition:
+      color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .subnav__link:hover {
+    color: var(--ink);
+    border-block-end-color: var(--signal);
+  }
+
+  .industries__signal {
+    position: relative;
+    margin-block: clamp(0.75rem, 2vw, 1.75rem) clamp(2.75rem, 5vw, 4.5rem);
+    padding-block: clamp(1.1rem, 3vw, 1.65rem);
+    overflow: hidden;
+    background:
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--surface) 0%, transparent),
+        color-mix(in srgb, var(--surface-2) 72%, transparent) 16%,
+        color-mix(in srgb, var(--surface-2) 72%, transparent) 84%,
+        color-mix(in srgb, var(--surface) 0%, transparent)
+      );
+    border-block: 1px solid color-mix(in srgb, var(--hairline) 76%, transparent);
+    isolation: isolate;
+  }
+
+  .industries__signal::before,
+  .industries__signal::after {
     content: '';
     position: absolute;
-    inset-inline: 1rem;
-    inset-block-end: 0.8rem;
-    block-size: 2px;
+    inset-block: 0;
+    z-index: 2;
+    inline-size: clamp(2.5rem, 10vw, 9rem);
+    pointer-events: none;
+  }
+
+  .industries__signal::before {
+    inset-inline-start: 0;
+    background: linear-gradient(90deg, var(--surface), transparent);
+  }
+
+  .industries__signal::after {
+    inset-inline-end: 0;
+    background: linear-gradient(270deg, var(--surface), transparent);
+  }
+
+  .industries__signal-glow {
+    position: absolute;
+    inset: 1px 0 auto;
+    block-size: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--signal) 45%, transparent),
+      transparent
+    );
+    opacity: 0.85;
+  }
+
+  .industries__signal-track {
+    display: flex;
+    inline-size: max-content;
+    gap: 0;
+  }
+
+  .industries__signal-set {
+    display: flex;
+    align-items: stretch;
+    gap: clamp(0.9rem, 2vw, 1.25rem);
+    padding-inline-end: clamp(0.9rem, 2vw, 1.25rem);
+  }
+
+  .signal-card {
+    position: relative;
+    flex: 0 0 clamp(260px, 27vw, 390px);
+    min-block-size: 156px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.4rem;
+    padding: clamp(1.1rem, 2vw, 1.35rem);
+    border-radius: calc(var(--radius-card) + 2px);
+    background:
+      radial-gradient(
+        220px circle at 78% 14%,
+        color-mix(in srgb, var(--signal) 14%, transparent),
+        transparent 64%
+      ),
+      linear-gradient(
+        150deg,
+        color-mix(in srgb, var(--surface) 96%, var(--glass-hi)) 0%,
+        color-mix(in srgb, var(--glass-hi) 58%, var(--surface)) 58%,
+        color-mix(in srgb, var(--glass-lo) 30%, var(--glass-hi)) 100%
+      );
+    box-shadow:
+      0 20px 60px color-mix(in srgb, var(--ink) 8%, transparent),
+      inset 0 1px 0 color-mix(in srgb, white 72%, transparent);
+    overflow: hidden;
+  }
+
+  .signal-card::before {
+    content: '';
+    position: absolute;
+    inset-inline: clamp(1.1rem, 2vw, 1.35rem);
+    inset-block-start: 50%;
+    block-size: 1px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--signal) 12%, transparent),
+      color-mix(in srgb, var(--signal) 68%, transparent),
+      color-mix(in srgb, var(--signal) 12%, transparent)
+    );
+    opacity: 0.45;
+  }
+
+  .signal-card::after {
+    content: '';
+    position: absolute;
+    inset-block-start: calc(50% - 4px);
+    inset-inline-start: clamp(1.1rem, 2vw, 1.35rem);
+    inline-size: 9px;
+    block-size: 9px;
     border-radius: 999px;
-    background: linear-gradient(90deg, var(--speed-from), var(--signal));
-    opacity: 0.72;
+    background: var(--signal);
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--signal) 14%, transparent);
+  }
+
+  .signal-card__meta {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+  }
+
+  .signal-card__meta span {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: color-mix(in srgb, var(--signal-text) 70%, var(--graphite));
+  }
+
+  .signal-card p {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--signal-text);
+    margin: 0;
+  }
+
+  .signal-card > span {
+    display: block;
+    color: var(--ink);
+    font-weight: 650;
+    line-height: 1.35;
+    max-inline-size: 19rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .industries__signal-track {
+      animation: industries-signal 38s linear infinite;
+      will-change: transform;
+    }
+
+    .industries__signal:hover .industries__signal-track {
+      animation-play-state: paused;
+    }
+
+    .signal-card::after {
+      animation: signal-node 3.8s var(--ease-luxe) infinite;
+      animation-delay: calc(var(--signal-card-index) * 180ms);
+    }
+  }
+
+  @keyframes industries-signal {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @keyframes signal-node {
+    0%,
+    48%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.72;
+    }
+
+    18% {
+      transform: translate3d(calc(100% + 15rem), 0, 0) scale(1.08);
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .industries__signal {
+      overflow-x: auto;
+    }
+
+    .industries__signal::before,
+    .industries__signal::after {
+      display: none;
+    }
+
+    .industries__signal-track {
+      padding-inline: var(--gutter);
+    }
+  }
+
+  [data-theme='dark'] .industries__signal {
+    background:
+      linear-gradient(
+        90deg,
+        transparent,
+        color-mix(in srgb, var(--surface-2) 70%, transparent) 18%,
+        color-mix(in srgb, var(--surface-2) 70%, transparent) 82%,
+        transparent
+      );
+  }
+
+  [data-theme='dark'] .signal-card {
+    background:
+      radial-gradient(
+        260px circle at 78% 14%,
+        color-mix(in srgb, var(--signal) 22%, transparent),
+        transparent 66%
+      ),
+      linear-gradient(
+        150deg,
+        color-mix(in srgb, var(--surface) 88%, var(--ink)) 0%,
+        color-mix(in srgb, var(--surface-2) 82%, var(--glass-hi)) 100%
+      );
+    box-shadow:
+      0 24px 72px color-mix(in srgb, black 34%, transparent),
+      inset 0 1px 0 color-mix(in srgb, white 9%, transparent);
   }
 
   .industry {
@@ -342,17 +610,6 @@ const visualMap: Record<(typeof items)[number]['visual'], ServiceVisualVariant> 
   }
 
   @media (max-width: 720px) {
-    .industries__thread {
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-    }
-
-    .industries__thread span {
-      min-block-size: 3.7rem;
-      padding: 0.75rem 0.8rem;
-      font-size: 0.68rem;
-    }
-
     .industry {
       padding: 1rem;
     }
