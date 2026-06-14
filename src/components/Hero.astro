@@ -12,14 +12,10 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
      cascade to an instant final state. -->
 <section class="hero" data-hero>
   <div class="hero__field" aria-hidden="true">
-    <span class="hero__plane hero__plane--one"></span>
-    <span class="hero__plane hero__plane--two"></span>
-    <span class="hero__plane hero__plane--three"></span>
-    <span class="hero__path hero__path--one"></span>
-    <span class="hero__path hero__path--two"></span>
-    <span class="hero__node hero__node--one"></span>
-    <span class="hero__node hero__node--two"></span>
-    <span class="hero__node hero__node--three"></span>
+    <span class="hero__aura hero__aura--one"></span>
+    <span class="hero__aura hero__aura--two"></span>
+    <span class="hero__aura hero__aura--three"></span>
+    <span class="hero__glass"></span>
   </div>
 
   <div class="container hero__inner" data-hero-inner>
@@ -95,129 +91,88 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
   .hero__field::before {
     content: '';
     position: absolute;
-    inset: 14% 12% 18%;
-    border-radius: 999px;
+    inset: 9% max(6vw, calc((100vw - var(--content-max)) / 2 - 6rem)) 8%;
+    border-radius: 42px;
     background: radial-gradient(
-      closest-side,
-      color-mix(in srgb, var(--signal) 16%, transparent),
-      transparent 72%
+      closest-side at 50% 42%,
+      color-mix(in srgb, var(--surface) 48%, transparent),
+      color-mix(in srgb, var(--glass-hi) 24%, transparent) 42%,
+      transparent 78%
     );
-    filter: blur(22px);
-    opacity: 0.7;
-  }
-
-  .hero__plane {
-    position: absolute;
-    display: block;
-    border: 1px solid color-mix(in srgb, var(--signal) 17%, var(--hairline));
-    border-radius: calc(var(--radius-card) + 6px);
-    background:
-      linear-gradient(
-        145deg,
-        color-mix(in srgb, var(--surface) 68%, transparent),
-        color-mix(in srgb, var(--glass-hi) 38%, transparent)
-      );
-    -webkit-backdrop-filter: blur(14px);
-    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(18px) saturate(135%);
+    backdrop-filter: blur(18px) saturate(135%);
     box-shadow:
-      0 28px 90px color-mix(in srgb, var(--ink) 7%, transparent),
-      inset 0 1px 0 color-mix(in srgb, white 50%, transparent);
+      inset 0 1px 0 color-mix(in srgb, white 48%, transparent),
+      0 34px 110px color-mix(in srgb, var(--ink) 7%, transparent);
+    opacity: 0.72;
   }
 
-  .hero__plane::before,
-  .hero__plane::after {
+  .hero__field::after {
     content: '';
     position: absolute;
-    inset-inline-start: 16%;
-    block-size: 3px;
+    inset: 0;
+    background:
+      linear-gradient(90deg, transparent 0 48%, color-mix(in srgb, white 20%, transparent) 50%, transparent 54%),
+      linear-gradient(180deg, color-mix(in srgb, var(--surface) 68%, transparent), transparent 34%, color-mix(in srgb, var(--surface) 76%, transparent));
+    opacity: 0.58;
+  }
+
+  .hero__aura,
+  .hero__glass {
+    position: absolute;
     border-radius: 999px;
-    background: color-mix(in srgb, var(--glass-lo) 62%, transparent);
+    display: block;
+    will-change: transform;
   }
 
-  .hero__plane::before {
-    inset-block-start: 34%;
-    inline-size: 48%;
+  .hero__aura {
+    filter: blur(42px);
+    opacity: 0.7;
+    mix-blend-mode: multiply;
   }
 
-  .hero__plane::after {
-    inset-block-start: 52%;
-    inline-size: 28%;
-    background: var(--signal);
-  }
-
-  .hero__plane--one {
-    inline-size: clamp(160px, 17vw, 250px);
-    aspect-ratio: 1.72;
-    inset-inline-start: max(2vw, calc((100vw - var(--content-max)) / 2 - 5rem));
-    inset-block-start: 20%;
-    transform: rotate(-7deg);
-  }
-
-  .hero__plane--two {
-    inline-size: clamp(130px, 14vw, 210px);
-    aspect-ratio: 0.76;
-    inset-inline-end: max(4vw, calc((100vw - var(--content-max)) / 2 - 2rem));
+  .hero__aura--one {
+    inline-size: clamp(260px, 34vw, 560px);
+    block-size: clamp(220px, 27vw, 420px);
+    inset-inline-start: 13%;
     inset-block-start: 18%;
-    transform: rotate(6deg);
+    background: color-mix(in srgb, var(--glass-lo) 48%, transparent);
+    transform: translate3d(-5%, 0, 0) rotate(-10deg);
   }
 
-  .hero__plane--three {
-    inline-size: clamp(150px, 16vw, 230px);
-    aspect-ratio: 1.45;
-    inset-inline-end: max(9vw, calc((100vw - var(--content-max)) / 2 + 5rem));
-    inset-block-end: 13%;
-    transform: rotate(-4deg);
+  .hero__aura--two {
+    inline-size: clamp(230px, 30vw, 500px);
+    block-size: clamp(190px, 24vw, 390px);
+    inset-inline-end: 12%;
+    inset-block-start: 16%;
+    background: color-mix(in srgb, var(--signal) 28%, transparent);
+    transform: translate3d(7%, 0, 0) rotate(12deg);
   }
 
-  .hero__path {
-    position: absolute;
-    block-size: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      color-mix(in srgb, var(--signal) 50%, transparent),
-      transparent
-    );
-    transform-origin: center;
-    opacity: 0.62;
+  .hero__aura--three {
+    inline-size: clamp(240px, 30vw, 520px);
+    block-size: clamp(160px, 20vw, 330px);
+    inset-inline-start: 33%;
+    inset-block-end: 14%;
+    background: color-mix(in srgb, var(--speed-from) 30%, var(--surface));
+    opacity: 0.42;
+    transform: translate3d(0, 10%, 0) rotate(-4deg);
   }
 
-  .hero__path--one {
-    inline-size: 34vw;
-    inset-inline-start: 18vw;
-    inset-block-start: 34%;
-    transform: rotate(7deg);
-  }
-
-  .hero__path--two {
-    inline-size: 40vw;
-    inset-inline-end: 13vw;
-    inset-block-end: 30%;
-    transform: rotate(-9deg);
-  }
-
-  .hero__node {
-    position: absolute;
-    inline-size: 10px;
-    block-size: 10px;
-    border-radius: 999px;
-    background: var(--signal);
-    box-shadow: 0 0 0 8px color-mix(in srgb, var(--signal) 12%, transparent);
-  }
-
-  .hero__node--one {
-    inset-inline-start: 25%;
-    inset-block-start: 34%;
-  }
-
-  .hero__node--two {
-    inset-inline-end: 28%;
-    inset-block-start: 38%;
-  }
-
-  .hero__node--three {
-    inset-inline-end: 21%;
-    inset-block-end: 31%;
+  .hero__glass {
+    inline-size: min(58vw, 760px);
+    block-size: min(34vw, 430px);
+    inset-inline-start: 50%;
+    inset-block-start: 47%;
+    transform: translate3d(-50%, -50%, 0);
+    background:
+      radial-gradient(circle at 28% 34%, color-mix(in srgb, white 38%, transparent), transparent 30%),
+      radial-gradient(circle at 76% 22%, color-mix(in srgb, var(--glass-hi) 38%, transparent), transparent 34%),
+      linear-gradient(135deg, color-mix(in srgb, white 14%, transparent), color-mix(in srgb, var(--surface) 3%, transparent));
+    border: 1px solid color-mix(in srgb, var(--signal) 12%, transparent);
+    -webkit-backdrop-filter: blur(24px) saturate(145%);
+    backdrop-filter: blur(24px) saturate(145%);
+    opacity: 0.56;
   }
 
   .hero__inner {
@@ -310,25 +265,38 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
     }
 
     .hero__field {
-      opacity: 0.55;
+      inset-block-start: 56px;
+      opacity: 0.68;
     }
 
-    .hero__plane--one {
-      inline-size: 150px;
-      inset-inline-start: -36px;
+    .hero__field::before {
+      inset: 12% -12% 12%;
+      border-radius: 32px;
+    }
+
+    .hero__glass {
+      inline-size: 92vw;
+      block-size: 54vw;
+      opacity: 0.46;
+    }
+
+    .hero__aura {
+      filter: blur(34px);
+    }
+
+    .hero__aura--one {
+      inset-inline-start: -20%;
       inset-block-start: 18%;
     }
 
-    .hero__plane--two {
-      inline-size: 118px;
-      inset-inline-end: -28px;
-      inset-block-start: 22%;
+    .hero__aura--two {
+      inset-inline-end: -28%;
+      inset-block-start: 20%;
     }
 
-    .hero__plane--three,
-    .hero__path--two,
-    .hero__node--three {
-      display: none;
+    .hero__aura--three {
+      inset-inline-start: 20%;
+      inset-block-end: 18%;
     }
 
     .hero__triad {
@@ -362,75 +330,64 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .hero__plane--one {
-      animation: hero-plane-a 12s var(--ease-luxe) infinite;
+    .hero__aura--one {
+      animation: hero-aura-one 16s var(--ease-luxe) infinite;
     }
 
-    .hero__plane--two {
-      animation: hero-plane-b 11s var(--ease-luxe) infinite;
+    .hero__aura--two {
+      animation: hero-aura-two 18s var(--ease-luxe) infinite;
     }
 
-    .hero__plane--three {
-      animation: hero-plane-c 13s var(--ease-luxe) infinite;
+    .hero__aura--three {
+      animation: hero-aura-three 20s var(--ease-luxe) infinite;
     }
 
-    .hero__node {
-      animation: hero-node-pulse 4.4s var(--ease-luxe) infinite;
-    }
-
-    .hero__node--two {
-      animation-delay: -1.4s;
-    }
-
-    .hero__node--three {
-      animation-delay: -2.6s;
+    .hero__glass {
+      animation: hero-glass-drift 15s var(--ease-luxe) infinite;
     }
   }
 
-  @keyframes hero-plane-a {
+  @keyframes hero-aura-one {
     0%,
     100% {
-      transform: translate3d(0, 0, 0) rotate(-7deg);
+      transform: translate3d(-5%, 0, 0) rotate(-10deg) scale(1);
     }
 
     50% {
-      transform: translate3d(18px, -16px, 0) rotate(-4deg);
+      transform: translate3d(7%, -6%, 0) rotate(-4deg) scale(1.08);
     }
   }
 
-  @keyframes hero-plane-b {
+  @keyframes hero-aura-two {
     0%,
     100% {
-      transform: translate3d(0, 0, 0) rotate(6deg);
+      transform: translate3d(7%, 0, 0) rotate(12deg) scale(1);
     }
 
     50% {
-      transform: translate3d(-14px, 18px, 0) rotate(3deg);
+      transform: translate3d(-8%, 7%, 0) rotate(5deg) scale(1.06);
     }
   }
 
-  @keyframes hero-plane-c {
+  @keyframes hero-aura-three {
     0%,
     100% {
-      transform: translate3d(0, 0, 0) rotate(-4deg);
+      transform: translate3d(0, 10%, 0) rotate(-4deg) scale(1);
     }
 
     50% {
-      transform: translate3d(-16px, -12px, 0) rotate(-7deg);
+      transform: translate3d(-5%, -5%, 0) rotate(5deg) scale(1.12);
     }
   }
 
-  @keyframes hero-node-pulse {
+  @keyframes hero-glass-drift {
     0%,
-    52%,
     100% {
-      opacity: 0.52;
-      transform: scale(0.92);
+      transform: translate3d(-50%, -50%, 0) scale(1);
     }
 
-    20% {
-      opacity: 1;
-      transform: scale(1.16);
+    50% {
+      transform: translate3d(-49%, -52%, 0) scale(1.03);
     }
   }
 
