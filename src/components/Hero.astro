@@ -11,6 +11,17 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
      content is never JS-gated, and the global reduced-motion rule collapses the
      cascade to an instant final state. -->
 <section class="hero" data-hero>
+  <div class="hero__field" aria-hidden="true">
+    <span class="hero__plane hero__plane--one"></span>
+    <span class="hero__plane hero__plane--two"></span>
+    <span class="hero__plane hero__plane--three"></span>
+    <span class="hero__path hero__path--one"></span>
+    <span class="hero__path hero__path--two"></span>
+    <span class="hero__node hero__node--one"></span>
+    <span class="hero__node hero__node--two"></span>
+    <span class="hero__node hero__node--three"></span>
+  </div>
+
   <div class="container hero__inner" data-hero-inner>
     <img class="hero__logo" src={logoSrc} alt="Claritix" width="900" height="217" />
 
@@ -64,10 +75,149 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
 <style>
   .hero {
     /* Tall, airy stage; nav sits transparent on top of it. */
+    position: relative;
+    overflow: hidden;
     min-block-size: calc(88svh - 68px);
     display: flex;
     align-items: center;
     padding-block: clamp(4rem, 8vw, 7rem);
+    isolation: isolate;
+  }
+
+  .hero__field {
+    position: absolute;
+    inset: 68px 0 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .hero__field::before {
+    content: '';
+    position: absolute;
+    inset: 14% 12% 18%;
+    border-radius: 999px;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--signal) 16%, transparent),
+      transparent 72%
+    );
+    filter: blur(22px);
+    opacity: 0.7;
+  }
+
+  .hero__plane {
+    position: absolute;
+    display: block;
+    border: 1px solid color-mix(in srgb, var(--signal) 17%, var(--hairline));
+    border-radius: calc(var(--radius-card) + 6px);
+    background:
+      linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--surface) 68%, transparent),
+        color-mix(in srgb, var(--glass-hi) 38%, transparent)
+      );
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    box-shadow:
+      0 28px 90px color-mix(in srgb, var(--ink) 7%, transparent),
+      inset 0 1px 0 color-mix(in srgb, white 50%, transparent);
+  }
+
+  .hero__plane::before,
+  .hero__plane::after {
+    content: '';
+    position: absolute;
+    inset-inline-start: 16%;
+    block-size: 3px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--glass-lo) 62%, transparent);
+  }
+
+  .hero__plane::before {
+    inset-block-start: 34%;
+    inline-size: 48%;
+  }
+
+  .hero__plane::after {
+    inset-block-start: 52%;
+    inline-size: 28%;
+    background: var(--signal);
+  }
+
+  .hero__plane--one {
+    inline-size: clamp(160px, 17vw, 250px);
+    aspect-ratio: 1.72;
+    inset-inline-start: max(2vw, calc((100vw - var(--content-max)) / 2 - 5rem));
+    inset-block-start: 20%;
+    transform: rotate(-7deg);
+  }
+
+  .hero__plane--two {
+    inline-size: clamp(130px, 14vw, 210px);
+    aspect-ratio: 0.76;
+    inset-inline-end: max(4vw, calc((100vw - var(--content-max)) / 2 - 2rem));
+    inset-block-start: 18%;
+    transform: rotate(6deg);
+  }
+
+  .hero__plane--three {
+    inline-size: clamp(150px, 16vw, 230px);
+    aspect-ratio: 1.45;
+    inset-inline-end: max(9vw, calc((100vw - var(--content-max)) / 2 + 5rem));
+    inset-block-end: 13%;
+    transform: rotate(-4deg);
+  }
+
+  .hero__path {
+    position: absolute;
+    block-size: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--signal) 50%, transparent),
+      transparent
+    );
+    transform-origin: center;
+    opacity: 0.62;
+  }
+
+  .hero__path--one {
+    inline-size: 34vw;
+    inset-inline-start: 18vw;
+    inset-block-start: 34%;
+    transform: rotate(7deg);
+  }
+
+  .hero__path--two {
+    inline-size: 40vw;
+    inset-inline-end: 13vw;
+    inset-block-end: 30%;
+    transform: rotate(-9deg);
+  }
+
+  .hero__node {
+    position: absolute;
+    inline-size: 10px;
+    block-size: 10px;
+    border-radius: 999px;
+    background: var(--signal);
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--signal) 12%, transparent);
+  }
+
+  .hero__node--one {
+    inset-inline-start: 25%;
+    inset-block-start: 34%;
+  }
+
+  .hero__node--two {
+    inset-inline-end: 28%;
+    inset-block-start: 38%;
+  }
+
+  .hero__node--three {
+    inset-inline-end: 21%;
+    inset-block-end: 31%;
   }
 
   .hero__inner {
@@ -81,10 +231,12 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
 
   .hero__logo {
     /* Wide wordmark (4.15:1) - sized by width; min stays within 360px gutters. */
-    inline-size: clamp(240px, 40vw, 460px);
+    inline-size: clamp(240px, 36vw, 400px);
     block-size: auto;
     margin-block-end: clamp(2rem, 5vw, 3.5rem);
     animation: hero-rise 1.2s var(--ease-luxe) both;
+    transform: translateZ(0);
+    image-rendering: auto;
   }
 
   .hero__triad {
@@ -153,7 +305,30 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
     }
 
     .hero__logo {
+      inline-size: clamp(210px, 58vw, 270px);
       margin-block-end: clamp(1.4rem, 8vw, 2.5rem);
+    }
+
+    .hero__field {
+      opacity: 0.55;
+    }
+
+    .hero__plane--one {
+      inline-size: 150px;
+      inset-inline-start: -36px;
+      inset-block-start: 18%;
+    }
+
+    .hero__plane--two {
+      inline-size: 118px;
+      inset-inline-end: -28px;
+      inset-block-start: 22%;
+    }
+
+    .hero__plane--three,
+    .hero__path--two,
+    .hero__node--three {
+      display: none;
     }
 
     .hero__triad {
@@ -183,6 +358,79 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
     to {
       opacity: 1;
       transform: translateY(0) scale(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__plane--one {
+      animation: hero-plane-a 12s var(--ease-luxe) infinite;
+    }
+
+    .hero__plane--two {
+      animation: hero-plane-b 11s var(--ease-luxe) infinite;
+    }
+
+    .hero__plane--three {
+      animation: hero-plane-c 13s var(--ease-luxe) infinite;
+    }
+
+    .hero__node {
+      animation: hero-node-pulse 4.4s var(--ease-luxe) infinite;
+    }
+
+    .hero__node--two {
+      animation-delay: -1.4s;
+    }
+
+    .hero__node--three {
+      animation-delay: -2.6s;
+    }
+  }
+
+  @keyframes hero-plane-a {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(-7deg);
+    }
+
+    50% {
+      transform: translate3d(18px, -16px, 0) rotate(-4deg);
+    }
+  }
+
+  @keyframes hero-plane-b {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(6deg);
+    }
+
+    50% {
+      transform: translate3d(-14px, 18px, 0) rotate(3deg);
+    }
+  }
+
+  @keyframes hero-plane-c {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(-4deg);
+    }
+
+    50% {
+      transform: translate3d(-16px, -12px, 0) rotate(-7deg);
+    }
+  }
+
+  @keyframes hero-node-pulse {
+    0%,
+    52%,
+    100% {
+      opacity: 0.52;
+      transform: scale(0.92);
+    }
+
+    20% {
+      opacity: 1;
+      transform: scale(1.16);
     }
   }
 

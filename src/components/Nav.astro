@@ -16,7 +16,7 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
 <header class="nav">
   <div class="container nav__inner">
     <a class="nav__brand" href={homeHref} aria-label="Claritix - home">
-      <img class="nav__logo" src={logoSrc} alt="Claritix" width="146" height="35" />
+      <img class="nav__logo" src={logoSrc} alt="Claritix" width="900" height="217" />
     </a>
 
     <!-- Zero-JS responsive menu: checkbox toggle drives the mobile dropdown.
@@ -126,10 +126,13 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
   }
 
   .nav__logo {
-    /* Claritix wordmark (4.15:1) sized by height; width auto keeps aspect. */
-    block-size: 32px;
-    inline-size: auto;
+    /* Claritix wordmark from the production asset. Fixed CSS dimensions avoid
+       fractional browser scaling that can make the bitmap look pasted/soft. */
+    inline-size: 132px;
+    block-size: auto;
     display: block;
+    transform: translateZ(0);
+    image-rendering: auto;
   }
 
   /* Toggle is desktop-hidden; the checkbox that drives it is hidden but focusable. */
