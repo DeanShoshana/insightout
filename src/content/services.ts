@@ -3,10 +3,10 @@
 // (§2 lists) → one example-deliverable line. Anchor slugs match the homepage
 // card links exactly: behavioral / data / market / advisory.
 //
-// DRAFT COPY — everything below is placeholder until content lock (M5).
+// DRAFT COPY - everything below is placeholder until content lock (M5).
 
 export interface ServicePillar {
-  /** Anchor id — stable, linked from the homepage engine cards. */
+  /** Anchor id - stable, linked from the homepage engine cards. */
   id: 'behavioral' | 'data' | 'market' | 'advisory';
   /** Pillar name (§2). */
   pillar: string;
@@ -28,7 +28,7 @@ export const services = {
   intro: {
     kicker: 'Services',
     headline: 'From behavior to the boardroom.',
-    lede: 'Four practices, one ascent: what users do, what the numbers say, where the market is moving — and what to decide about it.',
+    lede: 'Four practices, one ascent: what users do, what the numbers say, where the market is moving - and what to decide about it.',
   },
 
   pillars: [
@@ -37,7 +37,7 @@ export const services = {
       pillar: 'Behavioral & User Analytics',
       navLabel: 'Behavioral',
       headline: 'Know what users actually do.',
-      body: 'Product decisions fail when they rest on what users say or what teams hope. This practice instruments what actually happens — who converts, who churns, which features earn their place — and turns it into product calls you can defend.',
+      body: 'Product decisions fail when they rest on what users say or what teams hope. This practice instruments what actually happens - who converts, who churns, which features earn their place - and turns it into product calls you can defend.',
       offerings: [
         'PMF validation',
         'A/B testing & feature analysis',
@@ -69,7 +69,7 @@ export const services = {
       pillar: 'Market & Consumer Intelligence',
       navLabel: 'Market',
       headline: 'See the market before it moves you.',
-      body: 'Internal data tells you what is happening; it rarely tells you why, or what is coming. This practice looks outward — competitors, categories, consumers — and brings the outside view to the same standard of evidence as the inside one.',
+      body: 'Internal data tells you what is happening; it rarely tells you why, or what is coming. This practice looks outward - competitors, categories, consumers - and brings the outside view to the same standard of evidence as the inside one.',
       offerings: [
         'Competitive intelligence & benchmarking',
         'Market research & opportunity assessment',
@@ -79,14 +79,14 @@ export const services = {
       example:
         'e.g., a competitive teardown ahead of a category entry, or a Voice-of-Customer study that explains a soft quarter.',
       footnote:
-        'Methods include OSINT, SOCMINT, and social network analysis — applied where the question calls for them, never as an end in themselves.',
+        'Methods include OSINT, SOCMINT, and social network analysis - applied where the question calls for them, never as an end in themselves.',
     },
     {
       id: 'advisory',
       pillar: 'Product Strategy & Advisory',
       navLabel: 'Advisory',
       headline: 'A seat at the table, backed by evidence.',
-      body: 'The flagship practice, and where the other three converge. Analysis is only useful when it survives contact with a boardroom — this is the work of turning evidence into the narrative, the recommendation, and the decision.',
+      body: 'The flagship practice, and where the other three converge. Analysis is only useful when it survives contact with a boardroom - this is the work of turning evidence into the narrative, the recommendation, and the decision.',
       offerings: [
         'Product & analytics advisory for executives, boards, investors',
         'Board & investor keynotes',
@@ -99,7 +99,7 @@ export const services = {
     },
   ] as ServicePillar[],
 
-  // §5.2 footer line — the only place tool names live on the site.
+  // §5.2 footer line - the only place tool names live on the site.
   toolingNote:
     'Work delivered in SQL, Python, BI tooling, and whatever your stack already runs on.',
 } as const;

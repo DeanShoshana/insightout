@@ -1,4 +1,4 @@
-// Central site configuration — single place for feature flags, contact, analytics.
+// Central site configuration - single place for feature flags, contact, analytics.
 // SPEC §4, §5.6, §7. Sections behind a flag are built but shipped dark (flag = false).
 
 export interface SiteConfig {
@@ -7,13 +7,13 @@ export interface SiteConfig {
   /** Sub-positioning line (SPEC §1). */
   tagline: string;
 
-  /** Feature flags — all default OFF. Build the sections, ship them dark (CLAUDE.md rule 5). */
+  /** Feature flags - all default OFF. Build the sections, ship them dark (CLAUDE.md rule 5). */
   flags: {
     /** Advisory Circle / expert network at the bottom of Approach (SPEC §4). Needs signed MOUs. */
     showNetwork: boolean;
-    /** Case Studies — reserved route /work, unlinked until 2–3 engagements exist (SPEC §4). */
+    /** Case Studies - reserved route /work, unlinked until 2–3 engagements exist (SPEC §4). */
     showWork: boolean;
-    /** Blog / Insights — reserved route /insights, unlinked at launch (SPEC §4). */
+    /** Blog / Insights - reserved route /insights, unlinked at launch (SPEC §4). */
     showInsights: boolean;
   };
 
@@ -34,7 +34,7 @@ export interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
   name: 'Claritix',
-  tagline: 'Analytical and product services, grounded in business strategy.',
+  tagline: 'Your product and analytics function, on demand.',
 
   flags: {
     showNetwork: false,
@@ -43,7 +43,7 @@ export const siteConfig: SiteConfig = {
   },
 
   contact: {
-    // Formspree endpoint (M5b). Public by design — the destination address
+    // Formspree endpoint (M5b). Public by design - the destination address
     // stays server-side with Formspree; no email appears in the markup.
     mode: 'endpoint',
     target: 'https://formspree.io/f/xjgdpndn',

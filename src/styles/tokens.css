@@ -1,5 +1,5 @@
 /*
-  Claritix — design tokens.
+  Claritix - design tokens.
   Brand colors are FINAL (SPEC §6a, derived from the logo). Never invent colors.
   Surface/text roles follow SPEC §6. One accent only (--signal); it spikes at
   "insight" moments (CTA, Engine convergence) and is otherwise absent.
@@ -7,15 +7,15 @@
 
 :root {
   /* ---- Brand (LOCKED, SPEC §6a) ---- */
-  --signal: #2470e5;        /* "OUT" wordmark / speed-line terminal blue — CTAs, active states */
-  --ink: #101828;           /* "INSIGHT" wordmark navy — primary text, dark scenes */
+  --signal: #2470e5;        /* "OUT" wordmark / speed-line terminal blue - CTAs, active states */
+  --ink: #101828;           /* "INSIGHT" wordmark navy - primary text, dark scenes */
   --glass-hi: #e9f1ff;      /* icon glass gradient, light variant */
   --glass-lo: #76a6f3;
   --speed-from: #7faff8;    /* speed-line gradient (motion/accent moments) */
   --speed-to: #2470e5;
 
   /* ---- Surfaces & text (SPEC §6) ---- */
-  --surface: #fcfcfa;       /* primary background — subtly warmed white (M2b review) */
+  --surface: #fcfcfa;       /* primary background - subtly warmed white (M2b review) */
   --surface-2: #f6f8fa;     /* elevated / alternate section background */
   --graphite: #5a6b78;      /* secondary text */
   --hairline: #e3e8ed;      /* borders, rules */
@@ -23,7 +23,7 @@
   /* derived */
   --signal-hover: #1c5cc4;  /* darker --signal for hover/active states */
   --signal-text: #1c5cc4;   /* small signal-colored text (links, kickers): --signal is
-                               4.4–4.5:1 on the warmed surfaces — this shade holds ≥5.8:1 */
+                               4.4–4.5:1 on the warmed surfaces - this shade holds ≥5.8:1 */
   --on-ink: #ffffff;        /* text on ink surfaces */
 
   /* ---- Typography (SPEC §6) ---- */
@@ -52,7 +52,7 @@
 
   /* ---- Motion ---- */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  /* M4: the cinematic register — long deceleration, weighted settle. */
+  /* M4: the cinematic register - long deceleration, weighted settle. */
   --ease-luxe: cubic-bezier(0.16, 1, 0.3, 1);
   --dur-fast: 180ms;
   --dur-med: 320ms;

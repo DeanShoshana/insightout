@@ -4,11 +4,11 @@
 Read CLAUDE.md and SPEC.md fully before doing anything.
 
 Then execute Milestone 1 from SPEC.md §9 (Skeleton):
-1. Scaffold the Astro project per the repo structure in §7 — including `site.config.ts`
+1. Scaffold the Astro project per the repo structure in §7 - including `site.config.ts`
    with the three feature flags defaulting to false, `src/styles/tokens.css` with the
    final brand tokens from §6/§6a, and the reserved unlinked routes (/work, /insights).
 2. Base layout with nav and footer (nav per §4: Home, Services, Industries, Approach,
-   About, plus the "Let's talk" CTA button — Contact is not a tab).
+   About, plus the "Let's talk" CTA button - Contact is not a tab).
 3. GitHub Actions workflow deploying to GitHub Pages on push to main.
 4. Wire the logo assets from public/brand/ into the nav (icon-light variant).
 
@@ -16,4 +16,4 @@ Work on branch `m1-skeleton`. When done: verify the build passes locally, open a
 with screenshots, and stop for my review. Do not start Milestone 2.
 
 One open decision to record in the PR, not resolve: the fourth industry slot
-(SPEC.md §3) — default to the three-label version for now.
+(SPEC.md §3) - default to the three-label version for now.

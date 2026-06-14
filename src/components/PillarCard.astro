@@ -4,7 +4,7 @@ import { withBase } from '../lib/url';
 interface Props {
   /** Pillar name (SPEC §2), shown as the card kicker. */
   pillar: string;
-  /** Outcome headline — leads the card (SPEC §5.1 #3). */
+  /** Outcome headline - leads the card (SPEC §5.1 #3). */
   headline: string;
   offerings: readonly string[];
   /** Services-page anchor (slugs stable since M2). */
@@ -136,7 +136,7 @@ const {
       box-shadow var(--dur-hover) var(--ease-luxe);
   }
 
-  /* Micro motion (§6): hover lift, transform + shadow only — slow register. */
+  /* Micro motion (§6): hover lift, transform + shadow only - slow register. */
   .card:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-card-hover);

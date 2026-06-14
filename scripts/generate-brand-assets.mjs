@@ -7,7 +7,7 @@
 //   brand/claritix/claritix-wordmark.png  trimmed + optimized (nav/hero/footer)
 //   favicon.svg / favicon.ico / favicon-32.png   ink tile + the logo's "C" glyph
 //   apple-touch-icon.png / icon-192.png / icon-512.png
-//   og-image.png   1200×630 — wordmark + Product•Analytics•Strategy on ink
+//   og-image.png   1200×630 - wordmark + Product•Analytics•Strategy on ink
 
 import sharp from 'sharp';
 import { writeFileSync, statSync } from 'node:fs';
@@ -18,7 +18,7 @@ const OUTDIR = 'public/';
 const SRC = `${BRANDDIR}claritix-logo.png`;
 const INK = '#101828'; // --ink
 
-// ---- 1. Trimmed, display wordmark — WebP keeps the glassy gradient light
+// ---- 1. Trimmed, display wordmark - WebP keeps the glassy gradient light
 //         (it's the home hero LCP element; a 377KB PNG would hurt perf). ----
 await sharp(SRC)
   .trim({ threshold: 10 })

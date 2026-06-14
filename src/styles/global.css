@@ -1,6 +1,6 @@
 /*
   Global baseline. Logical CSS properties are used as standard modern practice
-  (no i18n motive — the site is permanently English-only, LTR).
+  (no i18n motive - the site is permanently English-only, LTR).
   Transforms + opacity only for motion (SPEC §6).
 */
 
@@ -95,7 +95,7 @@ svg {
   border-radius: 3px;
 }
 
-/* Skip link — appears on focus. */
+/* Skip link - appears on focus. */
 .skip-link {
   position: absolute;
   inset-block-start: -100%;
@@ -146,7 +146,7 @@ svg {
 /* ---- Reveal system (SPEC §6): rise-on-enter, once only, IO-driven. ----
    Gated on .js (set inline in Base) so content is never hidden without JS,
    and on no-preference so reduced-motion users get instant final state.
-   M4 register: slower, weighted — gentle rise + scale settle, long decel. */
+   M4 register: slower, weighted - gentle rise + scale settle, long decel. */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {
     opacity: 0;
@@ -171,7 +171,7 @@ svg {
 }
 
 /* Motion discipline (SPEC §6): reduced motion is non-negotiable.
-   Delays are zeroed too — otherwise `animation-fill-mode: both` cascades
+   Delays are zeroed too - otherwise `animation-fill-mode: both` cascades
    (hero) would hold their hidden `from` state through the delay. */
 @media (prefers-reduced-motion: reduce) {
   html {
