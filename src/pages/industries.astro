@@ -3,15 +3,26 @@ import Base from '../layouts/Base.astro';
 import PageIntro from '../components/PageIntro.astro';
 import ServiceVisual, { type ServiceVisualVariant } from '../components/ServiceVisual.astro';
 import { industries } from '../content/industries';
+import { services } from '../content/services';
 import { withBase } from '../lib/url';
 
 const { intro, items, closing } = industries;
+const serviceNav = services.pillars.map(({ id, navLabel }) => ({ id, navLabel }));
 const visualMap: Record<(typeof items)[number]['visual'], ServiceVisualVariant> = {
   product: 'product',
   behavior: 'behavior',
   data: 'data',
   market: 'market',
 };
+const signalCards = [
+  { label: 'Concept', body: 'Shape the product before it becomes a backlog.' },
+  { label: 'Market', body: 'Connect the product to category and buyer reality.' },
+  { label: 'Workflow', body: 'Map the user, team, and operational context.' },
+  { label: 'Evidence', body: 'Define the signals that make the decision defensible.' },
+  { label: 'Build', body: 'Translate direction into requirements and mockups.' },
+  { label: 'Data', body: 'Connect product behavior to operating evidence.' },
+  { label: 'Decision', body: 'Carry the recommendation into the business frame.' },
+];
 ---
 
 <Base
@@ -22,15 +33,39 @@ const visualMap: Record<(typeof items)[number]['visual'], ServiceVisualVariant> 
        pillars, representative questions. No logos, no client grids. -->
   <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede} />
 
-  <div class="industries">
-    <div class="container">
-      <div class="industries__thread" data-reveal>
-        <span>Product reality</span>
-        <span>Behavioral signal</span>
-        <span>Operating data</span>
-        <span>Market context</span>
-      </div>
+  <nav class="subnav" aria-label="Service practices">
+    <div class="container subnav__inner">
+      <ul>
+        {
+          serviceNav.map((p) => (
+            <li>
+              <a class="subnav__link" href={withBase(`/services#${p.id}`)}>
+                {p.navLabel}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </nav>
 
+  <div class="industries">
+    <div class="industries__marquee" data-reveal aria-label="Evidence signals Claritix connects across industries">
+      <div class="industries__marquee-track">
+        {[0, 1].map((setIndex) => (
+          <div class="industries__marquee-set" aria-hidden={setIndex === 1 ? 'true' : undefined}>
+            {signalCards.map((card) => (
+              <article class="signal-card">
+                <p>{card.label}</p>
+                <span>{card.body}</span>
+              </article>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="container">
       {
         items.map((item, i) => (
           <article class="industry" data-reveal data-spotlight style={`--reveal-delay: ${i * 80}ms`}>
@@ -82,40 +117,131 @@ const visualMap: Record<(typeof items)[number]['visual'], ServiceVisualVariant> 
 
 <style>
   .industries {
-    padding-block: clamp(1rem, 3vw, 2rem) var(--section-pad);
+    padding-block: 0 var(--section-pad);
   }
 
-  .industries__thread {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem;
-    margin-block: 0 clamp(2rem, 5vw, 4rem);
+  .subnav {
+    position: sticky;
+    inset-block-start: 68px;
+    z-index: calc(var(--z-nav) - 1);
+    background: color-mix(in srgb, var(--surface) 85%, transparent);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    backdrop-filter: saturate(180%) blur(12px);
+    border-block: 1px solid var(--hairline);
   }
 
-  .industries__thread span {
-    position: relative;
-    min-block-size: 4.25rem;
+  .subnav__inner ul {
     display: flex;
-    align-items: center;
-    padding: 0.8rem 1rem;
-    border: 1px solid var(--hairline);
-    border-radius: var(--radius-sm);
-    background: var(--surface);
-    color: var(--graphite);
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    text-transform: uppercase;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .industries__thread span::after {
-    content: '';
-    position: absolute;
-    inset-inline: 1rem;
-    inset-block-end: 0.8rem;
-    block-size: 2px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--speed-from), var(--signal));
-    opacity: 0.72;
+  .subnav__link {
+    display: inline-block;
+    padding-block: 0.85rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--graphite);
+    white-space: nowrap;
+    border-block-end: 2px solid transparent;
+    transition:
+      color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out);
+  }
+
+  .subnav__link:hover {
+    color: var(--ink);
+    border-block-end-color: var(--signal);
+  }
+
+  .industries__marquee {
+    margin-block: clamp(0.5rem, 2vw, 1.5rem) clamp(2.5rem, 5vw, 4rem);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 9%, black 91%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 9%, black 91%, transparent);
+  }
+
+  .industries__marquee-track {
+    display: flex;
+    inline-size: max-content;
+  }
+
+  .industries__marquee-set {
+    display: flex;
+    gap: 0.9rem;
+    padding-inline-end: 0.9rem;
+  }
+
+  .signal-card {
+    flex: 0 0 clamp(220px, 22vw, 310px);
+    min-block-size: 124px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: var(--radius-card);
+    background:
+      radial-gradient(
+        180px circle at 78% 18%,
+        color-mix(in srgb, var(--signal) 13%, transparent),
+        transparent 64%
+      ),
+      linear-gradient(
+        150deg,
+        var(--surface) 0%,
+        var(--glass-hi) 56%,
+        color-mix(in srgb, var(--glass-lo) 28%, var(--glass-hi)) 100%
+      );
+    box-shadow: var(--shadow-card);
+  }
+
+  .signal-card p {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--signal-text);
+    margin: 0;
+  }
+
+  .signal-card span {
+    display: block;
+    color: var(--ink);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .industries__marquee-track {
+      animation: industries-marquee 34s linear infinite;
+      will-change: transform;
+    }
+
+    .industries__marquee:hover .industries__marquee-track {
+      animation-play-state: paused;
+    }
+  }
+
+  @keyframes industries-marquee {
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .industries__marquee {
+      overflow-x: auto;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+
+    .industries__marquee-track {
+      padding-inline: var(--gutter);
+    }
   }
 
   .industry {
@@ -342,17 +468,6 @@ const visualMap: Record<(typeof items)[number]['visual'], ServiceVisualVariant> 
   }
 
   @media (max-width: 720px) {
-    .industries__thread {
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-    }
-
-    .industries__thread span {
-      min-block-size: 3.7rem;
-      padding: 0.75rem 0.8rem;
-      font-size: 0.68rem;
-    }
-
     .industry {
       padding: 1rem;
     }
