@@ -7,29 +7,73 @@
 export const about = {
   intro: {
     kicker: 'About',
-    headline: 'Why Claritix exists',
-    lede: 'Fast-moving companies are not short on data. They are short on the means to carry it from product reality to the decision table.',
+    headline: 'Built for the distance between product reality and business decision.',
+    lede: 'Claritix exists for technology-driven companies, startups, and fast-moving markets where product, analytics, and strategy cannot be treated as separate conversations.',
   },
 
   // The thesis, as one confident statement.
   thesis:
-    'Claritix turns product questions, analytical evidence, and market signal into the decision a leader actually has to make. The hard part was never the dashboard - it is the distance between what the numbers show, what users do, and what the business does next.',
+    'Claritix turns product questions, analytical evidence, and market signal into the decision a leader actually has to make. The hard part is not collecting another dashboard. It is connecting what the product should become, what users actually do, what the market is saying, and what the business can defend next.',
+
+  system: {
+    kicker: 'The company system',
+    headline: 'Product, analytics, and strategy are designed to work as one.',
+    lede: 'Each service can stand alone, but the Claritix advantage is the connection between them: product definition creates the question, analytics proves or challenges it, market context tests the outside reality, and strategy carries the answer into action.',
+    nodes: [
+      {
+        label: 'Product',
+        title: 'Characterize what should be built',
+        body: 'Concepts, requirements, mockups, user flows, and production-ready direction.',
+      },
+      {
+        label: 'Analytics',
+        title: 'Read what the system is showing',
+        body: 'Behavioral signal, operating data, KPI logic, data quality, and decision evidence.',
+      },
+      {
+        label: 'Market',
+        title: 'Place the work in reality',
+        body: 'Category movement, buyer context, consumer pressure, and competitive signal.',
+      },
+      {
+        label: 'Strategy',
+        title: 'Turn evidence into the call',
+        body: 'Executive framing, board-level narratives, product choices, and growth direction.',
+      },
+    ],
+  },
 
   sections: [
     {
       id: 'how',
-      headline: 'One system, not separate services',
-      body: 'Product work defines the question. Behavioral analytics shows what users actually do. Business intelligence turns it into numbers the company can run on. Market and consumer intelligence brings in the outside view. Strategy carries all of it into the recommendation.',
+      kicker: 'How Claritix thinks',
+      headline: 'The question comes before the model.',
+      body: 'The work starts by making the business question precise: what is being decided, what evidence would change the decision, and where the product or market reality is still unclear. That discipline keeps analytics from becoming reporting theatre and keeps product work connected to business growth.',
     },
     {
       id: 'where',
-      headline: 'Built for technological worlds',
-      body: 'The work is designed for startups, software products, mobile experiences, e-commerce, digital operations, and brands moving through fast markets. These are environments where product choices, data systems, consumer behavior, and leadership pressure all move at once.',
+      kicker: 'Where it fits',
+      headline: 'Built for technological worlds and fast-moving companies.',
+      body: 'Claritix is designed for startups, software products, enterprise platforms, mobile experiences, e-commerce, digital operations, and brands operating under pressure. These are environments where product choices, data systems, user behavior, market movement, and leadership expectations all move at once.',
     },
     {
       id: 'difference',
-      headline: 'What makes the work different',
+      kicker: 'What makes it different',
+      headline: 'The output is not the analysis. The output is clarity.',
       body: 'Most analytics stops at the dashboard. Claritix is built to reach the decision. The combination is the point: enough analytical depth to trust the evidence, enough product judgment to know what it means, and enough business altitude to carry it into action.',
     },
   ],
+
+  proof: {
+    kicker: 'Operating altitude',
+    headline: 'The work is close enough to the product to be useful, and senior enough to matter.',
+    points: [
+      'From mockup and product logic to the leadership narrative around what should be built.',
+      'From user behavior and operating data to the KPI structure the company can actually run on.',
+      'From market pressure and consumer signal to the strategic choice the business needs to make.',
+    ],
+  },
+
+  closing:
+    'Claritix is built for the moment when a company needs more than analysis and more than advice. It needs a connected product, analytics, and strategy function that can turn evidence into movement.',
 } as const;
