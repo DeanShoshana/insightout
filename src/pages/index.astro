@@ -10,10 +10,10 @@ import { withBase } from '../lib/url';
 ---
 
 <Base>
-  <!-- §5.1 #1 — Hero -->
+  <!-- §5.1 #1 - Hero -->
   <Hero />
 
-  <!-- §5.1 #2 — Problem framing. DRAFT COPY -->
+  <!-- §5.1 #2 - Problem framing. DRAFT COPY -->
   <section class="problem">
     <div class="container">
       <h2 class="visually-hidden">The problem</h2>
@@ -21,7 +21,7 @@ import { withBase } from '../lib/url';
     </div>
   </section>
 
-  <!-- §5.1 #3 — Outcome-first services narrative. Leads with Pillar 4's
+  <!-- §5.1 #3 - Outcome-first services narrative. Leads with Pillar 4's
        outcome; the three engines follow as "how that gets built". DRAFT COPY -->
   <section class="services">
     <div class="container">
@@ -68,7 +68,7 @@ import { withBase } from '../lib/url';
     </div>
   </section>
 
-  <!-- §5.1 #4 — Approach teaser. DRAFT COPY -->
+  <!-- §5.1 #4 - Approach teaser. DRAFT COPY -->
   <section class="approach">
     <div class="container approach__inner" data-reveal>
       <p class="section-head__kicker">{home.approach.kicker}</p>
@@ -81,7 +81,7 @@ import { withBase } from '../lib/url';
     </div>
   </section>
 
-  <!-- §5.1 #5 — Industries strip, three-label default (§3 OPEN). DRAFT COPY -->
+  <!-- §5.1 #5 - Industries strip, three-label default (§3 OPEN). DRAFT COPY -->
   <section class="industries">
     <div class="container">
       <header class="section-head" data-reveal>
@@ -98,13 +98,13 @@ import { withBase } from '../lib/url';
     </div>
   </section>
 
-  <!-- §5.1 #6 — Closing CTA -->
+  <!-- §5.1 #6 - Closing CTA -->
   <ContactCTA />
 </Base>
 
 <script>
   // The pinned Engine scene (SPEC §6 signature scene, M4 art direction:
-  // Apple-cinematic). Scroll position scrubs the whole sequence — scrub: 1
+  // Apple-cinematic). Scroll position scrubs the whole sequence - scrub: 1
   // adds a weighted lag, native scroll speed is never overridden, and the
   // pin releases after convergence. Every hidden initial state is set HERE
   // via JS: with reduced motion or no JS the diagram is simply its final,
@@ -141,7 +141,7 @@ import { withBase } from '../lib/url';
       const artifact = svg.querySelector('.engine__artifact');
       if (!node || !pulse || !out || !artifact) return;
 
-      // Initial states — JS-only, so non-animated visitors see the final state.
+      // Initial states - JS-only, so non-animated visitors see the final state.
       streams.forEach((p) => {
         const len = p.getTotalLength();
         gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
@@ -273,7 +273,7 @@ import { withBase } from '../lib/url';
 
   /* ---- Industries strip ---- */
   .industries {
-    /* M2b: alternate rhythm — surface / surface-2 down the page, so it isn't
+    /* M2b: alternate rhythm - surface / surface-2 down the page, so it isn't
        one flat sheet. Sequence: hero/problem W → services S2 → approach W →
        industries S2 → contact W → footer S2. */
     background: var(--surface-2);

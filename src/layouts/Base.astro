@@ -15,7 +15,7 @@ interface Props {
 
 const { title, description = siteConfig.tagline, noindex = false } = Astro.props;
 
-const pageTitle = title ? `${title} · ${siteConfig.name}` : `${siteConfig.name} — Product • Analytics • Strategy`;
+const pageTitle = title ? `${title} · ${siteConfig.name}` : `${siteConfig.name} - Product • Analytics • Strategy`;
 const origin = Astro.site ?? new URL(Astro.url.origin);
 const canonical = new URL(Astro.url.pathname, origin).href;
 const ogImage = new URL(withBase('/og-image.png'), origin).href; // 1200×630 raster (M4e)
@@ -23,7 +23,7 @@ const homeUrl = new URL(withBase('/'), origin).href;
 
 // JSON-LD (SPEC §7). ProfessionalService + the founder as Person. The bio is a
 // DRAFT placeholder and sameAs/email are intentionally omitted until M5 content
-// lock (§8) — better absent than fabricated. Emitted once, site-wide.
+// lock (§8) - better absent than fabricated. Emitted once, site-wide.
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -56,7 +56,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<!-- English-only, LTR — permanent scope decision (M2b review, 2026-06). -->
+<!-- English-only, LTR - permanent scope decision (M2b review, 2026-06). -->
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -65,7 +65,7 @@ const jsonLd = {
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
-    <!-- Favicons (M4e) — ink tiles, legible on light/dark chrome. -->
+    <!-- Favicons (M4e) - ink tiles, legible on light/dark chrome. -->
     <link rel="icon" href={withBase('/favicon.ico')} sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
@@ -86,13 +86,13 @@ const jsonLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Claritix — Product • Analytics • Strategy" />
+    <meta property="og:image:alt" content="Claritix - Product • Analytics • Strategy" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content={ogImage} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
-    <!-- Fonts (SPEC §6) — self-hosted latin woff2 (M4e): no third-party
+    <!-- Fonts (SPEC §6) - self-hosted latin woff2 (M4e): no third-party
          round-trip, no render-blocking request. Preload the primary family. -->
     <link
       rel="preload"
@@ -136,10 +136,10 @@ const jsonLd = {
     </script>
 
     <script>
-      // M4 micro-interactions — magnetic CTAs + cursor-tracking card spotlight.
+      // M4 micro-interactions - magnetic CTAs + cursor-tracking card spotlight.
       // Both are weighted (rAF lerp, no transition fighting) and exist only for
       // fine pointers with motion allowed: touch and reduced-motion visitors
-      // never see them. Pure decoration — nothing functional depends on this.
+      // never see them. Pure decoration - nothing functional depends on this.
       const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -191,7 +191,7 @@ const jsonLd = {
             inside = false;
 
           const tick = () => {
-            x += (tx - x) * 0.1; // slow ease — cinematic register
+            x += (tx - x) * 0.1; // slow ease - cinematic register
             y += (ty - y) * 0.1;
             card.style.setProperty('--spot-x', `${x.toFixed(2)}%`);
             card.style.setProperty('--spot-y', `${y.toFixed(2)}%`);

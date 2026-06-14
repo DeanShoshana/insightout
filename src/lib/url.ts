@@ -1,5 +1,5 @@
 // Join a root-relative path with Astro's configured base so links/assets resolve
-// regardless of base — now "/" on the claritix.co custom domain, previously the
+// regardless of base - now "/" on the claritix.co custom domain, previously the
 // "/insightout/" GitHub Pages subpath.
 export function withBase(path: string): string {
   const base = import.meta.env.BASE_URL; // "/" on the custom domain

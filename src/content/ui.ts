@@ -1,4 +1,4 @@
-// Navigation config — shared by Nav and Footer. Page copy lives in
+// Navigation config - shared by Nav and Footer. Page copy lives in
 // src/content/<page>.ts so content-lock edits never touch markup.
 
 export interface NavItem {
@@ -7,7 +7,7 @@ export interface NavItem {
   href: string;
 }
 
-// Information architecture — SPEC §4 (LOCKED).
+// Information architecture - SPEC §4 (LOCKED).
 // Home · Services · Industries · Approach · About · [Let's talk]
 // Contact is the CTA, NOT a tab.
 export const navItems: NavItem[] = [
@@ -18,5 +18,5 @@ export const navItems: NavItem[] = [
   { label: 'About', href: '/about' },
 ];
 
-// Primary CTA label — appears in the nav and the mobile menu (SPEC §4).
+// Primary CTA label - appears in the nav and the mobile menu (SPEC §4).
 export const ctaContact = "Let's talk";

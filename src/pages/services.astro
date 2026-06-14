@@ -8,9 +8,9 @@ const { intro, pillars, toolingNote } = services;
 
 <Base
   title="Services"
-  description="Behavioral analytics, business intelligence, market intelligence, and product strategy advisory — four practices, one ascent."
+  description="Behavioral analytics, business intelligence, market intelligence, and product strategy advisory - four practices, one ascent."
 >
-  <!-- DRAFT COPY — Services (SPEC §5.2): one page, four anchored sections. -->
+  <!-- DRAFT COPY - Services (SPEC §5.2): one page, four anchored sections. -->
   <PageIntro kicker={intro.kicker} headline={intro.headline} lede={intro.lede} />
 
   <!-- Sticky sub-nav: four pillar anchors, scrollspy active state (§6 micro). -->
@@ -61,7 +61,7 @@ const { intro, pillars, toolingNote } = services;
     ))
   }
 
-  <!-- §5.2 footer line — the only place tool names live. -->
+  <!-- §5.2 footer line - the only place tool names live. -->
   <div class="tooling">
     <div class="container">
       <p class="tooling__note">{toolingNote}</p>
@@ -71,7 +71,7 @@ const { intro, pillars, toolingNote } = services;
 
 <script>
   // Scrollspy for the sticky sub-nav: the section crossing the upper third of
-  // the viewport is current. Highlight only — scrolling stays native (§6).
+  // the viewport is current. Highlight only - scrolling stays native (§6).
   const links = new Map<string, HTMLAnchorElement>();
   document
     .querySelectorAll<HTMLAnchorElement>('.subnav__link[data-spy]')
@@ -225,7 +225,7 @@ const { intro, pillars, toolingNote } = services;
     margin: 0;
   }
 
-  /* ---- Pillar 4: the seat — elevated ink section (§5.2 / §6).
+  /* ---- Pillar 4: the seat - elevated ink section (§5.2 / §6).
        .pillar.pillar--seat: must outrank .pillar:nth-of-type(even). ---- */
   .pillar.pillar--seat {
     background: var(--ink);
