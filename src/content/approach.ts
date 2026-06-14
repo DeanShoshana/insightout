@@ -21,6 +21,14 @@ export const approach = {
     ],
   },
 
+  decisionFrame: {
+    kicker: 'Decision frame',
+    headline: 'One frame, four pressures.',
+    body: 'The useful answer rarely lives in one discipline. Product appetite, technical feasibility, user behavior, and market motion have to be read together before a recommendation deserves executive attention.',
+    signals: ['Product question', 'Technical reality', 'User evidence', 'Market pressure'],
+    artifact: 'Decision',
+  },
+
   // §5.4 #2 - the model: three engines feed the seat.
   model: {
     headline: 'Three engines feed the seat',
@@ -36,21 +44,25 @@ export const approach = {
     parts: [
       {
         name: 'Product',
+        visual: 'product',
         kicker: 'Characterization & growth fit',
         body: 'Characterize the product before it becomes a build list: connect the market, growth question, user journey, and business model, then turn mockups into production-ready product direction.',
       },
       {
         name: 'Technology',
+        visual: 'technology',
         kicker: 'Feasibility & implementation',
         body: 'Translate that direction into technical reality: surfaces, instrumentation, requirements, constraints, and implementation choices the team can actually ship.',
       },
       {
         name: 'Analytics',
+        visual: 'analytics',
         kicker: 'Evidence discipline',
         body: 'Build the evidence layer that explains what is happening, why it matters, and which signal is strong enough to act on.',
       },
       {
         name: 'Strategy',
+        visual: 'strategy',
         kicker: 'Decision altitude',
         body: 'Carry the evidence into the executive frame: the recommendation, the story, the risk, and the call the business needs to make.',
       },

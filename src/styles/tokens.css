@@ -67,6 +67,16 @@
   --z-nav: 100;
 }
 
+@media (max-width: 720px) {
+  :root {
+    --gutter: clamp(1rem, 5vw, 1.35rem);
+    --section-pad: clamp(3.75rem, 16vw, 5.5rem);
+    --fs-hero: clamp(2rem, 9vw, 2.5rem);
+    --fs-body: 1rem;
+    --lh-body: 1.55;
+  }
+}
+
 :root[data-theme='dark'] {
   color-scheme: dark;
 
