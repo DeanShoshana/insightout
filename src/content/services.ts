@@ -39,13 +39,13 @@ export const services = {
       pillar: 'Technology & Product',
       navLabel: 'Product',
       visual: 'devices',
-      headline: 'Turn product questions into buildable direction.',
-      body: 'Product work loses force when strategy, research, and implementation sit in separate rooms. This service turns the business question into product direction teams can actually build: clearer journeys, sharper requirements, stronger prototypes, and analytics hooks designed in from the start.',
+      headline: 'Turn product questions into production-ready direction.',
+      body: 'Product work loses force when market logic, growth needs, characterization, and implementation sit in separate rooms. This service turns the business question into product direction teams can actually build: clearer journeys, sharper requirements, stronger prototypes, and analytics hooks designed in from the start.',
       offerings: [
-        'Product discovery & opportunity framing',
+        'Product characterization & opportunity framing',
         'Feature definition & prioritization',
         'Mobile and web experience characterization',
-        'Prototype-ready product briefs',
+        'Mockup-to-production product briefs',
         'Analytics instrumentation planning',
       ],
       example:

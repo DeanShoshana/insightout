@@ -45,15 +45,14 @@ const {
         {motif === 'devices' && (
           <svg viewBox="0 0 220 120" class="card__motif card__motif--devices">
             <g class="device-desktop">
-              <rect x="40" y="24" width="120" height="72" rx="12" fill="var(--ink-surface)" opacity="0.94" />
-              <rect x="50" y="34" width="100" height="48" rx="7" fill="var(--glass-hi)" opacity="0.92" />
-              <path d="M 62 68 C 82 58, 95 72, 114 56 S 138 48, 146 42" fill="none" stroke="var(--signal)" stroke-width="3" stroke-linecap="round" />
-              <rect x="76" y="88" width="48" height="5" rx="2.5" fill="var(--glass-lo)" />
+              <rect class="device-shell" x="38" y="24" width="118" height="72" rx="14" />
+              <path class="device-line" d="M 58 68 C 78 58, 96 72, 116 56 S 142 46, 150 42" />
+              <path class="device-base" d="M 78 90 H 120" />
             </g>
             <g class="device-mobile">
-              <rect x="142" y="44" width="38" height="58" rx="10" fill="var(--ink-surface)" opacity="0.98" />
-              <rect x="149" y="54" width="24" height="32" rx="5" fill="var(--glass-hi)" opacity="0.92" />
-              <circle cx="161" cy="94" r="2.5" fill="var(--glass-lo)" />
+              <rect class="device-shell" x="148" y="48" width="34" height="52" rx="10" />
+              <path class="device-line" d="M 156 66 H 174" />
+              <circle class="device-dot" cx="165" cy="90" r="2.7" />
             </g>
           </svg>
         )}
@@ -214,6 +213,30 @@ const {
     .card:hover .card__motif--devices .device-mobile {
       transform: translate3d(4px, 3px, 0);
     }
+  }
+
+  .card__motif--devices .device-shell {
+    fill: color-mix(in srgb, var(--glass-hi) 78%, var(--surface));
+    stroke: var(--glass-lo);
+    stroke-width: 3;
+  }
+
+  .card__motif--devices .device-line {
+    fill: none;
+    stroke: var(--signal);
+    stroke-width: 3.5;
+    stroke-linecap: round;
+  }
+
+  .card__motif--devices .device-base {
+    fill: none;
+    stroke: var(--glass-lo);
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  .card__motif--devices .device-dot {
+    fill: var(--signal);
   }
 
   .card__content {

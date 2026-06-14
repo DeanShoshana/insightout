@@ -42,12 +42,12 @@ const { intro, pillars, toolingNote } = services;
             {p.visual === 'devices' && (
               <svg viewBox="0 0 360 260" class="service-viz service-viz--devices">
                 <rect class="viz-panel" x="52" y="46" width="196" height="126" rx="22" />
-                <rect class="viz-screen" x="70" y="66" width="160" height="76" rx="13" />
-                <path class="viz-line viz-line--signal" d="M 88 122 C 118 98, 140 128, 168 96 S 216 78, 226 74" />
-                <rect class="viz-chip" x="96" y="152" width="74" height="10" rx="5" />
+                <path class="viz-line viz-line--signal" d="M 82 122 C 116 96, 142 128, 174 96 S 218 78, 230 72" />
+                <path class="viz-line viz-line--soft" d="M 96 152 H 168" />
                 <rect class="viz-phone" x="224" y="92" width="72" height="118" rx="20" />
-                <rect class="viz-screen" x="238" y="112" width="44" height="62" rx="10" />
-                <circle class="viz-dot" cx="260" cy="192" r="5" />
+                <path class="viz-line viz-line--soft" d="M 244 122 H 276" />
+                <path class="viz-line viz-line--signal" d="M 244 146 H 270" />
+                <circle class="viz-dot" cx="260" cy="190" r="5" />
               </svg>
             )}
             {p.visual === 'behavior' && (
@@ -291,7 +291,9 @@ const { intro, pillars, toolingNote } = services;
 
   .viz-panel,
   .viz-phone {
-    fill: var(--ink-surface);
+    fill: color-mix(in srgb, var(--glass-hi) 76%, var(--surface));
+    stroke: var(--glass-lo);
+    stroke-width: 4;
   }
 
   .pillar--seat .viz-panel,
@@ -320,11 +322,15 @@ const { intro, pillars, toolingNote } = services;
 
   .viz-line {
     fill: none;
-    stroke: var(--graphite);
+    stroke: var(--glass-lo);
     stroke-width: 4;
     stroke-linecap: round;
     stroke-linejoin: round;
-    opacity: 0.82;
+    opacity: 0.9;
+  }
+
+  .viz-line--soft {
+    stroke: var(--glass-lo);
   }
 
   .viz-line--signal {
