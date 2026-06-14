@@ -14,11 +14,11 @@ const { variant, size = 'card' } = Astro.props;
     {variant === 'product' && (
       <g>
         <rect class="visual-panel visual-panel--large" x="54" y="56" width="168" height="96" rx="22" />
-        <path class="visual-path visual-path--accent" d="M 82 118 C 112 96, 136 124, 164 96 S 210 78, 220 72" />
+        <path class="visual-path visual-path--accent" pathLength="1" d="M 82 118 C 112 96, 136 124, 164 96 S 210 78, 220 72" />
         <path class="visual-path visual-path--soft" d="M 92 144 H 154" />
         <rect class="visual-panel visual-panel--small" x="214" y="84" width="64" height="104" rx="20" />
         <path class="visual-path visual-path--soft" d="M 234 116 H 260" />
-        <path class="visual-path visual-path--accent" d="M 234 140 H 254" />
+        <path class="visual-path visual-path--accent" pathLength="1" d="M 234 140 H 254" />
         <circle class="visual-node visual-node--accent" cx="246" cy="170" r="5" />
       </g>
     )}
@@ -43,7 +43,7 @@ const { variant, size = 'card' } = Astro.props;
         <rect class="visual-bar" x="88" y="132" width="24" height="36" rx="6" />
         <rect class="visual-bar" x="122" y="144" width="24" height="24" rx="6" />
         <rect class="visual-bar" x="156" y="118" width="24" height="50" rx="6" />
-        <path class="visual-path visual-path--accent" d="M 92 162 C 124 146, 144 162, 166 134 S 214 122, 256 96" />
+        <path class="visual-path visual-path--accent" pathLength="1" d="M 92 162 C 124 146, 144 162, 166 134 S 214 122, 256 96" />
         <circle class="visual-node visual-node--accent" cx="256" cy="96" r="7" />
       </g>
     )}
@@ -59,7 +59,7 @@ const { variant, size = 'card' } = Astro.props;
         <circle class="visual-node" cx="286" cy="72" r="13" />
         <circle class="visual-node" cx="284" cy="172" r="13" />
         <circle class="visual-node visual-node--accent" cx="178" cy="118" r="20" />
-        <path class="visual-path visual-path--accent" d="M 196 118 H 250" />
+        <path class="visual-path visual-path--accent" pathLength="1" d="M 196 118 H 250" />
         <rect class="visual-chip" x="250" y="104" width="54" height="28" rx="10" />
       </g>
     )}
@@ -70,7 +70,7 @@ const { variant, size = 'card' } = Astro.props;
         <path class="visual-path visual-path--soft" d="M 72 148 C 120 148, 136 110, 174 110" />
         <path class="visual-path visual-path--soft" d="M 72 110 H 174" />
         <circle class="visual-node visual-node--accent" cx="174" cy="110" r="7" />
-        <path class="visual-path visual-path--accent" d="M 184 110 H 238" />
+        <path class="visual-path visual-path--accent" pathLength="1" d="M 184 110 H 238" />
         <rect class="visual-panel visual-panel--decision" x="238" y="66" width="76" height="88" rx="18" />
         <path class="visual-path visual-path--soft visual-path--decision" d="M 254 94 H 296" />
         <path class="visual-path visual-path--soft visual-path--decision" d="M 254 114 H 286" />
@@ -99,6 +99,9 @@ const { variant, size = 'card' } = Astro.props;
     background: color-mix(in srgb, var(--signal) 16%, transparent);
     filter: blur(26px);
     opacity: 0.58;
+    transition:
+      opacity var(--dur-hover) var(--ease-luxe),
+      transform var(--dur-hover) var(--ease-luxe);
   }
 
   .service-visual__svg {
@@ -172,6 +175,48 @@ const { variant, size = 'card' } = Astro.props;
       transition:
         transform var(--dur-hover) var(--ease-luxe),
         opacity var(--dur-hover) var(--ease-luxe);
+    }
+
+    .visual-path--accent {
+      transition:
+        stroke-dashoffset 1100ms var(--ease-luxe),
+        transform var(--dur-hover) var(--ease-luxe),
+        opacity var(--dur-hover) var(--ease-luxe);
+    }
+
+    :global(.js [data-reveal]:not(.in)) .visual-path--accent {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      opacity: 0.7;
+    }
+
+    :global(.js [data-reveal].in) .visual-path--accent {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 0;
+    }
+
+    :global(.js [data-reveal]:not(.in)) .service-visual--product .visual-panel--small,
+    :global(.js [data-reveal]:not(.in)) .service-visual--market .visual-chip,
+    :global(.js [data-reveal]:not(.in)) .service-visual--advisory .visual-panel--decision {
+      opacity: 0;
+      transform: translate3d(-10px, 6px, 0);
+    }
+
+    :global(.js [data-reveal]:not(.in)) .service-visual--behavior .visual-node,
+    :global(.js [data-reveal]:not(.in)) .service-visual--market .visual-node {
+      opacity: 0.2;
+      transform: scale(0.72);
+    }
+
+    :global(.js [data-reveal]:not(.in)) .service-visual--data .visual-bar {
+      opacity: 0.45;
+      transform: translate3d(0, 14px, 0) scaleY(0.72);
+    }
+
+    :global(.card:hover) .service-visual::before,
+    :global(.pillar__visual:hover) .service-visual::before {
+      opacity: 0.82;
+      transform: scale(1.08);
     }
 
     :global(.card:hover) .service-visual--product .visual-panel--small,

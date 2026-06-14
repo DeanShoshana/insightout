@@ -86,7 +86,6 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
 
   /* Micro motion (§6): hover lift, transform + shadow only - slow register. */
   .card:hover {
-    transform: translateY(-4px);
     box-shadow: var(--shadow-card-hover);
   }
 
@@ -110,6 +109,7 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
 
   /* ---- Gradient hero zone (BACKLOG Entry A): blue-on-warm, tokens only ---- */
   .card__viz {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -122,6 +122,53 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
       color-mix(in srgb, var(--glass-lo) 38%, var(--glass-hi)) 100%
     );
     border-block-end: 1px solid var(--hairline);
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .card__viz::before,
+  .card__viz::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .card__viz::before {
+    z-index: 0;
+    background:
+      radial-gradient(
+        180px circle at 22% 26%,
+        color-mix(in srgb, var(--surface) 92%, transparent),
+        transparent 66%
+      ),
+      linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--surface) 38%, transparent),
+        transparent 62%
+      );
+    opacity: 0.72;
+  }
+
+  .card__viz::after {
+    z-index: 2;
+    background: linear-gradient(
+      105deg,
+      transparent 18%,
+      color-mix(in srgb, var(--surface) 34%, transparent) 46%,
+      transparent 72%
+    );
+    opacity: 0;
+    transform: translate3d(-36%, 0, 0);
+    transition:
+      opacity var(--dur-hover) var(--ease-luxe),
+      transform 900ms var(--ease-luxe);
+  }
+
+  .card__viz :global(.service-visual) {
+    position: relative;
+    z-index: 1;
+    transition: transform var(--dur-hover) var(--ease-luxe);
   }
 
   .card__content {
@@ -216,6 +263,16 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
     border-block-end: 1px solid rgba(255, 255, 255, 0.08);
   }
 
+  .card--seat .card__viz::before {
+    background:
+      radial-gradient(
+        190px circle at 24% 28%,
+        color-mix(in srgb, var(--speed-from) 16%, transparent),
+        transparent 68%
+      ),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 58%);
+  }
+
   .card--seat .card__kicker {
     color: var(--speed-from);
   }
@@ -243,6 +300,21 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
   .card--seat .card__link:hover {
     background: var(--signal-hover);
     transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .card:hover .card__viz::after {
+      opacity: 1;
+      transform: translate3d(36%, 0, 0);
+    }
+
+    .card:hover .card__viz :global(.service-visual) {
+      transform: translate3d(0, -2px, 0) scale(1.018);
+    }
   }
 
   /* Full-width seat panel: two-column internal layout on desktop. */
