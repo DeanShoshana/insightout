@@ -28,7 +28,7 @@ export const home = {
   // §5.1 #2 - names the gap between dashboards and decisions. DRAFT COPY.
   problem: {
     statement:
-      'Most companies don’t have a data problem - they have a decision problem. Dashboards multiply, reports pile up, and the calls that matter are still made on instinct. Claritix closes the gap between what the data shows and what the business decides.',
+      'Most companies don’t have a data problem or a product problem - they have a decision problem. Product ideas move into backlogs, dashboards multiply, reports pile up, and the calls that matter are still made on instinct. Claritix closes the gap between what the product needs, what the data shows, and what the business decides.',
   },
 
   // §5.1 #3 - outcome-first services narrative. Leads with Pillar 4's outcome,
