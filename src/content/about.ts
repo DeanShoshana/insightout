@@ -8,23 +8,28 @@ export const about = {
   intro: {
     kicker: 'About',
     headline: 'Why Claritix exists',
-    lede: 'Companies are not short on data. They are short on the means to carry it from the warehouse to the decision table.',
+    lede: 'Fast-moving companies are not short on data. They are short on the means to carry it from product reality to the decision table.',
   },
 
   // The thesis, as one confident statement.
   thesis:
-    'Claritix turns data and research into the decision a leader actually has to make. The hard part was never the dashboard - it is the distance between what the numbers show and what the business does next. We close that distance with research-grade rigor, applied to the call on the table.',
+    'Claritix turns product questions, analytical evidence, and market signal into the decision a leader actually has to make. The hard part was never the dashboard - it is the distance between what the numbers show, what users do, and what the business does next.',
 
   sections: [
     {
       id: 'how',
-      headline: 'How Claritix works',
-      body: 'Three services, one outcome. Product analytics shows what users actually do; business intelligence turns it into numbers the company can run on; market and consumer intelligence brings in the view from outside. None of them is the point on its own - they feed the seat at the table, where evidence becomes a recommendation a board can act on.',
+      headline: 'One system, not separate services',
+      body: 'Product work defines the question. Behavioral analytics shows what users actually do. Business intelligence turns it into numbers the company can run on. Market and consumer intelligence brings in the outside view. Strategy carries all of it into the recommendation.',
+    },
+    {
+      id: 'where',
+      headline: 'Built for technological worlds',
+      body: 'The work is designed for startups, software products, mobile experiences, e-commerce, digital operations, and brands moving through fast markets. These are environments where product choices, data systems, consumer behavior, and leadership pressure all move at once.',
     },
     {
       id: 'difference',
-      headline: 'What makes it different',
-      body: 'Most analytics stops at the dashboard. Claritix is built to reach the decision. The combination is what is rare: the analytical depth to trust the evidence, and the product and strategy instinct to know which decision it should drive. We work at the altitude where those calls get made - with executives, boards, and investors - and we measure the work by the action it produces, not the charts it leaves behind.',
+      headline: 'What makes the work different',
+      body: 'Most analytics stops at the dashboard. Claritix is built to reach the decision. The combination is the point: enough analytical depth to trust the evidence, enough product judgment to know what it means, and enough business altitude to carry it into action.',
     },
   ],
 } as const;

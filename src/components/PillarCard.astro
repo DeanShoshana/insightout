@@ -16,9 +16,8 @@ interface Props {
   /** Stagger offset for the rise-on-enter reveal (§6: 60–80ms steps). */
   revealDelay?: number;
   body?: string;
-  /** Brand-native data-motif for the gradient hero zone (BACKLOG Entry A).
-      One per pillar: funnel | trend | network | streams. */
-  motif?: 'funnel' | 'trend' | 'network' | 'streams';
+  /** Brand-native data-motif for the gradient hero zone. */
+  motif?: 'devices' | 'funnel' | 'trend' | 'network' | 'streams';
 }
 
 const {
@@ -43,6 +42,21 @@ const {
   {
     motif && (
       <div class="card__viz" aria-hidden="true">
+        {motif === 'devices' && (
+          <svg viewBox="0 0 220 120" class="card__motif card__motif--devices">
+            <g class="device-desktop">
+              <rect x="40" y="24" width="120" height="72" rx="12" fill="var(--ink-surface)" opacity="0.94" />
+              <rect x="50" y="34" width="100" height="48" rx="7" fill="var(--glass-hi)" opacity="0.92" />
+              <path d="M 62 68 C 82 58, 95 72, 114 56 S 138 48, 146 42" fill="none" stroke="var(--signal)" stroke-width="3" stroke-linecap="round" />
+              <rect x="76" y="88" width="48" height="5" rx="2.5" fill="var(--glass-lo)" />
+            </g>
+            <g class="device-mobile">
+              <rect x="142" y="44" width="38" height="58" rx="10" fill="var(--ink-surface)" opacity="0.98" />
+              <rect x="149" y="54" width="24" height="32" rx="5" fill="var(--glass-hi)" opacity="0.92" />
+              <circle cx="161" cy="94" r="2.5" fill="var(--glass-lo)" />
+            </g>
+          </svg>
+        )}
         {motif === 'funnel' && (
           <svg viewBox="0 0 220 120" class="card__motif">
             <g fill="var(--glass-lo)">
@@ -179,6 +193,27 @@ const {
   .card__motif {
     inline-size: min(62%, 200px);
     block-size: auto;
+  }
+
+  .card__motif--devices {
+    inline-size: min(70%, 210px);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card__motif--devices .device-desktop,
+    .card__motif--devices .device-mobile {
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: transform var(--dur-hover) var(--ease-luxe);
+    }
+
+    .card:hover .card__motif--devices .device-desktop {
+      transform: translate3d(-3px, -3px, 0);
+    }
+
+    .card:hover .card__motif--devices .device-mobile {
+      transform: translate3d(4px, 3px, 0);
+    }
   }
 
   .card__content {
