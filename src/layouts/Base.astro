@@ -61,16 +61,29 @@ const jsonLd = {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Reveal styles are gated on .js so content never hides without JS. -->
+    <!-- Theme is applied before paint; reveal styles are gated on .js so content never hides without JS. -->
     <script is:inline>
-      document.documentElement.classList.add('js');
+      (() => {
+        const root = document.documentElement;
+        root.classList.add('js');
+        try {
+          const stored = localStorage.getItem('theme');
+          const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const theme = stored === 'light' || stored === 'dark' ? stored : systemDark ? 'dark' : 'light';
+          root.dataset.theme = theme;
+          root.style.colorScheme = theme;
+        } catch {
+          root.dataset.theme = 'light';
+          root.style.colorScheme = 'light';
+        }
+      })();
     </script>
     <!-- Favicons (M4e) - ink tiles, legible on light/dark chrome. -->
     <link rel="icon" href={withBase('/favicon.ico')} sizes="32x32" />
     <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
     <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
     <link rel="manifest" href={withBase('/site.webmanifest')} />
-    <meta name="theme-color" content="#101828" />
+    <meta name="theme-color" content="#fcfcfa" />
     <link rel="canonical" href={canonical} />
 
     <title>{pageTitle}</title>
@@ -111,6 +124,53 @@ const jsonLd = {
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // Theme toggle: follows system by default, persists after user choice.
+      const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+      const themeMeta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+      const themeMedia = window.matchMedia('(prefers-color-scheme: dark)');
+      const getStoredTheme = () => {
+        try {
+          return localStorage.getItem('theme');
+        } catch {
+          return null;
+        }
+      };
+      const storeTheme = (theme: 'light' | 'dark') => {
+        try {
+          localStorage.setItem('theme', theme);
+        } catch {
+          // Storage can be unavailable in private contexts; the active page still updates.
+        }
+      };
+
+      const applyTheme = (theme: 'light' | 'dark', persist = true) => {
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        if (themeMeta) themeMeta.content = theme === 'dark' ? '#101828' : '#fcfcfa';
+        if (themeToggle) {
+          const next = theme === 'dark' ? 'light' : 'dark';
+          themeToggle.setAttribute('aria-label', `Switch to ${next} mode`);
+          themeToggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+        }
+        if (persist) storeTheme(theme);
+      };
+
+      applyTheme(
+        document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
+        false
+      );
+
+      themeToggle?.addEventListener('click', () => {
+        const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+      });
+
+      themeMedia.addEventListener('change', (event) => {
+        if (!getStoredTheme()) applyTheme(event.matches ? 'dark' : 'light', false);
+      });
+    </script>
 
     <script>
       // Rise-on-enter reveals (SPEC §6): IntersectionObserver, once only.
