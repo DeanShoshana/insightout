@@ -7,52 +7,52 @@
 export const approach = {
   intro: {
     kicker: 'Approach',
-    headline: 'Research-grade rigor, startup speed.',
-    lede: 'The method comes from research training. The pace comes from a decade inside startups. The offer is both at once.',
+    headline: 'Where product, data, and strategy become one decision.',
+    lede: 'The work starts with the business question, traces the product reality behind it, and builds the evidence leaders can act on.',
   },
 
   // §5.4 #1 - origin arc.
   origin: {
-    headline: 'Where the method comes from',
+    headline: 'Start with the decision, not the dashboard',
     paragraphs: [
-      'The practice began in research: careful questions, honest measurement, conclusions that survive scrutiny. Research has a low tolerance for convenient answers - the evidence either holds or it doesn’t.',
-      'Startups taught the opposite lesson: a rigorous answer that arrives late is worth nothing. Product analytics, experimentation, growth - the questions are research questions, but the clock is a business clock.',
-      'Claritix is the merger of the two. Research standards applied to commercial questions, delivered at the speed those questions are actually decided.',
+      'Claritix begins by locating the decision on the table: a roadmap call, a retention problem, a market move, a board narrative, or a growth question the team can no longer answer by instinct.',
+      'From there, the work moves backward through the product, the data, the user behavior, and the market context until the evidence is strong enough to carry the decision.',
+      'Research-grade standards still matter: clean questions, honest measurement, and conclusions that survive scrutiny. The difference is that the work is applied to commercial questions at the moment they need to be decided.',
     ],
   },
 
   // §5.4 #2 - the model: three engines feed the seat.
   model: {
     headline: 'Three engines feed the seat',
-    body: 'Behavioral data shows what users do. Business data shows what it adds up to. Market intelligence shows what is happening outside the building. Each is an engine; none is the point. They converge into the seat - the advisory work where evidence becomes a decision.',
+    body: 'Product direction sets the question. Behavioral data shows what users do. Business data shows what it adds up to. Market intelligence shows what is happening outside the building. The engines converge into the seat - the advisory work where evidence becomes a decision.',
     diagramCaption: 'Three engines. One seat at the table.',
   },
 
-  // §5.4 #3 - how engagements work: three shapes.
-  engagements: {
-    headline: 'How engagements work',
-    lede: 'Three shapes. Most work starts as one and grows into another.',
-    shapes: [
+  // Enhancement spec: no public timing commitments. This section is
+  // a story about the operating model: product, technology, analytics, strategy.
+  operatingSystem: {
+    headline: 'The operating system',
+    lede: 'The approach is not a sequence of steps. It is a way of keeping product reality, technical feasibility, analytical evidence, and business strategy in the same frame.',
+    parts: [
       {
-        name: 'Embedded',
-        kicker: 'Fractional senior analyst / product manager',
-        who: 'For teams with more questions than analytical capacity - a senior pair of hands inside your tools, your standups, your data.',
-        duration: 'Typically 2–4 days a week, three months and up.',
-        outcome: 'You get a running analytics practice and a backlog that empties: instrumented funnels, live dashboards, experiments that conclude.',
+        name: 'Product',
+        kicker: 'Question framing',
+        body: 'Clarify the product decision before touching the data: which user, which journey, which business outcome, which tradeoff.',
       },
       {
-        name: 'Project',
-        kicker: 'Defined deliverable, defined timeline',
-        who: 'For a specific question with a deadline - a churn investigation, a market entry, a board-ready product report.',
-        duration: 'Typically 2–8 weeks, scoped up front.',
-        outcome: 'You get the deliverable and the working behind it - data, method, and the recommendation, ready to be acted on.',
+        name: 'Technology',
+        kicker: 'Buildable direction',
+        body: 'Translate strategy into product surfaces, instrumentation, requirements, and implementation-ready choices the team can use.',
       },
       {
-        name: 'Advisory',
-        kicker: 'The seat',
-        who: 'For founders and executives who want the evidence in the room when decisions get made - ongoing, senior, on call.',
-        duration: 'Monthly retainer; cadence set by your decision calendar.',
-        outcome: 'You get a standing analytical counterpart: briefings before the board meets, a straight read before you commit.',
+        name: 'Analytics',
+        kicker: 'Evidence discipline',
+        body: 'Build the evidence layer that explains what is happening, why it matters, and which signal is strong enough to act on.',
+      },
+      {
+        name: 'Strategy',
+        kicker: 'Decision altitude',
+        body: 'Carry the evidence into the executive frame: the recommendation, the story, the risk, and the call the business needs to make.',
       },
     ],
   },

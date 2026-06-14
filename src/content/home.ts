@@ -15,6 +15,7 @@ export interface EngineCard {
   href: string;
   /** Engine label used in the diagram and card kicker. */
   engine: string;
+  motif: 'devices' | 'funnel' | 'trend' | 'network';
 }
 
 export const home = {
@@ -35,7 +36,7 @@ export const home = {
   services: {
     kicker: 'Services',
     headline: 'The deliverable is a decision.',
-    lede: 'Not a dashboard. Not a deck that dies in a drive. The work ends at the decision table - a board keynote, an investor narrative, a product report someone acts on.',
+    lede: 'Not a dashboard. Not a deck that dies in a drive. The work turns product, analytics, and market evidence into a board keynote, investor narrative, product report, or roadmap call someone acts on.',
 
     seat: {
       pillar: 'Product Strategy & Advisory',
@@ -50,9 +51,21 @@ export const home = {
       linkLabel: 'How advisory works',
     },
 
-    enginesIntro: 'Built on three engines.',
+    enginesIntro: 'Built through four focused offers.',
     engineLinkLabel: 'See the full offering',
     engines: [
+      {
+        pillar: 'Technology & Product',
+        engine: 'Product',
+        headline: 'Turn product questions into buildable direction.',
+        offerings: [
+          'Product discovery & opportunity framing',
+          'Mobile and web experience characterization',
+          'Analytics instrumentation planning',
+        ],
+        href: '/services#product',
+        motif: 'devices',
+      },
       {
         pillar: 'Behavioral & User Analytics',
         engine: 'Behavior',
@@ -63,6 +76,7 @@ export const home = {
           'User journeys & funnel analysis',
         ],
         href: '/services#behavioral',
+        motif: 'funnel',
       },
       {
         pillar: 'Data & Business Intelligence',
@@ -74,6 +88,7 @@ export const home = {
           'Predictive analytics & anomaly detection',
         ],
         href: '/services#data',
+        motif: 'trend',
       },
       {
         pillar: 'Market & Consumer Intelligence',
@@ -85,6 +100,7 @@ export const home = {
           'Shopper & consumer insights, Voice of Customer',
         ],
         href: '/services#market',
+        motif: 'network',
       },
     ] as EngineCard[],
 
@@ -100,7 +116,7 @@ export const home = {
   approach: {
     kicker: 'Approach',
     headline: 'Product judgment, business context, data discipline.',
-    body: 'Claritix sits where product reality meets business need. The work uses data to answer the questions that decide growth: what to build, where users are stuck, which market signals matter, and what leadership should do next.',
+    body: 'Claritix sits where product reality meets business need. The work uses data to answer the questions that decide growth: what to build, where users get stuck, which market signals matter, and what leadership should do next.',
     linkLabel: 'Read the approach',
     href: '/approach',
   },
@@ -115,17 +131,17 @@ export const home = {
       {
         label: 'Technology',
         blurb:
-          'In software and mobile apps, the question is which features actually move retention - and which just look busy.',
+          'In software and mobile apps, Claritix enters where product bets need evidence: which journeys retain, which releases matter, and what to build next.',
       },
       {
         label: 'E-Commerce & Retail',
         blurb:
-          'In e-commerce, the work is finding where shoppers leak out of the funnel - and what it costs to fix.',
+          'In e-commerce, Claritix enters where funnel behavior becomes commercial judgment: where shoppers leak, what it costs, and which fixes deserve focus.',
       },
       {
         label: 'Brands & CPG',
         blurb:
-          'For brands, it’s hearing the consumer over the noise: what they buy, why they switch, what they’d pay.',
+          'For brands, Claritix enters where consumer noise needs structure: why people switch, what they will pay for, and which signals should guide the next move.',
       },
     ],
   },
