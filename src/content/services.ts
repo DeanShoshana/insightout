@@ -56,17 +56,18 @@ export const services = {
       pillar: 'Behavioral & User Analytics',
       navLabel: 'Behavioral',
       visual: 'behavior',
-      headline: 'Know what users actually do.',
-      body: 'Product decisions fail when they rest on what users say or what teams hope. This practice instruments what actually happens - who converts, who churns, which features earn their place - and turns it into product calls you can defend.',
+      headline: 'Know what users actually need.',
+      body: 'Product decisions fail when teams read behavior too narrowly. This practice turns journeys, funnel movement, product friction, trend signal, and OSINT-informed context into a clearer view of the ICP: who the product is really for, what they need next, and which product calls can be defended with evidence.',
       offerings: [
         'PMF validation',
         'A/B testing & feature analysis',
-        'User journeys & funnel analysis',
-        'Behavioral & cohort analytics',
+        'User journeys, trends & funnel intelligence',
+        'ICP clarity & behavioral segmentation',
+        'OSINT-informed user and market signal',
         'Product & data QA',
       ],
       example:
-        'e.g., a churn-driver analysis with prioritized fixes, or a funnel teardown with a clickable Figma prototype of the strongest fix.',
+        'e.g., an ICP intelligence brief that connects journeys, conversion friction, outside signal, and prioritized product moves.',
     },
     {
       id: 'data',

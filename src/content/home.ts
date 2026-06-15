@@ -69,11 +69,12 @@ export const home = {
       {
         pillar: 'Behavioral & User Analytics',
         engine: 'Behavior',
-        headline: 'Know what users actually do.',
+        headline: 'Know what users actually need.',
         offerings: [
           'PMF validation',
-          'A/B testing & feature analysis',
-          'User journeys & funnel analysis',
+          'Journey and funnel intelligence',
+          'ICP clarity and segmentation',
+          'Trend and outside-signal reading',
         ],
         href: '/services#behavioral',
         motif: 'funnel',
