@@ -23,7 +23,7 @@ export const about = {
       {
         label: 'Product',
         title: 'Specify what should be built',
-        body: 'Concepts, requirements, mockups, user flows, and production-ready direction.',
+        body: 'Concepts, requirements, prototypes, user flows, and production-ready direction.',
       },
       {
         label: 'Analytics',
@@ -68,7 +68,7 @@ export const about = {
     kicker: 'Operating altitude',
     headline: 'The work is close enough to the product to be useful, and senior enough to matter.',
     points: [
-      'From mockup and product logic to the leadership narrative around what should be built.',
+      'From prototype and product logic to the leadership narrative around what should be built.',
       'From user behavior and operating data to the KPI structure the company can actually run on.',
       'From market pressure and consumer signal to the strategic choice the business needs to make.',
     ],

@@ -45,7 +45,7 @@ export const services = {
         'Product specification & opportunity framing',
         'Feature definition & prioritization',
         'Mobile and web experience specification',
-        'Mockup-to-production product briefs',
+        'Prototype-to-production product briefs',
         'Analytics instrumentation planning',
       ],
       example:
