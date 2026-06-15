@@ -4,7 +4,7 @@ import PageIntro from '../components/PageIntro.astro';
 import ServiceVisual, { type ServiceVisualVariant } from '../components/ServiceVisual.astro';
 import { services } from '../content/services';
 
-const { intro, pillars, toolingNote } = services;
+const { intro, pillars } = services;
 const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant> = {
   devices: 'product',
   behavior: 'behavior',
@@ -78,13 +78,6 @@ const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant
       </section>
     ))
   }
-
-  <!-- §5.2 footer line - the only place tool names live. -->
-  <div class="tooling">
-    <div class="container">
-      <p class="tooling__note">{toolingNote}</p>
-    </div>
-  </div>
 </Base>
 
 <script>
@@ -431,17 +424,4 @@ const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant
     background: var(--speed-from);
   }
 
-  /* ---- Tooling note ---- */
-  .tooling {
-    border-block-start: 1px solid var(--hairline);
-    padding-block: 2rem;
-    background: var(--surface-2);
-  }
-
-  .tooling__note {
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    color: var(--graphite);
-    margin: 0;
-  }
 </style>
