@@ -26,11 +26,13 @@ const { kicker, headline, lede } = Astro.props;
   .page-intro__headline {
     font-size: clamp(2.25rem, 5vw, 3.5rem);
     max-inline-size: 18em;
+    line-height: 1.08;
     margin-block-end: 1rem;
   }
 
   .page-intro__lede {
     font-size: clamp(1.1rem, 2vw, 1.3rem);
+    line-height: 1.55;
     color: var(--graphite);
     max-inline-size: 44rem;
     margin: 0;
@@ -38,13 +40,13 @@ const { kicker, headline, lede } = Astro.props;
 
   @media (max-width: 720px) {
     .page-intro {
-      padding-block: clamp(3rem, 14vw, 4.75rem) clamp(1.5rem, 8vw, 2.5rem);
+      padding-block: clamp(2.75rem, 12vw, 4.25rem) clamp(1.5rem, 8vw, 2.5rem);
     }
 
     .page-intro__headline {
-      font-size: clamp(2.15rem, 10.5vw, 3rem);
-      line-height: 1.06;
-      max-inline-size: 11.5em;
+      font-size: clamp(1.9rem, 9vw, 2.55rem);
+      line-height: 1.08;
+      max-inline-size: 12.5em;
       margin-block-end: 0.75rem;
     }
 

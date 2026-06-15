@@ -79,6 +79,7 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
     border-radius: var(--radius-card);
     box-shadow: var(--shadow-card);
     overflow: hidden;
+    min-block-size: 100%;
     transition:
       transform var(--dur-hover) var(--ease-luxe),
       box-shadow var(--dur-hover) var(--ease-luxe);
@@ -176,7 +177,8 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
     display: flex;
     flex-direction: column;
     flex: 1;
-    padding: clamp(1.6rem, 3vw, 2.1rem);
+    gap: 0.15rem;
+    padding: clamp(1.55rem, 3vw, 2.15rem);
   }
 
   .card__kicker {
@@ -190,11 +192,13 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
 
   .card__headline {
     font-size: clamp(1.25rem, 2vw, 1.5rem);
+    line-height: 1.12;
     margin-block-end: 0.5rem;
   }
 
   .card__body {
     color: var(--graphite);
+    line-height: 1.55;
     margin-block-end: 0.5rem;
   }
 
@@ -203,6 +207,7 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
     margin: 0.5rem 0 1.25rem;
     padding: 0;
     color: var(--graphite);
+    line-height: 1.45;
   }
 
   .card__offerings li {
@@ -229,6 +234,7 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
+    min-block-size: 2.5rem;
   }
 
   .card__arrow {
