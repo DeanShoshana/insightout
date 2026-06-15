@@ -60,6 +60,18 @@ const ajax = mode === 'endpoint' && !!action;
           </div>
         </div>
 
+        <div class="contact__row">
+          <div class="contact__field">
+            <label for="contact-company">{contact.fields.company}</label>
+            <input id="contact-company" name="company" type="text" autocomplete="organization" required />
+          </div>
+
+          <div class="contact__field">
+            <label for="contact-position">{contact.fields.position}</label>
+            <input id="contact-position" name="position" type="text" autocomplete="organization-title" />
+          </div>
+        </div>
+
         <div class="contact__field">
           <label for="contact-message">{contact.fields.message}</label>
           <textarea
