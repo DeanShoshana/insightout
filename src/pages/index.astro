@@ -602,6 +602,8 @@ import { withBase } from '../lib/url';
   }
 
   .services__seat-shell {
+    position: relative;
+    z-index: 1;
     max-inline-size: 100%;
   }
 
@@ -634,7 +636,7 @@ import { withBase } from '../lib/url';
 
   .engine-scene__lights {
     position: absolute;
-    inset-block: -18% -14%;
+    inset-block: 0 -14%;
     inset-inline-start: calc(50% - 50vw);
     inline-size: 100vw;
     z-index: -1;
