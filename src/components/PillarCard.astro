@@ -89,7 +89,7 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
     box-shadow: var(--shadow-card-hover);
   }
 
-  /* Cursor-tracking spotlight (M4): a soft signal-blue radial glow that the
+  /* Cursor-tracking spotlight (M4): a soft derived violet/indigo radial glow that the
      Base script eases across the surface. Opacity 0 until JS + fine pointer +
      motion-ok all hold, so it simply never appears otherwise. */
   .card::after {
@@ -100,9 +100,10 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
     pointer-events: none;
     background: radial-gradient(
       300px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-      color-mix(in srgb, var(--signal) 9%, transparent),
+      color-mix(in srgb, var(--spotlight) 18%, transparent),
       transparent 70%
     );
+    filter: hue-rotate(30deg) saturate(1.22);
     opacity: var(--spot-o, 0);
     transition: opacity 0.6s var(--ease-luxe);
   }
@@ -247,9 +248,10 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
   .card--seat::after {
     background: radial-gradient(
       320px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-      color-mix(in srgb, var(--speed-from) 13%, transparent),
+      color-mix(in srgb, var(--spotlight) 22%, transparent),
       transparent 70%
     );
+    filter: hue-rotate(30deg) saturate(1.22);
   }
 
   .card--seat .card__viz {

@@ -274,9 +274,10 @@ const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant
     border-radius: inherit;
     background: radial-gradient(
       320px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-      color-mix(in srgb, var(--signal) 10%, transparent),
+      color-mix(in srgb, var(--spotlight) 18%, transparent),
       transparent 70%
     );
+    filter: hue-rotate(30deg) saturate(1.22);
     opacity: var(--spot-o, 0);
     transition: opacity 0.6s var(--ease-luxe);
   }
@@ -316,9 +317,10 @@ const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant
   .pillar--seat .pillar__visual::after {
     background: radial-gradient(
       340px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-      color-mix(in srgb, var(--speed-from) 13%, transparent),
+      color-mix(in srgb, var(--spotlight) 22%, transparent),
       transparent 72%
     );
+    filter: hue-rotate(30deg) saturate(1.22);
   }
 
   .pillar__visual:hover {

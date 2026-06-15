@@ -245,11 +245,12 @@ const ajax = mode === 'endpoint' && !!action;
   }
 
   .contact__workspace {
+    --contact-pad: clamp(1rem, 2vw, 1.4rem);
     position: relative;
     min-block-size: clamp(520px, 44vw, 640px);
     display: grid;
     align-items: end;
-    padding: clamp(1rem, 2vw, 1.4rem);
+    padding: var(--contact-pad) var(--contact-pad) 0;
     border-radius: calc(var(--radius-card) + 8px);
     background:
       radial-gradient(
@@ -276,9 +277,10 @@ const ajax = mode === 'endpoint' && !!action;
     pointer-events: none;
     background: radial-gradient(
       420px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-      color-mix(in srgb, var(--signal) 13%, transparent),
+      color-mix(in srgb, var(--spotlight) 20%, transparent),
       transparent 70%
     );
+    filter: hue-rotate(30deg) saturate(1.22);
     opacity: var(--spot-o, 0);
     transition: opacity 0.7s var(--ease-luxe);
   }
@@ -405,21 +407,23 @@ const ajax = mode === 'endpoint' && !!action;
     background:
       radial-gradient(
         440px circle at 18% 0%,
-        color-mix(in srgb, var(--glass-hi) 30%, transparent),
+        color-mix(in srgb, var(--glass-hi) 18%, transparent),
         transparent 62%
       ),
       linear-gradient(
         145deg,
-        color-mix(in srgb, var(--surface) 44%, transparent),
-        color-mix(in srgb, var(--surface) 24%, transparent)
+        color-mix(in srgb, var(--surface) 24%, transparent),
+        color-mix(in srgb, var(--surface) 8%, transparent)
       );
-    -webkit-backdrop-filter: blur(24px) saturate(142%);
-    backdrop-filter: blur(24px) saturate(142%);
-    border: 1px solid color-mix(in srgb, white 42%, var(--hairline));
-    border-radius: var(--radius-card);
+    -webkit-backdrop-filter: blur(18px) saturate(132%);
+    backdrop-filter: blur(18px) saturate(132%);
+    border: 1px solid color-mix(in srgb, white 34%, var(--hairline));
+    border-radius: var(--radius-card) var(--radius-card) calc(var(--radius-card) + 8px)
+      calc(var(--radius-card) + 8px);
     box-shadow:
-      0 24px 70px color-mix(in srgb, var(--ink) 10%, transparent),
-      inset 0 1px 0 color-mix(in srgb, white 52%, transparent);
+      0 18px 58px color-mix(in srgb, var(--ink) 8%, transparent),
+      inset 0 1px 0 color-mix(in srgb, white 42%, transparent);
+    margin-inline: calc(var(--contact-pad) * -1);
     padding: clamp(1.5rem, 3vw, 2rem);
     transition:
       border-color var(--dur-med) var(--ease-out),
@@ -448,7 +452,7 @@ const ajax = mode === 'endpoint' && !!action;
         transparent 28% 68%,
         color-mix(in srgb, var(--glass-lo) 12%, transparent)
       );
-    opacity: 0.38;
+    opacity: 0.2;
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -558,7 +562,7 @@ const ajax = mode === 'endpoint' && !!action;
   @media (max-width: 860px) {
     .contact__workspace {
       min-block-size: auto;
-      padding: 0.9rem;
+      --contact-pad: 0.9rem;
     }
 
     .contact__motion {
