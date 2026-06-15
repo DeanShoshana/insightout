@@ -155,6 +155,8 @@ export const home = {
     fields: {
       name: 'Name',
       email: 'Email',
+      company: 'Company / Organization',
+      position: 'Position (optional)',
       message: 'What are you working on?',
     },
     messagePlaceholder: 'Two or three lines is plenty.',
