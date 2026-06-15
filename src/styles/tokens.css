@@ -70,11 +70,12 @@
 
 @media (max-width: 720px) {
   :root {
-    --gutter: clamp(1rem, 5vw, 1.35rem);
-    --section-pad: clamp(3.75rem, 16vw, 5.5rem);
-    --fs-hero: clamp(2rem, 9vw, 2.5rem);
+    --gutter: clamp(1rem, 5.5vw, 1.45rem);
+    --section-pad: clamp(4.25rem, 18vw, 6rem);
+    --fs-hero: clamp(2.05rem, 8.4vw, 2.55rem);
     --fs-body: 1rem;
     --lh-body: 1.55;
+    --radius-card: 18px;
   }
 }
 

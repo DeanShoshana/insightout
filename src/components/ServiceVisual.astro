@@ -233,6 +233,30 @@ const { variant, size = 'card' } = Astro.props;
     --visual-shell: 380px;
   }
 
+  @media (max-width: 720px) {
+    .service-visual--feature {
+      --visual-max: 292px;
+      --visual-shell: 320px;
+    }
+
+    .service-visual--card {
+      --visual-max: 190px;
+      --visual-shell: 220px;
+    }
+
+    .service-visual::before {
+      inset: 14% 18%;
+      filter: blur(22px);
+      opacity: 0.5;
+    }
+
+    .service-visual__layer {
+      opacity: 0.58;
+      -webkit-backdrop-filter: blur(10px) saturate(128%);
+      backdrop-filter: blur(10px) saturate(128%);
+    }
+  }
+
   .visual-panel,
   .visual-tile,
   .visual-chip,
