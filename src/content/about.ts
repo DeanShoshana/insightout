@@ -22,7 +22,7 @@ export const about = {
     nodes: [
       {
         label: 'Product',
-        title: 'Characterize what should be built',
+        title: 'Specify what should be built',
         body: 'Concepts, requirements, mockups, user flows, and production-ready direction.',
       },
       {
