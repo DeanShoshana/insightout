@@ -59,8 +59,8 @@ export const home = {
         engine: 'Product',
         headline: 'Turn product questions into production-ready direction.',
         offerings: [
-          'Product characterization & opportunity framing',
-          'Mobile and web experience characterization',
+          'Product specification & opportunity framing',
+          'Mobile and web experience specification',
           'Analytics instrumentation planning',
         ],
         href: '/services#product',

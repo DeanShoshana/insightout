@@ -45,8 +45,8 @@ export const approach = {
       {
         name: 'Product',
         visual: 'product',
-        kicker: 'Characterization & growth fit',
-        body: 'Characterize the product before it becomes a build list: connect the market, growth question, user journey, and business model, then turn mockups into production-ready product direction.',
+        kicker: 'Specification & growth fit',
+        body: 'Specify the product before it becomes a build list: connect the market, growth question, user journey, and business model, then turn mockups into production-ready product direction.',
       },
       {
         name: 'Technology',
