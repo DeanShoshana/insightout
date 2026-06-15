@@ -92,9 +92,9 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
 
   /* Transparent state while the hero is under the nav. */
   .nav:global(.nav--overhero) {
-    background: transparent;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
+    background: color-mix(in srgb, var(--surface) 24%, transparent);
+    -webkit-backdrop-filter: saturate(190%) blur(22px);
+    backdrop-filter: saturate(190%) blur(22px);
     border-block-end-color: transparent;
   }
 

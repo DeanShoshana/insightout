@@ -121,8 +121,4 @@ export const services = {
         'e.g., an investor keynote on retention economics, or a product report that settles a roadmap argument.',
     },
   ] as ServicePillar[],
-
-  // §5.2 footer line - the only place tool names live on the site.
-  toolingNote:
-    'Work delivered in SQL, Python, BI tooling, and whatever your stack already runs on.',
 } as const;
