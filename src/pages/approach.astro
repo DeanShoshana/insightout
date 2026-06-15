@@ -38,10 +38,10 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
         <p class="decision-frame__body">{decisionFrame.body}</p>
 
         <div class="decision-frame__map" aria-hidden="true">
-          <div class="decision-frame__signals">
+          <div class="decision-frame__artifact">{decisionFrame.artifact}</div>
+          <div class="decision-frame__orbit">
             {decisionFrame.signals.map((signal, i) => <span style={`--signal-index: ${i}`}>{signal}</span>)}
           </div>
-          <div class="decision-frame__artifact">{decisionFrame.artifact}</div>
         </div>
       </aside>
     </div>
@@ -226,58 +226,116 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
   }
 
   .decision-frame__map {
+    position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: clamp(1rem, 2.6vw, 2rem);
-    align-items: center;
+    place-items: center;
+    inline-size: min(100%, 430px);
+    aspect-ratio: 1;
+    margin-inline: auto;
     margin-block-start: clamp(2rem, 6vw, 4rem);
   }
 
-  .decision-frame__signals {
-    display: grid;
-    gap: 0.75rem;
-  }
-
-  .decision-frame__signals span {
-    position: relative;
-    display: flex;
-    align-items: center;
-    min-block-size: 2.5rem;
-    padding-inline: 0.85rem 2.4rem;
-    border: 1px solid color-mix(in srgb, var(--signal) 18%, var(--hairline));
-    border-radius: var(--radius-sm);
-    background: color-mix(in srgb, var(--surface) 76%, transparent);
-    color: var(--ink);
-    font-weight: 600;
-    font-size: 0.88rem;
-  }
-
-  .decision-frame__signals span::after {
+  .decision-frame__map::before,
+  .decision-frame__map::after {
     content: '';
     position: absolute;
-    inset-inline-start: calc(100% - 0.25rem);
+    inset: 13%;
+    border: 1px solid color-mix(in srgb, var(--signal) 18%, transparent);
+    border-radius: 999px;
+    pointer-events: none;
+  }
+
+  .decision-frame__map::after {
+    inset: 25%;
+    border-color: color-mix(in srgb, var(--glass-lo) 32%, transparent);
+    background:
+      radial-gradient(
+        circle at 50% 50%,
+        color-mix(in srgb, var(--surface) 62%, transparent),
+        transparent 58%
+      );
+  }
+
+  .decision-frame__orbit {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+  }
+
+  .decision-frame__orbit span {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: clamp(8.6rem, 36vw, 11.2rem);
+    min-block-size: 2.55rem;
+    padding-inline: 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--signal) 18%, var(--hairline));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface) 74%, transparent);
+    -webkit-backdrop-filter: blur(12px) saturate(130%);
+    backdrop-filter: blur(12px) saturate(130%);
+    color: var(--ink);
+    font-weight: 600;
+    font-size: clamp(0.78rem, 1.5vw, 0.9rem);
+    line-height: 1.2;
+    text-align: center;
+    box-shadow:
+      0 14px 32px color-mix(in srgb, var(--ink) 7%, transparent),
+      inset 0 1px 0 color-mix(in srgb, white 56%, transparent);
+  }
+
+  .decision-frame__orbit span::after {
+    content: '';
+    position: absolute;
+    inset: -0.45rem;
+    border-radius: inherit;
+    border: 1px solid color-mix(in srgb, var(--signal) 10%, transparent);
+    opacity: 0.62;
+    pointer-events: none;
+  }
+
+  .decision-frame__orbit span:nth-child(1) {
+    inset-inline-start: 50%;
+    inset-block-start: 0;
+    transform: translate(-50%, 0);
+  }
+
+  .decision-frame__orbit span:nth-child(2) {
+    inset-inline-end: 0;
     inset-block-start: 50%;
-    inline-size: clamp(1.3rem, 3vw, 2.4rem);
-    block-size: 2px;
-    background: color-mix(in srgb, var(--signal) 58%, var(--glass-lo));
-    transform: translateY(-50%);
-    transform-origin: left center;
+    transform: translate(0, -50%);
+  }
+
+  .decision-frame__orbit span:nth-child(3) {
+    inset-inline-start: 50%;
+    inset-block-end: 0;
+    transform: translate(-50%, 0);
+  }
+
+  .decision-frame__orbit span:nth-child(4) {
+    inset-inline-start: 0;
+    inset-block-start: 50%;
+    transform: translate(0, -50%);
   }
 
   .decision-frame__artifact {
+    position: relative;
+    z-index: 2;
     display: grid;
     place-items: center;
-    inline-size: clamp(6.2rem, 14vw, 8rem);
+    inline-size: clamp(7rem, 18vw, 9rem);
     aspect-ratio: 1;
-    border-radius: 26px;
+    border-radius: 999px;
     background: var(--ink-surface);
     color: var(--on-ink);
     font-family: var(--font-mono);
     font-size: 0.8rem;
     text-transform: uppercase;
     box-shadow:
-      0 18px 44px rgba(16, 24, 40, 0.2),
-      inset 0 0 0 1px color-mix(in srgb, var(--speed-from) 20%, transparent);
+      0 22px 54px rgba(16, 24, 40, 0.24),
+      0 0 0 12px color-mix(in srgb, var(--signal) 8%, transparent),
+      inset 0 0 0 1px color-mix(in srgb, var(--speed-from) 22%, transparent);
   }
 
   .model {
@@ -610,13 +668,98 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
       transform: translateY(-6px);
     }
 
-    :global(.js) [data-reveal]:not(.in) .decision-frame__signals span::after {
-      transform: translateY(-50%) scaleX(0);
+    .decision-frame__orbit {
+      animation: decision-orbit 28s linear infinite;
     }
 
-    :global(.js) [data-reveal].in .decision-frame__signals span::after {
-      transition: transform 1000ms var(--ease-luxe);
-      transition-delay: calc(220ms + var(--signal-index) * 90ms);
+    .decision-frame__orbit span:nth-child(1) {
+      animation: decision-counter-orbit-top 28s linear infinite;
+    }
+
+    .decision-frame__orbit span:nth-child(2) {
+      animation: decision-counter-orbit-right 28s linear infinite;
+    }
+
+    .decision-frame__orbit span:nth-child(3) {
+      animation: decision-counter-orbit-bottom 28s linear infinite;
+    }
+
+    .decision-frame__orbit span:nth-child(4) {
+      animation: decision-counter-orbit-left 28s linear infinite;
+    }
+
+    .decision-frame__map::before {
+      animation: decision-ring 7s var(--ease-luxe) infinite;
+    }
+
+    :global(.js) [data-reveal]:not(.in) .decision-frame__orbit span:nth-child(1) {
+      opacity: 0;
+      transform: translate(-50%, 0) scale(0.92);
+    }
+
+    :global(.js) [data-reveal]:not(.in) .decision-frame__orbit span:nth-child(2) {
+      opacity: 0;
+      transform: translate(0, -50%) scale(0.92);
+    }
+
+    :global(.js) [data-reveal]:not(.in) .decision-frame__orbit span:nth-child(3) {
+      opacity: 0;
+      transform: translate(-50%, 0) scale(0.92);
+    }
+
+    :global(.js) [data-reveal]:not(.in) .decision-frame__orbit span:nth-child(4) {
+      opacity: 0;
+      transform: translate(0, -50%) scale(0.92);
+    }
+
+    :global(.js) [data-reveal].in .decision-frame__orbit span {
+      transition:
+        opacity 900ms var(--ease-luxe),
+        transform 900ms var(--ease-luxe);
+      transition-delay: calc(160ms + var(--signal-index) * 90ms);
+    }
+  }
+
+  @keyframes decision-orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes decision-counter-orbit-top {
+    to {
+      transform: translate(-50%, 0) rotate(-360deg);
+    }
+  }
+
+  @keyframes decision-counter-orbit-right {
+    to {
+      transform: translate(0, -50%) rotate(-360deg);
+    }
+  }
+
+  @keyframes decision-counter-orbit-bottom {
+    to {
+      transform: translate(-50%, 0) rotate(-360deg);
+    }
+  }
+
+  @keyframes decision-counter-orbit-left {
+    to {
+      transform: translate(0, -50%) rotate(-360deg);
+    }
+  }
+
+  @keyframes decision-ring {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.78;
+    }
+
+    50% {
+      transform: scale(1.05);
+      opacity: 1;
     }
   }
 
@@ -634,23 +777,18 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
     }
 
     .decision-frame__map {
-      grid-template-columns: 1fr;
-      margin-block-start: 2rem;
-    }
-
-    .decision-frame__signals span {
-      padding-inline-end: 0.85rem;
-    }
-
-    .decision-frame__signals span::after {
-      display: none;
+      inline-size: min(100%, 340px);
+      margin-block-start: 2.5rem;
     }
 
     .decision-frame__artifact {
-      inline-size: 100%;
-      aspect-ratio: auto;
-      min-block-size: 4.5rem;
-      border-radius: var(--radius-card);
+      inline-size: 6.2rem;
+    }
+
+    .decision-frame__orbit span {
+      inline-size: 8.2rem;
+      min-block-size: 2.35rem;
+      font-size: 0.74rem;
     }
 
     .model__surface {
