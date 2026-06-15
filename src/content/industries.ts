@@ -36,7 +36,7 @@ export const industries = {
       value:
         'The value is sharper product definition: clearer product logic, stronger market connection, buildable requirements, and evidence the leadership team can defend before production begins.',
       problem:
-        'In enterprise platforms, SaaS products, internal tools, mobile apps, and customer-facing systems, teams often move from idea to backlog before the product is fully specified. Claritix enters where a product needs to move from concept to production-ready direction: market logic, user flows, business requirements, mockups, measurement hooks, and the build choices that make the product coherent.',
+        'In enterprise platforms, SaaS products, internal tools, mobile apps, and customer-facing systems, teams often move from idea to backlog before the product is fully specified. Claritix enters where a product needs to move from concept to production-ready direction: market logic, user flows, business requirements, prototypes, measurement hooks, and the build choices that make the product coherent.',
       pillars: [
         { label: 'Technology & Product', anchor: '/services#product' },
         { label: 'Behavioral & User Analytics', anchor: '/services#behavioral' },
