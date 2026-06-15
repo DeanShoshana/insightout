@@ -51,14 +51,6 @@ const { variant, size = 'card' } = Astro.props;
         <circle class="visual-node funnel-node funnel-node--three" cx="250" cy="66" r="7" />
         <circle class="visual-node funnel-node funnel-node--four" cx="164" cy="124" r="7" />
         <circle class="visual-node visual-node--accent funnel-node funnel-node--five" cx="190" cy="162" r="9" />
-        <g class="logic-chip logic-chip--one">
-          <rect x="244" y="100" width="54" height="24" rx="12" />
-          <path d="M 256 112 H 286" />
-        </g>
-        <g class="logic-chip logic-chip--two">
-          <rect x="62" y="132" width="62" height="24" rx="12" />
-          <path d="M 75 144 H 110" />
-        </g>
       </g>
     )}
 
@@ -230,7 +222,6 @@ const { variant, size = 'card' } = Astro.props;
   .prototype-card rect,
   .dashboard-kpi,
   .slide-card,
-  .logic-chip rect,
   .market-signal rect {
     fill: color-mix(in srgb, var(--glass-hi) 72%, var(--surface));
     stroke: color-mix(in srgb, var(--glass-lo) 70%, var(--surface));
@@ -240,7 +231,6 @@ const { variant, size = 'card' } = Astro.props;
   .prototype-card path,
   .dashboard-line,
   .slide-line,
-  .logic-chip path,
   .market-signal path,
   .visual-board-line {
     fill: none;
@@ -451,14 +441,6 @@ const { variant, size = 'card' } = Astro.props;
       animation-delay: -1.1s;
     }
 
-    .logic-chip {
-      animation: logic-chip 6.8s var(--ease-luxe) infinite;
-    }
-
-    .logic-chip--two {
-      animation-delay: -1.6s;
-    }
-
     .dashboard-kpi,
     .dashboard-bar,
     .dashboard-line {
@@ -663,19 +645,6 @@ const { variant, size = 'card' } = Astro.props;
     48%,
     100% {
       stroke-dashoffset: 0;
-      opacity: 1;
-    }
-  }
-
-  @keyframes logic-chip {
-    0%,
-    100% {
-      transform: translate3d(0, 0, 0);
-      opacity: 0.68;
-    }
-
-    50% {
-      transform: translate3d(0, -7px, 0);
       opacity: 1;
     }
   }
