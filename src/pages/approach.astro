@@ -76,33 +76,45 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
         <p class="section-head__lede">{operatingSystem.lede}</p>
       </header>
 
-      <div class="system__grid">
-        {
-          operatingSystem.parts.map((part, i) => (
-            <article class="system-card" data-reveal data-spotlight style={`--reveal-delay: ${i * 80}ms`}>
-              <div class:list={['system-card__visual', `system-card__visual--${part.visual}`]} aria-hidden="true">
-                <span class="system-card__aura"></span>
-                <span class="system-card__line system-card__line--one"></span>
-                <span class="system-card__line system-card__line--two"></span>
-                <span class="system-card__float system-card__float--primary">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </span>
-                <span class="system-card__float system-card__float--secondary">
-                  <span></span>
-                  <span></span>
-                </span>
-                <span class="system-card__dot system-card__dot--one"></span>
-                <span class="system-card__dot system-card__dot--two"></span>
-              </div>
-              <p class="system-card__number">0{i + 1}</p>
-              <p class="system-card__kicker">{part.kicker}</p>
-              <h3 class="system-card__name">{part.name}</h3>
-              <p class="system-card__body">{part.body}</p>
-            </article>
-          ))
-        }
+      <div class="system__stage" data-reveal data-spotlight style="--reveal-delay: 120ms">
+        <div class="system-visual" aria-hidden="true">
+          <span class="system-visual__aura system-visual__aura--one"></span>
+          <span class="system-visual__aura system-visual__aura--two"></span>
+          <span class="system-visual__line system-visual__line--one"></span>
+          <span class="system-visual__line system-visual__line--two"></span>
+          <span class="system-visual__float system-visual__float--product">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="system-visual__float system-visual__float--tech">
+            <span></span>
+            <span></span>
+          </span>
+          <span class="system-visual__float system-visual__float--analytics">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+          <span class="system-visual__node system-visual__node--one"></span>
+          <span class="system-visual__node system-visual__node--two"></span>
+          <span class="system-visual__node system-visual__node--three"></span>
+        </div>
+
+        <div class="system__story">
+          {
+            operatingSystem.parts.map((part, i) => (
+              <article class="system-text" style={`--reveal-delay: ${220 + i * 80}ms`}>
+                <p class="system-text__number">0{i + 1}</p>
+                <div>
+                  <p class="system-text__kicker">{part.kicker}</p>
+                  <h3 class="system-text__name">{part.name}</h3>
+                  <p class="system-text__body">{part.body}</p>
+                </div>
+              </article>
+            ))
+          }
+        </div>
       </div>
     </div>
   </section>
@@ -146,7 +158,7 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
 
   .decision-frame,
   .model__surface,
-  .system-card {
+  .system__stage {
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-card);
@@ -176,7 +188,7 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
 
   .decision-frame::after,
   .model__surface::after,
-  .system-card::after {
+  .system__stage::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -192,7 +204,7 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
   }
 
   .decision-frame__kicker,
-  .system-card__kicker {
+  .system-text__kicker {
     font-family: var(--font-mono);
     font-size: 0.78rem;
     letter-spacing: 0.05em;
@@ -305,94 +317,91 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
     padding-block: var(--section-pad);
   }
 
-  .system__grid {
+  .system__stage {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: clamp(1rem, 2.5vw, 1.75rem);
+    grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    padding: clamp(1.3rem, 3.8vw, 3.5rem);
+    background:
+      radial-gradient(
+        620px circle at 24% 16%,
+        color-mix(in srgb, var(--signal) 13%, transparent),
+        transparent 64%
+      ),
+      linear-gradient(145deg, var(--surface) 0%, var(--surface-2) 100%);
   }
 
   @media (max-width: 1100px) {
-    .system__grid {
-      grid-template-columns: repeat(2, 1fr);
-      max-inline-size: 560px;
-      margin-inline: auto;
-    }
-  }
-
-  @media (max-width: 680px) {
-    .system__grid {
+    .system__stage {
       grid-template-columns: 1fr;
     }
   }
 
-  .system-card {
-    background: var(--surface);
-    padding: clamp(1.5rem, 3vw, 2rem);
-    min-block-size: 100%;
-    transition:
-      transform var(--dur-hover) var(--ease-luxe),
-      box-shadow var(--dur-hover) var(--ease-luxe);
-  }
-
-  .system-card:hover {
-    box-shadow: var(--shadow-card-hover);
-  }
-
-  .system-card__visual {
+  .system-visual {
     position: relative;
-    block-size: 138px;
-    margin-block-end: 1.5rem;
-    border-radius: 22px;
+    min-block-size: clamp(360px, 42vw, 520px);
+    border-radius: calc(var(--radius-card) + 8px);
     background:
       radial-gradient(
-        210px circle at 74% 16%,
-        color-mix(in srgb, var(--signal) 14%, transparent),
-        transparent 62%
+        360px circle at 68% 24%,
+        color-mix(in srgb, var(--signal) 18%, transparent),
+        transparent 60%
       ),
       linear-gradient(
         145deg,
-        color-mix(in srgb, var(--surface) 84%, transparent) 0%,
-        var(--glass-hi) 54%,
-        color-mix(in srgb, var(--glass-lo) 28%, var(--glass-hi)) 100%
+        color-mix(in srgb, var(--surface) 78%, transparent),
+        color-mix(in srgb, var(--glass-hi) 64%, transparent)
       );
     overflow: hidden;
     box-shadow:
       inset 0 1px 0 color-mix(in srgb, white 55%, transparent),
-      0 18px 46px color-mix(in srgb, var(--ink) 7%, transparent);
+      0 28px 80px color-mix(in srgb, var(--ink) 9%, transparent);
   }
 
-  .system-card__visual::after {
+  .system-visual::after {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(120deg, transparent, color-mix(in srgb, white 24%, transparent), transparent),
-      linear-gradient(180deg, color-mix(in srgb, white 18%, transparent), transparent 44%);
-    opacity: 0.56;
-    transform: translateX(-22%);
+      radial-gradient(circle at 24% 24%, color-mix(in srgb, white 22%, transparent), transparent 32%),
+      linear-gradient(120deg, transparent, color-mix(in srgb, white 24%, transparent), transparent);
+    opacity: 0.68;
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    backdrop-filter: blur(10px) saturate(120%);
   }
 
-  .system-card__aura,
-  .system-card__line,
-  .system-card__float,
-  .system-card__dot {
+  .system-visual__aura,
+  .system-visual__line,
+  .system-visual__float,
+  .system-visual__node {
     position: absolute;
     display: block;
   }
 
-  .system-card__aura {
-    inline-size: 170px;
-    block-size: 104px;
-    inset-inline-start: 50%;
-    inset-block-start: 50%;
+  .system-visual__aura {
     border-radius: 999px;
-    background: color-mix(in srgb, var(--signal) 24%, transparent);
-    filter: blur(24px);
-    opacity: 0.54;
-    transform: translate3d(-50%, -50%, 0);
+    filter: blur(32px);
+    opacity: 0.58;
   }
 
-  .system-card__line {
+  .system-visual__aura--one {
+    inline-size: 320px;
+    block-size: 210px;
+    inset-inline-start: 10%;
+    inset-block-start: 18%;
+    background: color-mix(in srgb, var(--glass-lo) 48%, transparent);
+  }
+
+  .system-visual__aura--two {
+    inline-size: 280px;
+    block-size: 240px;
+    inset-inline-end: 4%;
+    inset-block-end: 10%;
+    background: color-mix(in srgb, var(--signal) 28%, transparent);
+  }
+
+  .system-visual__line {
     block-size: 1px;
     border-radius: 999px;
     background: linear-gradient(
@@ -401,29 +410,28 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
       color-mix(in srgb, var(--signal) 48%, transparent),
       transparent
     );
-    opacity: 0.62;
+    opacity: 0.54;
     transform-origin: center;
   }
 
-  .system-card__line--one {
+  .system-visual__line--one {
     inline-size: 72%;
     inset-inline-start: 12%;
-    inset-block-start: 46%;
+    inset-block-start: 43%;
     transform: rotate(-9deg);
   }
 
-  .system-card__line--two {
-    inline-size: 58%;
-    inset-inline-start: 24%;
-    inset-block-start: 64%;
+  .system-visual__line--two {
+    inline-size: 66%;
+    inset-inline-start: 18%;
+    inset-block-start: 60%;
     transform: rotate(8deg);
-    opacity: 0.42;
   }
 
-  .system-card__float {
+  .system-visual__float {
     z-index: 1;
     border: 1px solid color-mix(in srgb, var(--signal) 16%, var(--hairline));
-    border-radius: 16px;
+    border-radius: 22px;
     background:
       linear-gradient(
         145deg,
@@ -433,189 +441,156 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
     -webkit-backdrop-filter: blur(12px) saturate(135%);
     backdrop-filter: blur(12px) saturate(135%);
     box-shadow:
-      0 18px 42px color-mix(in srgb, var(--ink) 8%, transparent),
+      0 24px 58px color-mix(in srgb, var(--ink) 10%, transparent),
       inset 0 1px 0 color-mix(in srgb, white 56%, transparent);
   }
 
-  .system-card__float span {
+  .system-visual__float span {
     position: absolute;
     display: block;
     border-radius: 999px;
     background: color-mix(in srgb, var(--glass-lo) 70%, transparent);
   }
 
-  .system-card__float--primary {
-    inline-size: 104px;
-    block-size: 70px;
-    inset-inline-start: 14%;
-    inset-block-start: 24%;
+  .system-visual__float--product {
+    inline-size: clamp(190px, 19vw, 250px);
+    block-size: clamp(124px, 12vw, 160px);
+    inset-inline-start: 9%;
+    inset-block-start: 18%;
     transform: rotate(-7deg);
   }
 
-  .system-card__float--primary span:nth-child(1) {
+  .system-visual__float--product span:nth-child(1) {
     inline-size: 56%;
-    block-size: 4px;
+    block-size: 5px;
     inset-inline-start: 16%;
     inset-block-start: 28%;
   }
 
-  .system-card__float--primary span:nth-child(2) {
+  .system-visual__float--product span:nth-child(2) {
     inline-size: 42%;
-    block-size: 4px;
+    block-size: 5px;
     inset-inline-start: 16%;
     inset-block-start: 48%;
   }
 
-  .system-card__float--primary span:nth-child(3) {
+  .system-visual__float--product span:nth-child(3) {
     inline-size: 24%;
-    block-size: 4px;
+    block-size: 5px;
     inset-inline-start: 16%;
     inset-block-start: 68%;
     background: var(--signal);
   }
 
-  .system-card__float--secondary {
-    inline-size: 62px;
-    block-size: 86px;
-    inset-inline-end: 15%;
-    inset-block-start: 18%;
+  .system-visual__float--tech {
+    inline-size: clamp(106px, 11vw, 142px);
+    block-size: clamp(160px, 16vw, 210px);
+    inset-inline-end: 14%;
+    inset-block-start: 15%;
     transform: rotate(6deg);
   }
 
-  .system-card__float--secondary span:nth-child(1) {
+  .system-visual__float--tech span:nth-child(1) {
     inline-size: 54%;
-    block-size: 3px;
+    block-size: 4px;
     inset-inline-start: 22%;
     inset-block-start: 34%;
   }
 
-  .system-card__float--secondary span:nth-child(2) {
+  .system-visual__float--tech span:nth-child(2) {
     inline-size: 36%;
-    block-size: 3px;
+    block-size: 4px;
     inset-inline-start: 22%;
     inset-block-start: 54%;
     background: var(--signal);
   }
 
-  .system-card__dot {
+  .system-visual__float--analytics {
+    inline-size: clamp(170px, 17vw, 225px);
+    block-size: clamp(118px, 12vw, 154px);
+    inset-inline-start: 38%;
+    inset-block-end: 15%;
+    transform: rotate(4deg);
+  }
+
+  .system-visual__float--analytics span {
+    inset-block-end: 16%;
+    inline-size: 8px;
+    border-radius: 999px 999px 0 0;
+  }
+
+  .system-visual__float--analytics span:nth-child(1) {
+    inset-inline-start: 23%;
+    block-size: 30%;
+  }
+
+  .system-visual__float--analytics span:nth-child(2) {
+    inset-inline-start: 48%;
+    block-size: 52%;
+  }
+
+  .system-visual__float--analytics span:nth-child(3) {
+    inset-inline-start: 72%;
+    block-size: 68%;
+    background: var(--signal);
+  }
+
+  .system-visual__node {
     z-index: 2;
-    inline-size: 11px;
-    block-size: 11px;
+    inline-size: 13px;
+    block-size: 13px;
     border-radius: 999px;
     background: var(--signal);
     box-shadow: 0 0 0 8px color-mix(in srgb, var(--signal) 12%, transparent);
   }
 
-  .system-card__dot--one {
+  .system-visual__node--one {
     inset-inline-start: 47%;
-    inset-block-start: 40%;
+    inset-block-start: 39%;
   }
 
-  .system-card__dot--two {
+  .system-visual__node--two {
     inset-inline-end: 30%;
     inset-block-end: 25%;
     opacity: 0.72;
   }
 
-  .system-card__visual--product .system-card__float--primary {
-    inline-size: 110px;
-    block-size: 74px;
+  .system-visual__node--three {
+    inset-inline-start: 20%;
+    inset-block-end: 24%;
+    opacity: 0.62;
   }
 
-  .system-card__visual--product .system-card__float--secondary {
-    inline-size: 54px;
-    block-size: 90px;
-    inset-inline-end: 14%;
+  .system__story {
+    display: grid;
+    gap: clamp(1.1rem, 2vw, 1.5rem);
   }
 
-  .system-card__visual--technology .system-card__float--primary {
-    inline-size: 96px;
-    block-size: 86px;
-    inset-block-start: 20%;
+  .system-text {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: clamp(1rem, 2vw, 1.5rem);
+    padding-block-end: clamp(1.1rem, 2vw, 1.5rem);
+    border-block-end: 1px solid color-mix(in srgb, var(--hairline) 78%, transparent);
   }
 
-  .system-card__visual--technology .system-card__float--secondary {
-    inline-size: 58px;
-    block-size: 58px;
-    inset-block-start: 34%;
+  .system-text:last-child {
+    padding-block-end: 0;
+    border-block-end: 0;
   }
 
-  .system-card__visual--analytics .system-card__float--primary {
-    inline-size: 96px;
-    block-size: 76px;
-  }
-
-  .system-card__visual--analytics .system-card__float--primary span {
-    inset-inline-start: auto;
-    inset-block-end: 16%;
-    inline-size: 6px;
-    border-radius: 999px 999px 0 0;
-  }
-
-  .system-card__visual--analytics .system-card__float--primary span:nth-child(1) {
-    inset-inline-start: 18%;
-    block-size: 28%;
-  }
-
-  .system-card__visual--analytics .system-card__float--primary span:nth-child(2) {
-    inset-inline-start: 42%;
-    block-size: 48%;
-  }
-
-  .system-card__visual--analytics .system-card__float--primary span:nth-child(3) {
-    inset-inline-start: 66%;
-    block-size: 64%;
-  }
-
-  .system-card__visual--strategy {
-    background:
-      radial-gradient(
-        210px circle at 70% 30%,
-        color-mix(in srgb, var(--speed-from) 18%, transparent),
-        transparent 66%
-      ),
-      linear-gradient(
-        145deg,
-        var(--ink-surface) 0%,
-        color-mix(in srgb, var(--signal) 18%, var(--ink-surface)) 100%
-      );
-  }
-
-  .system-card__visual--strategy .system-card__aura {
-    background: color-mix(in srgb, var(--speed-from) 28%, transparent);
-  }
-
-  .system-card__visual--strategy .system-card__line,
-  .system-card__visual--strategy .system-card__dot {
-    background: var(--speed-from);
-  }
-
-  .system-card__visual--strategy .system-card__float {
-    border-color: color-mix(in srgb, var(--speed-from) 24%, transparent);
-    background:
-      linear-gradient(
-        145deg,
-        color-mix(in srgb, var(--ink-surface) 70%, transparent),
-        color-mix(in srgb, var(--signal) 18%, transparent)
-      );
-  }
-
-  .system-card__visual--strategy .system-card__float span {
-    background: color-mix(in srgb, var(--speed-from) 62%, transparent);
-  }
-
-  .system-card__number {
+  .system-text__number {
     font-family: var(--font-mono);
     color: var(--graphite);
-    margin-block-end: 2rem;
+    margin: 0;
   }
 
-  .system-card__name {
-    font-size: 1.4rem;
-    margin-block-end: 1rem;
+  .system-text__name {
+    font-size: clamp(1.45rem, 2.2vw, 2rem);
+    margin-block-end: 0.55rem;
   }
 
-  .system-card__body {
+  .system-text__body {
     color: var(--graphite);
     margin: 0;
   }
@@ -623,7 +598,7 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
   @media (prefers-reduced-motion: no-preference) {
     .decision-frame,
     .model__surface,
-    .system-card {
+    .system__stage {
       transition:
         transform var(--dur-hover) var(--ease-luxe),
         box-shadow var(--dur-hover) var(--ease-luxe);
@@ -631,7 +606,7 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
 
     .decision-frame:hover,
     .model__surface:hover,
-    .system-card:hover {
+    .system__stage:hover {
       transform: translateY(-6px);
     }
 
@@ -682,38 +657,81 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
       padding: 1rem;
     }
 
-    .system__grid {
-      gap: 1rem;
+    .system__stage {
+      padding: 1rem;
+      gap: 1.5rem;
     }
 
-    .system-card__visual {
-      block-size: 126px;
-      margin-block-end: 1.2rem;
+    .system-visual {
+      min-block-size: 310px;
+    }
+
+    .system-visual__float--product {
+      inline-size: 168px;
+      block-size: 112px;
+      inset-inline-start: 4%;
+    }
+
+    .system-visual__float--tech {
+      inline-size: 94px;
+      block-size: 142px;
+      inset-inline-end: 5%;
+    }
+
+    .system-visual__float--analytics {
+      inline-size: 150px;
+      block-size: 108px;
+      inset-inline-start: 28%;
+      inset-block-end: 13%;
+    }
+
+    .system-text {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
     }
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .system-card__aura {
-      animation: system-aura-drift 9s var(--ease-luxe) infinite;
+    .system-visual__aura--one {
+      animation: system-aura-one 11s var(--ease-luxe) infinite;
     }
 
-    .system-card__float--primary {
+    .system-visual__aura--two {
+      animation: system-aura-two 13s var(--ease-luxe) infinite;
+    }
+
+    .system-visual__float--product {
       animation: system-float-primary 8s var(--ease-luxe) infinite;
     }
 
-    .system-card__float--secondary {
+    .system-visual__float--tech {
       animation: system-float-secondary 8.5s var(--ease-luxe) infinite;
+    }
+
+    .system-visual__float--analytics {
+      animation: system-float-tertiary 9.5s var(--ease-luxe) infinite;
     }
   }
 
-  @keyframes system-aura-drift {
+  @keyframes system-aura-one {
     0%,
     100% {
-      transform: translate3d(-50%, -50%, 0) scale(1);
+      transform: translate3d(0, 0, 0) scale(1);
     }
 
     50% {
-      transform: translate3d(-46%, -54%, 0) scale(1.08);
+      transform: translate3d(18px, -14px, 0) scale(1.12);
+    }
+  }
+
+  @keyframes system-aura-two {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    50% {
+      transform: translate3d(-16px, 18px, 0) scale(1.12);
     }
   }
 
@@ -736,6 +754,17 @@ const { intro, origin, decisionFrame, model, operatingSystem } = approach;
 
     50% {
       transform: translate3d(-6px, 8px, 0) rotate(3deg);
+    }
+  }
+
+  @keyframes system-float-tertiary {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(4deg);
+    }
+
+    50% {
+      transform: translate3d(-8px, -7px, 0) rotate(7deg);
     }
   }
 </style>

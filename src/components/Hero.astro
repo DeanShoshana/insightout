@@ -15,6 +15,7 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
     <span class="hero__aura hero__aura--one"></span>
     <span class="hero__aura hero__aura--two"></span>
     <span class="hero__aura hero__aura--three"></span>
+    <span class="hero__aura hero__aura--four"></span>
     <span class="hero__glass"></span>
   </div>
 
@@ -91,30 +92,30 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
   .hero__field::before {
     content: '';
     position: absolute;
-    inset: 9% max(6vw, calc((100vw - var(--content-max)) / 2 - 6rem)) 8%;
-    border-radius: 42px;
-    background: radial-gradient(
-      closest-side at 50% 42%,
-      color-mix(in srgb, var(--surface) 48%, transparent),
-      color-mix(in srgb, var(--glass-hi) 24%, transparent) 42%,
-      transparent 78%
-    );
-    -webkit-backdrop-filter: blur(18px) saturate(135%);
-    backdrop-filter: blur(18px) saturate(135%);
+    inset: 8% max(3vw, calc((100vw - var(--content-max)) / 2 - 9rem)) 7%;
+    z-index: 2;
+    border: 1px solid color-mix(in srgb, var(--signal) 8%, transparent);
+    border-radius: 44px;
+    background:
+      radial-gradient(circle at 35% 24%, color-mix(in srgb, white 16%, transparent), transparent 30%),
+      linear-gradient(145deg, color-mix(in srgb, white 12%, transparent), color-mix(in srgb, var(--surface) 4%, transparent));
+    -webkit-backdrop-filter: blur(28px) saturate(145%);
+    backdrop-filter: blur(28px) saturate(145%);
     box-shadow:
-      inset 0 1px 0 color-mix(in srgb, white 48%, transparent),
-      0 34px 110px color-mix(in srgb, var(--ink) 7%, transparent);
-    opacity: 0.72;
+      inset 0 1px 0 color-mix(in srgb, white 42%, transparent),
+      0 44px 130px color-mix(in srgb, var(--ink) 8%, transparent);
+    opacity: 0.82;
   }
 
   .hero__field::after {
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 3;
     background:
-      linear-gradient(90deg, transparent 0 48%, color-mix(in srgb, white 20%, transparent) 50%, transparent 54%),
-      linear-gradient(180deg, color-mix(in srgb, var(--surface) 68%, transparent), transparent 34%, color-mix(in srgb, var(--surface) 76%, transparent));
-    opacity: 0.58;
+      linear-gradient(90deg, transparent 0 43%, color-mix(in srgb, white 18%, transparent) 49%, transparent 55%),
+      linear-gradient(180deg, color-mix(in srgb, var(--surface) 50%, transparent), transparent 30%, color-mix(in srgb, var(--surface) 74%, transparent));
+    opacity: 0.66;
   }
 
   .hero__aura,
@@ -126,53 +127,64 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
   }
 
   .hero__aura {
-    filter: blur(42px);
-    opacity: 0.7;
-    mix-blend-mode: multiply;
+    z-index: 0;
+    filter: blur(56px);
+    opacity: 0.76;
   }
 
   .hero__aura--one {
-    inline-size: clamp(260px, 34vw, 560px);
-    block-size: clamp(220px, 27vw, 420px);
-    inset-inline-start: 13%;
+    inline-size: clamp(300px, 35vw, 620px);
+    block-size: clamp(240px, 29vw, 470px);
+    inset-inline-start: 7%;
     inset-block-start: 18%;
-    background: color-mix(in srgb, var(--glass-lo) 48%, transparent);
-    transform: translate3d(-5%, 0, 0) rotate(-10deg);
+    background: color-mix(in srgb, var(--glass-lo) 58%, transparent);
+    transform: translate3d(-7%, 0, 0) rotate(-11deg);
   }
 
   .hero__aura--two {
-    inline-size: clamp(230px, 30vw, 500px);
-    block-size: clamp(190px, 24vw, 390px);
-    inset-inline-end: 12%;
-    inset-block-start: 16%;
-    background: color-mix(in srgb, var(--signal) 28%, transparent);
-    transform: translate3d(7%, 0, 0) rotate(12deg);
+    inline-size: clamp(280px, 32vw, 560px);
+    block-size: clamp(230px, 27vw, 450px);
+    inset-inline-end: 7%;
+    inset-block-start: 12%;
+    background: color-mix(in srgb, var(--signal) 42%, transparent);
+    transform: translate3d(8%, -2%, 0) rotate(13deg);
   }
 
   .hero__aura--three {
-    inline-size: clamp(240px, 30vw, 520px);
-    block-size: clamp(160px, 20vw, 330px);
-    inset-inline-start: 33%;
-    inset-block-end: 14%;
-    background: color-mix(in srgb, var(--speed-from) 30%, var(--surface));
-    opacity: 0.42;
-    transform: translate3d(0, 10%, 0) rotate(-4deg);
+    inline-size: clamp(300px, 34vw, 590px);
+    block-size: clamp(190px, 22vw, 380px);
+    inset-inline-start: 27%;
+    inset-block-end: 8%;
+    background: color-mix(in srgb, var(--speed-from) 50%, transparent);
+    opacity: 0.48;
+    transform: translate3d(0, 12%, 0) rotate(-4deg);
+  }
+
+  .hero__aura--four {
+    inline-size: clamp(220px, 25vw, 440px);
+    block-size: clamp(180px, 21vw, 360px);
+    inset-inline-end: 27%;
+    inset-block-end: 26%;
+    background: color-mix(in srgb, var(--ink) 18%, transparent);
+    opacity: 0.24;
+    transform: translate3d(4%, 6%, 0) rotate(8deg);
   }
 
   .hero__glass {
-    inline-size: min(58vw, 760px);
-    block-size: min(34vw, 430px);
+    z-index: 1;
+    inline-size: min(72vw, 980px);
+    block-size: min(41vw, 540px);
     inset-inline-start: 50%;
     inset-block-start: 47%;
     transform: translate3d(-50%, -50%, 0);
     background:
-      radial-gradient(circle at 28% 34%, color-mix(in srgb, white 38%, transparent), transparent 30%),
-      radial-gradient(circle at 76% 22%, color-mix(in srgb, var(--glass-hi) 38%, transparent), transparent 34%),
+      radial-gradient(circle at 24% 34%, color-mix(in srgb, white 22%, transparent), transparent 31%),
+      radial-gradient(circle at 76% 22%, color-mix(in srgb, var(--glass-hi) 28%, transparent), transparent 34%),
       linear-gradient(135deg, color-mix(in srgb, white 14%, transparent), color-mix(in srgb, var(--surface) 3%, transparent));
     border: 1px solid color-mix(in srgb, var(--signal) 12%, transparent);
-    -webkit-backdrop-filter: blur(24px) saturate(145%);
-    backdrop-filter: blur(24px) saturate(145%);
-    opacity: 0.56;
+    -webkit-backdrop-filter: blur(22px) saturate(142%);
+    backdrop-filter: blur(22px) saturate(142%);
+    opacity: 0.5;
   }
 
   .hero__inner {
@@ -270,33 +282,38 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
     }
 
     .hero__field::before {
-      inset: 12% -12% 12%;
+      inset: 12% -20% 13%;
       border-radius: 32px;
     }
 
     .hero__glass {
-      inline-size: 92vw;
-      block-size: 54vw;
-      opacity: 0.46;
+      inline-size: 115vw;
+      block-size: 70vw;
+      opacity: 0.44;
     }
 
     .hero__aura {
-      filter: blur(34px);
+      filter: blur(38px);
     }
 
     .hero__aura--one {
-      inset-inline-start: -20%;
+      inset-inline-start: -34%;
       inset-block-start: 18%;
     }
 
     .hero__aura--two {
-      inset-inline-end: -28%;
-      inset-block-start: 20%;
+      inset-inline-end: -38%;
+      inset-block-start: 13%;
     }
 
     .hero__aura--three {
-      inset-inline-start: 20%;
-      inset-block-end: 18%;
+      inset-inline-start: 10%;
+      inset-block-end: 13%;
+    }
+
+    .hero__aura--four {
+      inset-inline-end: 4%;
+      inset-block-end: 28%;
     }
 
     .hero__triad {
@@ -331,41 +348,53 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
 
   @media (prefers-reduced-motion: no-preference) {
     .hero__aura--one {
-      animation: hero-aura-one 16s var(--ease-luxe) infinite;
+      animation: hero-aura-one 11s ease-in-out infinite;
     }
 
     .hero__aura--two {
-      animation: hero-aura-two 18s var(--ease-luxe) infinite;
+      animation: hero-aura-two 12s ease-in-out infinite;
     }
 
     .hero__aura--three {
-      animation: hero-aura-three 20s var(--ease-luxe) infinite;
+      animation: hero-aura-three 13s ease-in-out infinite;
+    }
+
+    .hero__aura--four {
+      animation: hero-aura-four 14s ease-in-out infinite;
     }
 
     .hero__glass {
-      animation: hero-glass-drift 15s var(--ease-luxe) infinite;
+      animation: hero-glass-drift 10s ease-in-out infinite;
     }
   }
 
   @keyframes hero-aura-one {
     0%,
     100% {
-      transform: translate3d(-5%, 0, 0) rotate(-10deg) scale(1);
+      transform: translate3d(-7%, 0, 0) rotate(-11deg) scale(1);
     }
 
-    50% {
-      transform: translate3d(7%, -6%, 0) rotate(-4deg) scale(1.08);
+    45% {
+      transform: translate3d(15%, -12%, 0) rotate(-3deg) scale(1.16);
+    }
+
+    72% {
+      transform: translate3d(4%, 8%, 0) rotate(-7deg) scale(1.08);
     }
   }
 
   @keyframes hero-aura-two {
     0%,
     100% {
-      transform: translate3d(7%, 0, 0) rotate(12deg) scale(1);
+      transform: translate3d(8%, -2%, 0) rotate(13deg) scale(1);
     }
 
-    50% {
-      transform: translate3d(-8%, 7%, 0) rotate(5deg) scale(1.06);
+    42% {
+      transform: translate3d(-16%, 10%, 0) rotate(4deg) scale(1.14);
+    }
+
+    70% {
+      transform: translate3d(-4%, -9%, 0) rotate(9deg) scale(1.06);
     }
   }
 
@@ -375,8 +404,27 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
       transform: translate3d(0, 10%, 0) rotate(-4deg) scale(1);
     }
 
-    50% {
-      transform: translate3d(-5%, -5%, 0) rotate(5deg) scale(1.12);
+    46% {
+      transform: translate3d(-12%, -10%, 0) rotate(6deg) scale(1.18);
+    }
+
+    76% {
+      transform: translate3d(7%, -2%, 0) rotate(1deg) scale(1.08);
+    }
+  }
+
+  @keyframes hero-aura-four {
+    0%,
+    100% {
+      transform: translate3d(4%, 6%, 0) rotate(8deg) scale(1);
+    }
+
+    48% {
+      transform: translate3d(-12%, -9%, 0) rotate(2deg) scale(1.2);
+    }
+
+    74% {
+      transform: translate3d(7%, -4%, 0) rotate(11deg) scale(1.08);
     }
   }
 
@@ -387,7 +435,7 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
     }
 
     50% {
-      transform: translate3d(-49%, -52%, 0) scale(1.03);
+      transform: translate3d(-48.5%, -52.5%, 0) scale(1.04);
     }
   }
 
