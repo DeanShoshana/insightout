@@ -160,8 +160,9 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
     block-size: clamp(150px, 18vw, 290px);
     inset-inline-end: 30%;
     inset-block-end: 28%;
-    background: color-mix(in srgb, var(--ink) 18%, transparent);
-    opacity: 0.22;
+    background: color-mix(in srgb, var(--speed-from) 42%, var(--ink-surface));
+    filter: blur(54px) hue-rotate(24deg) saturate(1.08);
+    opacity: 0.28;
     transform: translate3d(4%, 6%, 0) rotate(8deg);
   }
 

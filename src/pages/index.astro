@@ -618,7 +618,7 @@ import { withBase } from '../lib/url';
     position: relative;
     margin-block-start: clamp(3rem, 6vw, 5rem);
     isolation: isolate;
-    overflow: visible;
+    overflow: hidden;
     padding-block: clamp(2rem, 4vw, 3rem);
   }
 
@@ -633,7 +633,7 @@ import { withBase } from '../lib/url';
 
   .engine-scene__lights {
     position: absolute;
-    inset-block: -8% -10%;
+    inset-block: -6% 2%;
     inset-inline-start: calc(50% - 50vw);
     inline-size: 100vw;
     z-index: -1;
@@ -713,9 +713,9 @@ import { withBase } from '../lib/url';
     position: relative;
     display: grid;
     place-items: center;
-    min-block-size: clamp(520px, 54vw, 660px);
-    margin-block-start: clamp(2.5rem, 5vw, 4rem);
-    perspective: 1200px;
+    min-block-size: clamp(560px, 58vw, 700px);
+    margin-block-start: clamp(3rem, 6vw, 4.8rem);
+    perspective: 1400px;
   }
 
   .services__grid::before {
@@ -734,7 +734,7 @@ import { withBase } from '../lib/url';
 
   .services__spiral-item {
     grid-area: 1 / 1;
-    inline-size: min(72vw, 620px);
+    inline-size: min(68vw, 620px);
     transform-style: preserve-3d;
     will-change: transform, opacity, filter;
   }
@@ -767,21 +767,21 @@ import { withBase } from '../lib/url';
   }
 
   .services__spiral-item:nth-child(2) {
-    transform: translate3d(12%, 7%, -120px) rotate(5deg) scale(0.9);
+    transform: translate3d(32%, 7%, -120px) rotate(7deg) scale(0.88);
     z-index: 3;
-    opacity: 0.72;
+    opacity: 0.78;
   }
 
   .services__spiral-item:nth-child(3) {
-    transform: translate3d(-14%, 12%, -230px) rotate(-7deg) scale(0.8);
+    transform: translate3d(-32%, 12%, -210px) rotate(-8deg) scale(0.82);
     z-index: 2;
-    opacity: 0.48;
+    opacity: 0.62;
   }
 
   .services__spiral-item:nth-child(4) {
-    transform: translate3d(3%, 18%, -330px) rotate(10deg) scale(0.7);
+    transform: translate3d(0, 24%, -300px) rotate(11deg) scale(0.76);
     z-index: 1;
-    opacity: 0.34;
+    opacity: 0.5;
   }
 
   /* ---- Approach teaser ---- */
@@ -1002,26 +1002,26 @@ import { withBase } from '../lib/url';
 
     25%,
     45% {
-      transform: translate3d(12%, 7%, -120px) rotate(5deg) scale(0.9);
+      transform: translate3d(32%, 7%, -120px) rotate(7deg) scale(0.88);
       z-index: 3;
-      opacity: 0.72;
-      filter: saturate(0.92);
+      opacity: 0.78;
+      filter: saturate(0.94);
     }
 
     50%,
     70% {
-      transform: translate3d(-14%, 12%, -230px) rotate(-7deg) scale(0.8);
+      transform: translate3d(-32%, 12%, -210px) rotate(-8deg) scale(0.82);
       z-index: 2;
-      opacity: 0.48;
-      filter: saturate(0.86);
+      opacity: 0.62;
+      filter: saturate(0.88);
     }
 
     75%,
     95% {
-      transform: translate3d(3%, 18%, -330px) rotate(10deg) scale(0.7);
+      transform: translate3d(0, 24%, -300px) rotate(11deg) scale(0.76);
       z-index: 1;
-      opacity: 0.34;
-      filter: saturate(0.8);
+      opacity: 0.5;
+      filter: saturate(0.84);
     }
   }
 
@@ -1029,26 +1029,26 @@ import { withBase } from '../lib/url';
     0%,
     20%,
     100% {
-      transform: translate3d(12%, 7%, -120px) rotate(5deg) scale(0.9);
+      transform: translate3d(32%, 7%, -120px) rotate(7deg) scale(0.88);
       z-index: 3;
-      opacity: 0.72;
-      filter: saturate(0.92);
+      opacity: 0.78;
+      filter: saturate(0.94);
     }
 
     25%,
     45% {
-      transform: translate3d(-14%, 12%, -230px) rotate(-7deg) scale(0.8);
+      transform: translate3d(-32%, 12%, -210px) rotate(-8deg) scale(0.82);
       z-index: 2;
-      opacity: 0.48;
-      filter: saturate(0.86);
+      opacity: 0.62;
+      filter: saturate(0.88);
     }
 
     50%,
     70% {
-      transform: translate3d(3%, 18%, -330px) rotate(10deg) scale(0.7);
+      transform: translate3d(0, 24%, -300px) rotate(11deg) scale(0.76);
       z-index: 1;
-      opacity: 0.34;
-      filter: saturate(0.8);
+      opacity: 0.5;
+      filter: saturate(0.84);
     }
 
     75%,
@@ -1064,18 +1064,18 @@ import { withBase } from '../lib/url';
     0%,
     20%,
     100% {
-      transform: translate3d(-14%, 12%, -230px) rotate(-7deg) scale(0.8);
+      transform: translate3d(-32%, 12%, -210px) rotate(-8deg) scale(0.82);
       z-index: 2;
-      opacity: 0.48;
-      filter: saturate(0.86);
+      opacity: 0.62;
+      filter: saturate(0.88);
     }
 
     25%,
     45% {
-      transform: translate3d(3%, 18%, -330px) rotate(10deg) scale(0.7);
+      transform: translate3d(0, 24%, -300px) rotate(11deg) scale(0.76);
       z-index: 1;
-      opacity: 0.34;
-      filter: saturate(0.8);
+      opacity: 0.5;
+      filter: saturate(0.84);
     }
 
     50%,
@@ -1088,10 +1088,10 @@ import { withBase } from '../lib/url';
 
     75%,
     95% {
-      transform: translate3d(12%, 7%, -120px) rotate(5deg) scale(0.9);
+      transform: translate3d(32%, 7%, -120px) rotate(7deg) scale(0.88);
       z-index: 3;
-      opacity: 0.72;
-      filter: saturate(0.92);
+      opacity: 0.78;
+      filter: saturate(0.94);
     }
   }
 
@@ -1099,10 +1099,10 @@ import { withBase } from '../lib/url';
     0%,
     20%,
     100% {
-      transform: translate3d(3%, 18%, -330px) rotate(10deg) scale(0.7);
+      transform: translate3d(0, 24%, -300px) rotate(11deg) scale(0.76);
       z-index: 1;
-      opacity: 0.34;
-      filter: saturate(0.8);
+      opacity: 0.5;
+      filter: saturate(0.84);
     }
 
     25%,
@@ -1115,18 +1115,18 @@ import { withBase } from '../lib/url';
 
     50%,
     70% {
-      transform: translate3d(12%, 7%, -120px) rotate(5deg) scale(0.9);
+      transform: translate3d(32%, 7%, -120px) rotate(7deg) scale(0.88);
       z-index: 3;
-      opacity: 0.72;
-      filter: saturate(0.92);
+      opacity: 0.78;
+      filter: saturate(0.94);
     }
 
     75%,
     95% {
-      transform: translate3d(-14%, 12%, -230px) rotate(-7deg) scale(0.8);
+      transform: translate3d(-32%, 12%, -210px) rotate(-8deg) scale(0.82);
       z-index: 2;
-      opacity: 0.48;
-      filter: saturate(0.86);
+      opacity: 0.62;
+      filter: saturate(0.88);
     }
   }
 
