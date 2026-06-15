@@ -53,31 +53,33 @@ const { variant, size = 'card' } = Astro.props;
 
     {variant === 'market' && (
       <g>
-        <path class="visual-path visual-path--soft" d="M 76 66 C 122 78, 142 110, 178 118" />
-        <path class="visual-path visual-path--soft" d="M 78 174 C 122 154, 142 128, 178 118" />
-        <path class="visual-path visual-path--soft" d="M 286 72 C 238 80, 214 108, 178 118" />
-        <path class="visual-path visual-path--soft" d="M 284 172 C 238 160, 214 132, 178 118" />
-        <circle class="visual-node" cx="76" cy="66" r="13" />
-        <circle class="visual-node" cx="78" cy="174" r="13" />
-        <circle class="visual-node" cx="286" cy="72" r="13" />
-        <circle class="visual-node" cx="284" cy="172" r="13" />
-        <circle class="visual-node visual-node--accent" cx="178" cy="118" r="20" />
-        <path class="visual-path visual-path--accent" pathLength="1" d="M 196 118 H 250" />
-        <rect class="visual-chip" x="250" y="104" width="54" height="28" rx="10" />
+        <circle class="visual-ring" cx="178" cy="112" r="72" />
+        <circle class="visual-ring visual-ring--soft" cx="178" cy="112" r="42" />
+        <path class="visual-path visual-path--soft" d="M 178 40 V 184 M 106 112 H 250" />
+        <path class="visual-path visual-path--accent visual-path--sweep" pathLength="1" d="M 178 112 L 238 74" />
+        <circle class="visual-node visual-node--accent" cx="238" cy="74" r="9" />
+        <circle class="visual-node" cx="126" cy="146" r="8" />
+        <circle class="visual-node" cx="206" cy="164" r="7" />
+        <rect class="visual-chip" x="66" y="62" width="68" height="30" rx="12" />
+        <rect class="visual-chip visual-chip--dark" x="222" y="138" width="72" height="30" rx="12" />
       </g>
     )}
 
     {variant === 'advisory' && (
       <g>
-        <path class="visual-path visual-path--soft" d="M 72 72 C 120 72, 136 110, 174 110" />
-        <path class="visual-path visual-path--soft" d="M 72 148 C 120 148, 136 110, 174 110" />
-        <path class="visual-path visual-path--soft" d="M 72 110 H 174" />
-        <circle class="visual-node visual-node--accent" cx="174" cy="110" r="7" />
-        <path class="visual-path visual-path--accent" pathLength="1" d="M 184 110 H 238" />
-        <rect class="visual-panel visual-panel--decision" x="238" y="66" width="76" height="88" rx="18" />
-        <path class="visual-path visual-path--soft visual-path--decision" d="M 254 94 H 296" />
-        <path class="visual-path visual-path--soft visual-path--decision" d="M 254 114 H 286" />
-        <path class="visual-path visual-path--soft visual-path--decision" d="M 254 134 H 302" />
+        <rect class="visual-panel visual-panel--decision visual-panel--artifact" x="126" y="46" width="112" height="128" rx="24" />
+        <path class="visual-path visual-path--soft visual-path--decision" d="M 148 82 H 216" />
+        <path class="visual-path visual-path--soft visual-path--decision" d="M 148 106 H 202" />
+        <path class="visual-path visual-path--accent" pathLength="1" d="M 148 134 H 194" />
+        <path class="visual-path visual-path--soft visual-path--decision visual-path--decision-in" d="M 76 76 C 106 76, 106 110, 126 110" />
+        <path class="visual-path visual-path--soft visual-path--decision visual-path--decision-in" d="M 76 144 C 108 144, 106 110, 126 110" />
+        <path class="visual-path visual-path--soft visual-path--decision visual-path--decision-out" d="M 238 110 C 262 110, 266 88, 292 88" />
+        <path class="visual-path visual-path--soft visual-path--decision visual-path--decision-out" d="M 238 132 C 264 132, 268 154, 294 154" />
+        <circle class="visual-node" cx="76" cy="76" r="9" />
+        <circle class="visual-node" cx="76" cy="144" r="9" />
+        <circle class="visual-node visual-node--accent" cx="238" cy="110" r="8" />
+        <circle class="visual-node" cx="292" cy="88" r="8" />
+        <circle class="visual-node" cx="294" cy="154" r="8" />
       </g>
     )}
   </svg>
@@ -88,7 +90,7 @@ const { variant, size = 'card' } = Astro.props;
     position: relative;
     display: grid;
     place-items: center;
-    inline-size: 100%;
+    inline-size: min(100%, var(--visual-shell, 360px));
     margin: 0;
     isolation: isolate;
   }
@@ -152,6 +154,10 @@ const { variant, size = 'card' } = Astro.props;
     opacity: 0.58;
   }
 
+  .service-visual--advisory .service-visual__plane {
+    display: none;
+  }
+
   .service-visual__svg {
     position: relative;
     z-index: 1;
@@ -163,23 +169,44 @@ const { variant, size = 'card' } = Astro.props;
 
   .service-visual--card {
     --visual-max: 210px;
+    --visual-shell: 240px;
   }
 
   .service-visual--feature {
     --visual-max: 360px;
+    --visual-shell: 380px;
   }
 
   .visual-panel,
   .visual-tile,
-  .visual-chip {
+  .visual-chip,
+  .visual-ring {
     fill: color-mix(in srgb, var(--glass-hi) 80%, var(--surface));
     stroke: color-mix(in srgb, var(--glass-lo) 72%, var(--surface));
     stroke-width: 3;
   }
 
+  .visual-ring {
+    fill: none;
+    opacity: 0.72;
+  }
+
+  .visual-ring--soft {
+    stroke: color-mix(in srgb, var(--signal) 34%, var(--glass-lo));
+    opacity: 0.5;
+  }
+
+  .visual-chip--dark {
+    fill: color-mix(in srgb, var(--signal) 16%, var(--ink-surface));
+  }
+
   .visual-panel--decision {
     fill: color-mix(in srgb, var(--ink-surface) 88%, var(--signal));
     stroke: color-mix(in srgb, var(--speed-from) 26%, transparent);
+  }
+
+  .visual-panel--artifact {
+    filter: drop-shadow(0 18px 24px color-mix(in srgb, var(--ink) 18%, transparent));
   }
 
   .visual-path {
@@ -328,6 +355,11 @@ const { variant, size = 'card' } = Astro.props;
     .service-visual--advisory .visual-path--accent {
       animation: visual-line-pulse 4.8s ease-in-out infinite;
     }
+
+    .service-visual--market .visual-ring,
+    .service-visual--market .visual-path--sweep {
+      animation: visual-market-scan 7s ease-in-out infinite;
+    }
   }
 
   @keyframes visual-plane-one {
@@ -405,6 +437,19 @@ const { variant, size = 'card' } = Astro.props;
     }
 
     50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes visual-market-scan {
+    0%,
+    100% {
+      transform: rotate(-4deg);
+      opacity: 0.72;
+    }
+
+    50% {
+      transform: rotate(9deg);
       opacity: 1;
     }
   }
