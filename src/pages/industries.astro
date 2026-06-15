@@ -398,7 +398,7 @@ const signalCards = [
     background:
       radial-gradient(
         420px circle at var(--spot-x, 72%) var(--spot-y, 18%),
-        color-mix(in srgb, var(--signal) 10%, transparent),
+        color-mix(in srgb, var(--spotlight) 18%, transparent),
         transparent 64%
       ),
       var(--surface);
@@ -421,9 +421,10 @@ const signalCards = [
     border-radius: inherit;
     background: radial-gradient(
       360px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-      color-mix(in srgb, var(--signal) 9%, transparent),
+      color-mix(in srgb, var(--spotlight) 18%, transparent),
       transparent 70%
     );
+    filter: hue-rotate(30deg) saturate(1.22);
     opacity: var(--spot-o, 0);
     transition: opacity 0.6s var(--ease-luxe);
   }

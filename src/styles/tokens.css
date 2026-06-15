@@ -27,6 +27,7 @@
   --signal-hover: #1c5cc4;  /* darker --signal for hover/active states */
   --signal-text: #1c5cc4;   /* small signal-colored text (links, kickers): --signal is
                                4.4–4.5:1 on the warmed surfaces - this shade holds ≥5.8:1 */
+  --spotlight: color-mix(in srgb, var(--speed-from) 42%, var(--ink-surface));
   --on-ink: #ffffff;        /* text on ink surfaces */
   --selection: color-mix(in srgb, var(--signal) 26%, transparent);
 
@@ -88,6 +89,7 @@
 
   --signal-hover: #76a6f3;
   --signal-text: #9fc3ff;
+  --spotlight: color-mix(in srgb, var(--speed-from) 42%, var(--ink-surface));
   --glass-hi: #223556;
   --glass-lo: #76a6f3;
   --selection: color-mix(in srgb, var(--speed-from) 32%, transparent);
