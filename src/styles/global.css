@@ -36,6 +36,8 @@ body {
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   -webkit-font-smoothing: antialiased;
+  font-kerning: normal;
+  font-synthesis-weight: none;
   text-rendering: optimizeLegibility;
   min-block-size: 100vh;
   display: flex;
@@ -57,10 +59,12 @@ h4 {
   line-height: 1.15;
   letter-spacing: var(--tracking-display);
   margin-block: 0 0.5em;
+  text-wrap: balance;
 }
 
 p {
   margin-block: 0 1em;
+  text-wrap: pretty;
 }
 
 a {
@@ -68,6 +72,10 @@ a {
      warmed surfaces (tokens.css). Filled buttons keep --signal backgrounds. */
   color: var(--signal-text);
   text-decoration: none;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out);
 }
 
 a:hover {
@@ -103,10 +111,10 @@ svg {
 
 /* Visible keyboard focus (quality floor). */
 :focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--signal) 88%, var(--surface));
+  outline: 2px solid color-mix(in srgb, var(--spotlight) 82%, var(--surface));
   outline-offset: 3px;
-  box-shadow: 0 0 0 5px color-mix(in srgb, var(--signal) 18%, transparent);
-  border-radius: 3px;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--spotlight) 16%, transparent);
+  border-radius: calc(var(--radius-sm) / 2);
 }
 
 /* Skip link - appears on focus. */
@@ -148,12 +156,15 @@ svg {
 
 .section-head__headline {
   font-size: clamp(1.9rem, 4.2vw, 3rem);
+  max-inline-size: 13em;
   margin-block-end: 0.75rem;
 }
 
 .section-head__lede {
   font-size: 1.15rem;
+  line-height: 1.55;
   color: var(--graphite);
+  max-inline-size: 42rem;
   margin: 0;
 }
 
@@ -169,8 +180,8 @@ svg {
   }
 
   .section-head__headline {
-    font-size: clamp(2rem, 9.6vw, 2.65rem);
-    line-height: 1.08;
+    font-size: clamp(1.8rem, 8.4vw, 2.35rem);
+    line-height: 1.1;
     margin-block-end: 0.65rem;
   }
 

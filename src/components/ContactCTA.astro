@@ -608,7 +608,7 @@ const ajax = mode === 'endpoint' && !!action;
   .contact__field textarea {
     font: inherit;
     color: var(--ink);
-    background: color-mix(in srgb, var(--surface) 68%, transparent);
+    background: color-mix(in srgb, var(--surface) 58%, transparent);
     -webkit-backdrop-filter: blur(14px) saturate(128%);
     backdrop-filter: blur(14px) saturate(128%);
     border: 1px solid color-mix(in srgb, var(--hairline) 82%, transparent);
@@ -618,12 +618,13 @@ const ajax = mode === 'endpoint' && !!action;
     transition:
       background var(--dur-med) var(--ease-out),
       border-color var(--dur-med) var(--ease-out),
-      box-shadow var(--dur-med) var(--ease-out);
+      box-shadow var(--dur-med) var(--ease-out),
+      transform var(--dur-med) var(--ease-out);
   }
 
   .contact__field input:focus-visible,
   .contact__field textarea:focus-visible {
-    outline: 2px solid var(--signal);
+    outline: 2px solid color-mix(in srgb, var(--spotlight) 72%, var(--signal));
     outline-offset: 1px;
     border-color: var(--signal);
     box-shadow:
