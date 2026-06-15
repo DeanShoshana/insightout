@@ -187,33 +187,64 @@ const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant
       grid-template-columns: 1fr;
     }
 
+    .pillar header {
+      order: 1;
+    }
+
     .pillar__visual {
+      order: 2;
       max-inline-size: min(100%, 340px);
       margin-inline: auto;
+    }
+
+    .pillar__detail {
+      order: 3;
     }
   }
 
   @media (max-width: 520px) {
     .pillar {
-      padding-block: clamp(3.5rem, 15vw, 5rem);
+      padding-block: clamp(3.75rem, 16vw, 5.25rem);
+      scroll-margin-block-start: 118px;
     }
 
     .pillar__inner {
-      gap: 1.35rem;
+      gap: 1.15rem;
     }
 
     .pillar__visual {
-      max-inline-size: 320px;
+      max-inline-size: min(100%, 330px);
+      aspect-ratio: 1.12;
+      margin-block: 0.15rem 0.35rem;
     }
 
     .pillar__headline {
-      font-size: clamp(1.85rem, 8.8vw, 2.35rem);
-      line-height: 1.08;
+      font-size: clamp(1.75rem, 8.2vw, 2.25rem);
+      line-height: 1.1;
+      max-inline-size: 12em;
     }
 
     .pillar__body {
       font-size: 1rem;
       line-height: 1.55;
+    }
+
+    .pillar__count {
+      margin-block-end: 0.75rem;
+    }
+
+    .pillar__offerings {
+      margin-block-end: 1.1rem;
+    }
+
+    .pillar__offerings li {
+      padding-block: 0.55rem;
+    }
+
+    .pillar__example,
+    .pillar__footnote {
+      font-size: 0.92rem;
+      line-height: 1.5;
     }
   }
 
@@ -398,6 +429,42 @@ const visualMap: Record<(typeof pillars)[number]['visual'], ServiceVisualVariant
     font-size: 0.85rem;
     color: var(--graphite);
     margin: 0;
+  }
+
+  @media (max-width: 720px) {
+    .subnav {
+      inset-block-start: 64px;
+    }
+
+    .subnav__inner {
+      padding-inline-end: 0;
+    }
+
+    .subnav__inner ul {
+      gap: 0.55rem;
+      padding-block: 0.45rem;
+      padding-inline-end: var(--gutter);
+      scroll-snap-type: x proximity;
+    }
+
+    .subnav__link {
+      display: inline-flex;
+      align-items: center;
+      min-block-size: 38px;
+      padding: 0.45rem 0.78rem;
+      border: 1px solid color-mix(in srgb, var(--hairline) 78%, transparent);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--surface) 56%, transparent);
+      -webkit-backdrop-filter: blur(12px) saturate(145%);
+      backdrop-filter: blur(12px) saturate(145%);
+      font-size: 0.88rem;
+      scroll-snap-align: start;
+    }
+
+    .subnav__link.is-active {
+      border-color: color-mix(in srgb, var(--signal) 42%, var(--hairline));
+      box-shadow: 0 8px 22px color-mix(in srgb, var(--signal) 10%, transparent);
+    }
   }
 
   /* ---- Pillar 4: the seat - elevated ink section (§5.2 / §6).

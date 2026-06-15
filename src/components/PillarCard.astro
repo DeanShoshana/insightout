@@ -360,4 +360,59 @@ const motifMap: Record<NonNullable<typeof motif>, ServiceVisualVariant> = {
       margin-block-start: 1.5rem;
     }
   }
+
+  @media (max-width: 720px) {
+    .card__viz {
+      block-size: clamp(118px, 34vw, 142px);
+    }
+
+    .card--seat .card__viz {
+      block-size: clamp(128px, 38vw, 150px);
+    }
+
+    .card__viz :global(.service-visual--card) {
+      --visual-max: 190px;
+      --visual-shell: 220px;
+    }
+
+    .card__content {
+      padding: clamp(1.15rem, 5vw, 1.45rem);
+      gap: 0.08rem;
+    }
+
+    .card__kicker {
+      font-size: 0.68rem;
+      line-height: 1.45;
+      margin-block-end: 0.55rem;
+    }
+
+    .card__headline {
+      font-size: clamp(1.24rem, 5.8vw, 1.58rem);
+      line-height: 1.12;
+      max-inline-size: 12em;
+    }
+
+    .card--seat .card__headline {
+      font-size: clamp(1.35rem, 6.4vw, 1.78rem);
+    }
+
+    .card__body,
+    .card__offerings {
+      font-size: 0.96rem;
+      line-height: 1.45;
+    }
+
+    .card__offerings {
+      margin-block: 0.35rem 1rem;
+    }
+
+    .card__offerings li {
+      padding-block: 0.34rem;
+    }
+
+    .card__link {
+      min-block-size: 44px;
+      font-size: 0.95rem;
+    }
+  }
 </style>

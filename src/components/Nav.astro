@@ -245,6 +245,14 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
 
   /* ---- Mobile: collapse links into a checkbox-toggled dropdown ---- */
   @media (max-width: 720px) {
+    .nav__inner {
+      block-size: 64px;
+    }
+
+    .nav__logo {
+      inline-size: 118px;
+    }
+
     /* Visually hidden but kept in the tab order so the menu is keyboard-operable. */
     .nav__checkbox {
       display: block;
@@ -266,6 +274,10 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
       inline-size: 44px;
       block-size: 44px;
       border-radius: var(--radius-sm);
+      background: color-mix(in srgb, var(--surface) 52%, transparent);
+      -webkit-backdrop-filter: blur(14px) saturate(145%);
+      backdrop-filter: blur(14px) saturate(145%);
+      border: 1px solid color-mix(in srgb, var(--hairline) 78%, transparent);
       cursor: pointer;
     }
 
@@ -316,16 +328,18 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
       display: none;
       position: absolute;
       inset-inline: 0;
-      inset-block-start: 68px;
+      inset-block-start: 64px;
       flex-direction: column;
       align-items: stretch;
       gap: 0.5rem;
-      padding: 0.85rem var(--gutter) 1.2rem;
-      background: color-mix(in srgb, var(--surface) 86%, transparent);
-      -webkit-backdrop-filter: blur(22px) saturate(160%);
-      backdrop-filter: blur(22px) saturate(160%);
+      padding: 0.9rem var(--gutter) 1rem;
+      background: color-mix(in srgb, var(--surface) 72%, transparent);
+      -webkit-backdrop-filter: blur(26px) saturate(172%);
+      backdrop-filter: blur(26px) saturate(172%);
       border-block-end: 1px solid var(--hairline);
-      box-shadow: var(--shadow-card);
+      box-shadow:
+        0 22px 58px color-mix(in srgb, var(--ink) 11%, transparent),
+        inset 0 1px 0 color-mix(in srgb, white 28%, transparent);
     }
 
     .nav__checkbox:checked ~ .nav__links {
@@ -340,8 +354,10 @@ const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
 
     .nav__link {
       display: block;
-      padding: 0.8rem 0.75rem;
+      min-block-size: 46px;
+      padding: 0.82rem 0.8rem;
       border-radius: var(--radius-sm);
+      font-size: 1rem;
     }
 
     .nav__link:hover,

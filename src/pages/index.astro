@@ -1314,12 +1314,18 @@ import { withBase } from '../lib/url';
     }
 
     .services__grid {
-      display: grid;
-      grid-template-columns: 1fr;
+      display: flex;
       gap: 1rem;
       min-block-size: auto;
-      max-inline-size: 560px;
-      margin-inline: auto;
+      max-inline-size: none;
+      margin-inline: calc(var(--gutter) * -1);
+      padding-inline: var(--gutter);
+      padding-block: 0.35rem 1.35rem;
+      overflow-x: auto;
+      overflow-y: visible;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: var(--gutter);
+      -webkit-overflow-scrolling: touch;
       perspective: none;
     }
 
@@ -1330,11 +1336,13 @@ import { withBase } from '../lib/url';
     .services__spiral-item,
     .services__spiral-item:nth-child(n) {
       grid-area: auto;
-      inline-size: 100%;
+      flex: 0 0 min(82vw, 420px);
+      inline-size: auto;
       transform: none;
       opacity: 1;
       filter: none;
       animation: none;
+      scroll-snap-align: center;
     }
 
     .services__spiral-item :global(.card)::before {
@@ -1351,28 +1359,33 @@ import { withBase } from '../lib/url';
 
   @media (max-width: 720px) {
     .problem {
-      padding-block: clamp(3.75rem, 16vw, 5.75rem);
+      padding-block: clamp(4rem, 17vw, 6rem);
     }
 
     .problem__copy,
     .problem__product,
     .approach__surface {
-      padding: 1.15rem;
+      padding: 1.2rem;
     }
 
     .problem__statement {
-      font-size: clamp(1.55rem, 7.2vw, 2rem);
-      line-height: 1.18;
+      font-size: clamp(1.42rem, 6.8vw, 1.9rem);
+      line-height: 1.22;
     }
 
     .problem__visual {
-      min-block-size: 190px;
-      margin-block-end: 0.7rem;
+      min-block-size: clamp(170px, 50vw, 210px);
+      margin-block-end: 0.85rem;
     }
 
     .problem__product h3 {
-      font-size: clamp(1.45rem, 7vw, 1.9rem);
-      line-height: 1.1;
+      font-size: clamp(1.32rem, 6.5vw, 1.75rem);
+      line-height: 1.12;
+      max-inline-size: 13em;
+    }
+
+    .problem__product li {
+      font-size: 0.96rem;
     }
 
     .services__artifact {
@@ -1385,7 +1398,28 @@ import { withBase } from '../lib/url';
     }
 
     :global(html.js) .engine-scene {
-      min-block-size: 78svh;
+      min-block-size: 74svh;
+    }
+
+    .engine-scene {
+      margin-block-start: clamp(2.4rem, 11vw, 3.4rem);
+      padding-block: clamp(1.25rem, 6vw, 2rem);
+    }
+
+    .engine-scene__lights {
+      inset-block: 0 -8%;
+    }
+
+    .services__grid {
+      margin-block-start: clamp(2.2rem, 10vw, 3.2rem);
+    }
+
+    .services__spiral-item {
+      flex-basis: min(86vw, 390px);
+    }
+
+    .services__spiral-item :global(.card) {
+      min-block-size: 100%;
     }
 
     .approach__signal {
@@ -1396,6 +1430,22 @@ import { withBase } from '../lib/url';
     .approach__signal strong {
       min-block-size: 2.55rem;
       font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .services__spiral-item {
+      flex-basis: 88vw;
+    }
+
+    .problem__copy,
+    .problem__product,
+    .approach__surface {
+      padding: 1rem;
+    }
+
+    .problem__visual :global(.service-visual) {
+      max-inline-size: 225px;
     }
   }
 </style>
