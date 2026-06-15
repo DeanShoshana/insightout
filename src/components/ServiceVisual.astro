@@ -84,11 +84,12 @@ const { variant, size = 'card' } = Astro.props;
       <g class="visual-scene visual-scene--market">
         <circle class="market-orbit market-orbit--outer" cx="180" cy="110" r="76" />
         <circle class="market-orbit market-orbit--inner" cx="180" cy="110" r="42" />
-        <path class="market-axis" d="M 104 110 H 256 M 180 34 V 186" />
-        <g class="market-category">
-          <path d="M 150 132 C 170 108, 190 110, 210 84" />
-          <circle cx="210" cy="84" r="7" />
+        <g class="market-ripples">
+          <circle class="market-ripple market-ripple--one" cx="180" cy="110" r="22" />
+          <circle class="market-ripple market-ripple--two" cx="180" cy="110" r="44" />
+          <circle class="market-ripple market-ripple--three" cx="180" cy="110" r="66" />
         </g>
+        <circle class="market-hub" cx="180" cy="110" r="12" />
         <g class="market-signal market-signal--one">
           <rect x="58" y="68" width="58" height="24" rx="12" />
           <path d="M 70 80 H 102" />
@@ -265,7 +266,6 @@ const { variant, size = 'card' } = Astro.props;
   }
 
   .visual-path,
-  .market-axis,
   .table-line {
     fill: none;
     stroke-linecap: round;
@@ -275,11 +275,6 @@ const { variant, size = 'card' } = Astro.props;
   .visual-path--accent {
     stroke: var(--signal);
     stroke-width: 4.5;
-  }
-
-  .market-axis {
-    stroke: color-mix(in srgb, var(--glass-lo) 42%, transparent);
-    stroke-width: 2;
   }
 
   .market-orbit {
@@ -292,15 +287,26 @@ const { variant, size = 'card' } = Astro.props;
     stroke: color-mix(in srgb, var(--signal) 34%, transparent);
   }
 
-  .market-category path {
+  .market-ripple {
     fill: none;
-    stroke: var(--speed-from);
-    stroke-width: 4;
-    stroke-linecap: round;
+    stroke: color-mix(in srgb, var(--signal) 36%, transparent);
+    stroke-width: 2.5;
+    opacity: 0.48;
   }
 
-  .market-category circle {
+  .market-ripple--two {
+    stroke: color-mix(in srgb, var(--glass-lo) 54%, transparent);
+    opacity: 0.36;
+  }
+
+  .market-ripple--three {
+    stroke: color-mix(in srgb, var(--speed-from) 42%, transparent);
+    opacity: 0.26;
+  }
+
+  .market-hub {
     fill: var(--signal);
+    filter: drop-shadow(0 0 16px color-mix(in srgb, var(--signal) 42%, transparent));
   }
 
   .dashboard-bar {
@@ -492,8 +498,20 @@ const { variant, size = 'card' } = Astro.props;
       animation: market-rotate 8s ease-in-out infinite reverse;
     }
 
-    .market-category {
-      animation: market-category 7.4s var(--ease-luxe) infinite;
+    .market-ripple {
+      animation: market-ripple 6.8s var(--ease-luxe) infinite;
+    }
+
+    .market-ripple--two {
+      animation-delay: -1.2s;
+    }
+
+    .market-ripple--three {
+      animation-delay: -2.4s;
+    }
+
+    .market-hub {
+      animation: visual-node-breathe 5.8s ease-in-out infinite;
     }
 
     .market-signal {
@@ -701,16 +719,16 @@ const { variant, size = 'card' } = Astro.props;
     }
   }
 
-  @keyframes market-category {
+  @keyframes market-ripple {
     0%,
     100% {
-      transform: translate3d(-5px, 4px, 0);
-      opacity: 0.82;
+      transform: scale(0.92);
+      opacity: 0.2;
     }
 
     50% {
-      transform: translate3d(7px, -8px, 0);
-      opacity: 1;
+      transform: scale(1.08);
+      opacity: 0.58;
     }
   }
 
