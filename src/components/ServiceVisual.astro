@@ -10,9 +10,9 @@ const { variant, size = 'card' } = Astro.props;
 ---
 
 <figure class:list={['service-visual', `service-visual--${variant}`, `service-visual--${size}`]} aria-hidden="true">
-  <span class="service-visual__plane service-visual__plane--one"></span>
-  <span class="service-visual__plane service-visual__plane--two"></span>
-  <span class="service-visual__plane service-visual__plane--three"></span>
+  <span class="service-visual__layer service-visual__layer--one"></span>
+  <span class="service-visual__layer service-visual__layer--two"></span>
+  <span class="service-visual__layer service-visual__layer--three"></span>
   <svg class="service-visual__svg" viewBox="0 0 360 220" focusable="false">
     {variant === 'product' && (
       <g>
@@ -60,26 +60,25 @@ const { variant, size = 'card' } = Astro.props;
         <circle class="visual-node visual-node--accent" cx="238" cy="74" r="9" />
         <circle class="visual-node" cx="126" cy="146" r="8" />
         <circle class="visual-node" cx="206" cy="164" r="7" />
-        <rect class="visual-chip" x="66" y="62" width="68" height="30" rx="12" />
-        <rect class="visual-chip visual-chip--dark" x="222" y="138" width="72" height="30" rx="12" />
+        <path class="visual-orbit-chip" d="M 72 75 Q 99 54 128 69 Q 107 91 72 75" />
+        <path class="visual-orbit-chip visual-orbit-chip--accent" d="M 226 150 Q 258 129 292 146 Q 264 171 226 150" />
       </g>
     )}
 
     {variant === 'advisory' && (
       <g>
-        <rect class="visual-panel visual-panel--decision visual-panel--artifact" x="126" y="46" width="112" height="128" rx="24" />
-        <path class="visual-path visual-path--soft visual-path--decision" d="M 148 82 H 216" />
-        <path class="visual-path visual-path--soft visual-path--decision" d="M 148 106 H 202" />
-        <path class="visual-path visual-path--accent" pathLength="1" d="M 148 134 H 194" />
-        <path class="visual-path visual-path--soft visual-path--decision visual-path--decision-in" d="M 76 76 C 106 76, 106 110, 126 110" />
-        <path class="visual-path visual-path--soft visual-path--decision visual-path--decision-in" d="M 76 144 C 108 144, 106 110, 126 110" />
-        <path class="visual-path visual-path--soft visual-path--decision visual-path--decision-out" d="M 238 110 C 262 110, 266 88, 292 88" />
-        <path class="visual-path visual-path--soft visual-path--decision visual-path--decision-out" d="M 238 132 C 264 132, 268 154, 294 154" />
-        <circle class="visual-node" cx="76" cy="76" r="9" />
-        <circle class="visual-node" cx="76" cy="144" r="9" />
-        <circle class="visual-node visual-node--accent" cx="238" cy="110" r="8" />
-        <circle class="visual-node" cx="292" cy="88" r="8" />
-        <circle class="visual-node" cx="294" cy="154" r="8" />
+        <path class="visual-path visual-path--soft visual-path--decision-in" d="M 68 70 C 112 70, 126 108, 166 108" />
+        <path class="visual-path visual-path--soft visual-path--decision-in" d="M 68 150 C 112 150, 126 108, 166 108" />
+        <path class="visual-path visual-path--soft visual-path--decision-in" d="M 68 110 H 166" />
+        <circle class="visual-lens" cx="178" cy="110" r="46" />
+        <circle class="visual-lens visual-lens--inner" cx="178" cy="110" r="22" />
+        <circle class="visual-node visual-node--accent" cx="178" cy="110" r="8" />
+        <path class="visual-path visual-path--accent visual-path--decision-out" pathLength="1" d="M 224 110 H 284" />
+        <path class="visual-chevron" d="M 270 88 L 306 110 L 270 132" />
+        <circle class="visual-node" cx="68" cy="70" r="9" />
+        <circle class="visual-node" cx="68" cy="110" r="9" />
+        <circle class="visual-node" cx="68" cy="150" r="9" />
+        <circle class="visual-node" cx="284" cy="110" r="8" />
       </g>
     )}
   </svg>
@@ -109,7 +108,7 @@ const { variant, size = 'card' } = Astro.props;
       transform var(--dur-hover) var(--ease-luxe);
   }
 
-  .service-visual__plane {
+  .service-visual__layer {
     position: absolute;
     z-index: 0;
     display: block;
@@ -129,7 +128,7 @@ const { variant, size = 'card' } = Astro.props;
     opacity: 0.72;
   }
 
-  .service-visual__plane--one {
+  .service-visual__layer--one {
     inline-size: 36%;
     block-size: 32%;
     inset-inline-start: 10%;
@@ -137,7 +136,7 @@ const { variant, size = 'card' } = Astro.props;
     transform: rotate(-8deg);
   }
 
-  .service-visual__plane--two {
+  .service-visual__layer--two {
     inline-size: 25%;
     block-size: 45%;
     inset-inline-end: 14%;
@@ -145,7 +144,7 @@ const { variant, size = 'card' } = Astro.props;
     transform: rotate(6deg);
   }
 
-  .service-visual__plane--three {
+  .service-visual__layer--three {
     inline-size: 33%;
     block-size: 28%;
     inset-inline-start: 38%;
@@ -154,7 +153,64 @@ const { variant, size = 'card' } = Astro.props;
     opacity: 0.58;
   }
 
-  .service-visual--advisory .service-visual__plane {
+  .service-visual--behavior .service-visual__layer {
+    border-radius: 999px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--glass-hi) 60%, transparent), transparent 68%);
+    border-color: color-mix(in srgb, var(--signal) 10%, transparent);
+    box-shadow: none;
+  }
+
+  .service-visual--behavior .service-visual__layer--one {
+    inline-size: 42%;
+    block-size: 42%;
+    inset-inline-start: 12%;
+    inset-block-start: 12%;
+  }
+
+  .service-visual--behavior .service-visual__layer--two {
+    inline-size: 34%;
+    block-size: 34%;
+    inset-inline-end: 12%;
+    inset-block-start: 18%;
+  }
+
+  .service-visual--behavior .service-visual__layer--three {
+    inline-size: 44%;
+    block-size: 32%;
+    inset-inline-start: 30%;
+    inset-block-end: 12%;
+  }
+
+  .service-visual--data .service-visual__layer {
+    border-radius: 14px;
+  }
+
+  .service-visual--data .service-visual__layer--one {
+    inline-size: 28%;
+    block-size: 58%;
+    inset-inline-start: 12%;
+    inset-block-start: 18%;
+    transform: rotate(0deg);
+  }
+
+  .service-visual--data .service-visual__layer--two {
+    inline-size: 24%;
+    block-size: 42%;
+    inset-inline-start: 39%;
+    inset-block-start: 10%;
+    transform: rotate(0deg);
+  }
+
+  .service-visual--data .service-visual__layer--three {
+    inline-size: 30%;
+    block-size: 50%;
+    inset-inline-end: 10%;
+    inset-block-end: 12%;
+    transform: rotate(0deg);
+  }
+
+  .service-visual--market .service-visual__layer,
+  .service-visual--advisory .service-visual__layer {
     display: none;
   }
 
@@ -180,10 +236,40 @@ const { variant, size = 'card' } = Astro.props;
   .visual-panel,
   .visual-tile,
   .visual-chip,
-  .visual-ring {
+  .visual-ring,
+  .visual-orbit-chip,
+  .visual-lens {
     fill: color-mix(in srgb, var(--glass-hi) 80%, var(--surface));
     stroke: color-mix(in srgb, var(--glass-lo) 72%, var(--surface));
     stroke-width: 3;
+  }
+
+  .visual-lens {
+    fill: color-mix(in srgb, var(--ink-surface) 78%, var(--signal));
+    stroke: color-mix(in srgb, var(--speed-from) 30%, transparent);
+  }
+
+  .visual-lens--inner {
+    fill: color-mix(in srgb, var(--signal) 24%, var(--ink-surface));
+    stroke: var(--speed-from);
+    opacity: 0.9;
+  }
+
+  .visual-orbit-chip {
+    opacity: 0.74;
+  }
+
+  .visual-orbit-chip--accent {
+    fill: color-mix(in srgb, var(--signal) 22%, var(--glass-hi));
+    stroke: color-mix(in srgb, var(--signal) 48%, var(--glass-lo));
+  }
+
+  .visual-chevron {
+    fill: none;
+    stroke: var(--speed-from);
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
   .visual-ring {
@@ -194,10 +280,6 @@ const { variant, size = 'card' } = Astro.props;
   .visual-ring--soft {
     stroke: color-mix(in srgb, var(--signal) 34%, var(--glass-lo));
     opacity: 0.5;
-  }
-
-  .visual-chip--dark {
-    fill: color-mix(in srgb, var(--signal) 16%, var(--ink-surface));
   }
 
   .visual-panel--decision {
@@ -246,15 +328,15 @@ const { variant, size = 'card' } = Astro.props;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    .service-visual__plane--one {
+    .service-visual__layer--one {
       animation: visual-plane-one 8s ease-in-out infinite;
     }
 
-    .service-visual__plane--two {
+    .service-visual__layer--two {
       animation: visual-plane-two 9s ease-in-out infinite;
     }
 
-    .service-visual__plane--three {
+    .service-visual__layer--three {
       animation: visual-plane-three 10s ease-in-out infinite;
     }
 
@@ -348,10 +430,11 @@ const { variant, size = 'card' } = Astro.props;
       animation-delay: -1.1s;
     }
 
-    .service-visual--advisory .visual-panel--decision {
-      animation: visual-decision-float 6.6s ease-in-out infinite;
+    .service-visual--advisory .visual-lens {
+      animation: visual-lens-focus 6.6s ease-in-out infinite;
     }
 
+    .service-visual--advisory .visual-chevron,
     .service-visual--advisory .visual-path--accent {
       animation: visual-line-pulse 4.8s ease-in-out infinite;
     }
@@ -427,6 +510,17 @@ const { variant, size = 'card' } = Astro.props;
 
     50% {
       transform: translate3d(7px, -5px, 0);
+    }
+  }
+
+  @keyframes visual-lens-focus {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.08);
     }
   }
 
