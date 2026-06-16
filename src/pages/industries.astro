@@ -611,6 +611,14 @@ const signalCards = [
   }
 
   @media (max-width: 720px) {
+    .signal-card::before {
+      inset-block-start: 44%;
+    }
+
+    .signal-card::after {
+      inset-block-start: calc(44% - 4px);
+    }
+
     .industry {
       padding: 1rem;
     }
