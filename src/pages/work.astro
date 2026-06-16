@@ -469,16 +469,17 @@ const { hero, cases, closing } = work;
     position: relative;
     min-block-size: 100%;
     display: grid;
-    gap: 1.3rem;
+    gap: 1.1rem;
   }
 
   .studio__head {
     position: relative;
     z-index: 1;
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: center;
+    display: grid;
+    justify-items: start;
+    gap: 0.32rem;
+    max-inline-size: 14rem;
+    padding-inline-start: 0.15rem;
   }
 
   .studio__head p,
@@ -497,11 +498,11 @@ const { hero, cases, closing } = work;
   .studio__head strong {
     color: var(--on-ink);
     font-weight: 560;
+    font-size: 0.8rem;
   }
 
   .studio__stage {
-    position: absolute;
-    inset: 4rem 0 auto;
+    position: relative;
     z-index: 1;
     display: grid;
     grid-template-columns: minmax(0, 0.95fr) minmax(200px, 0.9fr);
@@ -662,7 +663,6 @@ const { hero, cases, closing } = work;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.8rem;
-    margin-block-start: 19.2rem;
   }
 
   .studio__metric {
@@ -1229,6 +1229,8 @@ const { hero, cases, closing } = work;
 
     .studio__head {
       align-items: start;
+      max-inline-size: none;
+      padding-inline-start: 0;
     }
 
     .studio__input {

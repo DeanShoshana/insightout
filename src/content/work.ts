@@ -36,7 +36,7 @@ export const work = {
     decisionBody:
       'Separate streams stop competing for attention and resolve into one usable move for product, GTM, and leadership.',
     metrics: [
-      { label: 'Operating frames', value: '06' },
+      { label: 'Signal streams aligned', value: '04' },
       { label: 'Commercial upside framed', value: '$15M+' },
       { label: 'Category opening surfaced', value: '$67B' },
       { label: 'Faster time-to-insight', value: '75%' },
