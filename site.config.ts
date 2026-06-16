@@ -38,7 +38,8 @@ export const siteConfig: SiteConfig = {
 
   flags: {
     showNetwork: false,
-    showWork: false,
+    // Case Studies launched on /work in the current milestone.
+    showWork: true,
     showInsights: false,
   },
 
