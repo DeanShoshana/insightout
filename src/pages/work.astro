@@ -1,40 +1,1271 @@
 ---
 import Base from '../layouts/Base.astro';
 import { siteConfig } from '../../site.config';
+import { withBase } from '../lib/url';
+import { work } from '../content/work';
 
-// Reserved, UNLINKED route (SPEC §4): Case Studies / Work.
-// Added when 2–3 anonymized engagements exist; gated by `showWork` (default false).
-// Exists so the URL is stable; not in nav, noindexed until launched.
 const enabled = siteConfig.flags.showWork;
+const { hero, cases, closing } = work;
 ---
 
-<Base title="Work" noindex={true}>
-  <section class="reserved">
-    <div class="container">
-      {
-        enabled ? (
-          <p>{/* Case studies render here once showWork is enabled. */}Work</p>
-        ) : (
+<Base
+  title="Case Studies"
+  description="Anonymized Claritix case studies showing how product, behavioral, market, and executive signal turn into usable business direction."
+  noindex={!enabled}
+>
+  {
+    enabled ? (
+      <>
+        <!-- DRAFT COPY - Case Studies launch page. -->
+        <section class="work-hero" aria-labelledby="work-hero-headline">
+          <div class="container work-hero__inner">
+            <div class="work-hero__copy" data-reveal>
+              <p class="section-head__kicker">{hero.kicker}</p>
+              <h1 class="work-hero__headline" id="work-hero-headline">{hero.headline}</h1>
+              <p class="work-hero__lede">{hero.lede}</p>
+
+              <div class="work-hero__actions">
+                <a class="work-hero__cta work-hero__cta--primary" href="#case-frames" data-magnetic>
+                  Explore the frames
+                </a>
+                <a class="work-hero__cta work-hero__cta--secondary" href={withBase('/services')}>
+                  See the connected services
+                </a>
+              </div>
+
+              <p class="work-hero__note">{hero.note}</p>
+            </div>
+
+            <aside
+              class="work-hero__console"
+              data-reveal
+              data-spotlight
+              style="--reveal-delay: 120ms"
+              aria-label="Case study signal map"
+            >
+              <div class="console__frame">
+                <div class="console__head">
+                  <p>Signal lattice</p>
+                  <span>Anonymized where needed</span>
+                </div>
+
+                <div class="console__orbits" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+
+                <div class="console__beam" aria-hidden="true">
+                  {hero.rails.map((rail) => (
+                    <div class="console__beam-row">
+                      <span></span>
+                      <p>{rail}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div class="console__metrics">
+                  {hero.metrics.map((metric) => (
+                    <article class="console__metric">
+                      <span>{metric.label}</span>
+                      <strong>{metric.value}</strong>
+                    </article>
+                  ))}
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <nav class="case-nav" aria-label="Case study navigation">
+          <div class="container case-nav__inner">
+            <ul>
+              {
+                cases.map((item) => (
+                  <li>
+                    <a href={`#${item.id}`} data-case-link={item.id}>
+                      {item.navLabel}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </nav>
+
+        <section class="case-track" id="case-frames" aria-labelledby="case-track-headline">
+          <div class="container case-track__header">
+            <div class="section-head" data-reveal>
+              <p class="section-head__kicker">Build as scroll</p>
+              <h2 class="section-head__headline" id="case-track-headline">
+                Six ways the work resolves into a clearer move.
+              </h2>
+              <p class="section-head__lede">
+                Every engagement starts in ambiguity somewhere different. The common pattern is that
+                the signal stops competing for attention and starts aligning around one decision.
+              </p>
+            </div>
+          </div>
+
+          <div class="container case-track__grid">
+            <div class="case-preview-wrap">
+              <aside class="case-preview" data-reveal data-spotlight aria-live="polite">
+                <div class="case-preview__visual" aria-hidden="true">
+                  <span class="case-preview__ring case-preview__ring--outer"></span>
+                  <span class="case-preview__ring case-preview__ring--middle"></span>
+                  <span class="case-preview__ring case-preview__ring--inner"></span>
+                  <span class="case-preview__node case-preview__node--top"></span>
+                  <span class="case-preview__node case-preview__node--right"></span>
+                  <span class="case-preview__node case-preview__node--bottom"></span>
+                  <span class="case-preview__node case-preview__node--left"></span>
+                  <span class="case-preview__sweep"></span>
+                </div>
+
+                <div class="case-preview__panels">
+                  {
+                    cases.map((item, i) => (
+                      <article
+                        class:list={['case-panel', { 'is-active': i === 0 }]}
+                        data-case-panel={item.id}
+                      >
+                        <p class="case-panel__kicker">{item.kicker}</p>
+                        <strong class="case-panel__value">{item.statValue}</strong>
+                        <p class="case-panel__copy">{item.preview}</p>
+                        <ul class="case-panel__signals">
+                          {item.signals.map((signal) => (
+                            <li>{signal}</li>
+                          ))}
+                        </ul>
+                      </article>
+                    ))
+                  }
+                </div>
+
+                <div class="case-preview__progress" aria-hidden="true">
+                  {
+                    cases.map((item, i) => (
+                      <span
+                        class:list={['case-preview__step', { 'is-active': i === 0 }]}
+                        data-case-step={item.id}
+                      ></span>
+                    ))
+                  }
+                </div>
+              </aside>
+            </div>
+
+            <div class="case-list">
+              <div class="case-list__rail" aria-hidden="true"></div>
+              {
+                cases.map((item, i) => (
+                  <article
+                    id={item.id}
+                    class:list={['case-card', { 'is-active': i === 0 }]}
+                    data-case={item.id}
+                    data-reveal
+                    data-spotlight
+                    style={`--reveal-delay: ${i * 70}ms`}
+                    aria-labelledby={`${item.id}-headline`}
+                  >
+                    <div class="case-card__header">
+                      <div>
+                        <p class="case-card__index">0{i + 1}</p>
+                        <p class="case-card__kicker">{item.kicker}</p>
+                      </div>
+                      <div class="case-card__stat" aria-label={`${item.statLabel}: ${item.statValue}`}>
+                        <span>{item.statLabel}</span>
+                        <strong>{item.statValue}</strong>
+                      </div>
+                    </div>
+
+                    <h3 class="case-card__headline" id={`${item.id}-headline`}>
+                      {item.title}
+                    </h3>
+                    <p class="case-card__summary">{item.summary}</p>
+                    <p class="case-card__outcome">{item.outcome}</p>
+
+                    <ul class="case-card__signals">
+                      {item.signals.map((signal) => (
+                        <li>{signal}</li>
+                      ))}
+                    </ul>
+
+                    <div class="case-card__services" aria-label="Connected services">
+                      {item.services.map((service) => (
+                        <a href={withBase(service.anchor)}>{service.label}</a>
+                      ))}
+                    </div>
+                  </article>
+                ))
+              }
+            </div>
+          </div>
+        </section>
+
+        <section class="work-close" aria-labelledby="work-close-headline">
+          <div class="container">
+            <div class="work-close__surface" data-reveal data-spotlight>
+              <div class="work-close__copy">
+                <p class="section-head__kicker">{closing.kicker}</p>
+                <h2 class="work-close__headline" id="work-close-headline">
+                  {closing.headline}
+                </h2>
+                <p class="work-close__body">{closing.body}</p>
+              </div>
+
+              <div class="work-close__actions">
+                <a class="work-close__link work-close__link--primary" href={withBase(closing.primary.href)} data-magnetic>
+                  {closing.primary.label}
+                </a>
+                <a class="work-close__link work-close__link--secondary" href={withBase(closing.secondary.href)}>
+                  {closing.secondary.label}
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </>
+    ) : (
+      <section class="reserved">
+        <div class="container">
           <>
             <!-- DRAFT COPY - reserved route placeholder (M1). -->
             <h1>Work</h1>
-            <p class="reserved__note">
-              This section is reserved and not yet published.
-            </p>
+            <p class="reserved__note">This section is reserved and not yet published.</p>
           </>
-        )
-      }
-    </div>
-  </section>
+        </div>
+      </section>
+    )
+  }
 </Base>
 
+<script>
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-case]'));
+  const panels = new Map(
+    Array.from(document.querySelectorAll<HTMLElement>('[data-case-panel]')).map((el) => [
+      el.dataset.casePanel!,
+      el,
+    ])
+  );
+  const links = new Map(
+    Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-case-link]')).map((el) => [
+      el.dataset.caseLink!,
+      el,
+    ])
+  );
+  const steps = new Map(
+    Array.from(document.querySelectorAll<HTMLElement>('[data-case-step]')).map((el) => [
+      el.dataset.caseStep!,
+      el,
+    ])
+  );
+
+  const setActive = (id: string) => {
+    cards.forEach((card) => card.classList.toggle('is-active', card.dataset.case === id));
+    panels.forEach((panel, key) => panel.classList.toggle('is-active', key === id));
+    links.forEach((link, key) => {
+      link.classList.toggle('is-active', key === id);
+      if (key === id) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+    steps.forEach((step, key) => step.classList.toggle('is-active', key === id));
+  };
+
+  if (cards.length) {
+    setActive(cards[0].dataset.case || '');
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible instanceof IntersectionObserverEntry) {
+          const id = (visible.target as HTMLElement).dataset.case;
+          if (id) setActive(id);
+        }
+      },
+      {
+        rootMargin: '-22% 0px -46% 0px',
+        threshold: [0.2, 0.35, 0.5, 0.7],
+      }
+    );
+
+    cards.forEach((card) => io.observe(card));
+  }
+</script>
+
 <style>
+  .work-hero {
+    position: relative;
+    overflow: clip;
+    padding-block: clamp(3.2rem, 7vw, 6.5rem) clamp(2.6rem, 7vw, 5.5rem);
+  }
+
+  .work-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        620px circle at 18% 18%,
+        color-mix(in srgb, var(--signal) 11%, transparent),
+        transparent 62%
+      ),
+      radial-gradient(
+        460px circle at 88% 20%,
+        color-mix(in srgb, var(--glass-lo) 18%, transparent),
+        transparent 64%
+      );
+    pointer-events: none;
+  }
+
+  .work-hero__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+    gap: clamp(1.4rem, 3vw, 2rem);
+    align-items: stretch;
+  }
+
+  .work-hero__copy,
+  .work-hero__console,
+  .case-preview,
+  .case-card,
+  .work-close__surface {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    isolation: isolate;
+  }
+
+  .work-hero__copy {
+    padding: clamp(1.7rem, 4vw, 3rem);
+    background:
+      linear-gradient(140deg, color-mix(in srgb, var(--surface) 96%, transparent), var(--surface-2));
+    border: 1px solid color-mix(in srgb, var(--hairline) 86%, transparent);
+  }
+
+  .work-hero__copy::after,
+  .work-hero__console::after,
+  .case-preview::after,
+  .case-card::after,
+  .work-close__surface::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      360px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      color-mix(in srgb, var(--spotlight) 15%, transparent),
+      transparent 68%
+    );
+    opacity: var(--spot-o, 0);
+    transition: opacity 0.6s var(--ease-luxe);
+  }
+
+  .work-hero__headline {
+    font-size: clamp(2.35rem, 5.6vw, 4.65rem);
+    line-height: 0.98;
+    max-inline-size: 9.2em;
+    margin-block-end: 1rem;
+  }
+
+  .work-hero__lede {
+    max-inline-size: 40rem;
+    font-size: clamp(1.08rem, 2vw, 1.28rem);
+    line-height: 1.58;
+    color: var(--graphite);
+    margin-block-end: 1.5rem;
+  }
+
+  .work-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-block-end: 1.2rem;
+  }
+
+  .work-hero__cta,
+  .work-close__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-block-size: 48px;
+    padding: 0.75rem 1.1rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .work-hero__cta--primary,
+  .work-close__link--primary {
+    background: var(--signal);
+    color: var(--on-ink);
+  }
+
+  .work-hero__cta--primary:hover,
+  .work-close__link--primary:hover {
+    background: var(--signal-hover);
+    color: var(--on-ink);
+  }
+
+  .work-hero__cta--secondary,
+  .work-close__link--secondary {
+    background: color-mix(in srgb, var(--surface) 70%, transparent);
+    color: var(--ink);
+    border: 1px solid color-mix(in srgb, var(--hairline) 86%, transparent);
+  }
+
+  .work-hero__cta--secondary:hover,
+  .work-close__link--secondary:hover {
+    color: var(--ink);
+    border-color: color-mix(in srgb, var(--signal) 34%, var(--hairline));
+  }
+
+  .work-hero__note {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.81rem;
+    color: var(--graphite);
+  }
+
+  .work-hero__console {
+    min-block-size: 100%;
+    padding: clamp(1.4rem, 3vw, 1.9rem);
+    background:
+      radial-gradient(
+        320px circle at 24% 18%,
+        color-mix(in srgb, var(--signal) 18%, transparent),
+        transparent 68%
+      ),
+      radial-gradient(
+        280px circle at 82% 78%,
+        color-mix(in srgb, var(--glass-lo) 18%, transparent),
+        transparent 70%
+      ),
+      linear-gradient(180deg, color-mix(in srgb, var(--ink-surface) 92%, transparent), var(--ink-surface));
+    color: var(--on-ink);
+    border: 1px solid color-mix(in srgb, white 9%, transparent);
+  }
+
+  .console__frame {
+    position: relative;
+    min-block-size: 100%;
+    display: grid;
+    gap: 1.3rem;
+  }
+
+  .console__head {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .console__head p,
+  .console__head span {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .console__head span {
+    color: color-mix(in srgb, white 68%, transparent);
+  }
+
+  .console__orbits {
+    position: absolute;
+    inset: 3.25rem 1.2rem auto;
+    block-size: 42%;
+    pointer-events: none;
+    opacity: 0.88;
+  }
+
+  .console__orbits span {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--speed-from) 30%, transparent);
+    transform: rotate(calc(var(--orbit-index, 0) * 16deg));
+  }
+
+  .console__orbits span:nth-child(1) {
+    --orbit-index: -1;
+  }
+
+  .console__orbits span:nth-child(2) {
+    --orbit-index: 1;
+    inset: 11% 8%;
+  }
+
+  .console__orbits span:nth-child(3) {
+    --orbit-index: 2;
+    inset: 22% 16%;
+  }
+
+  .console__orbits span:nth-child(4) {
+    --orbit-index: -2;
+    inset: 33% 24%;
+  }
+
+  .console__beam {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0.8rem;
+    margin-block-start: clamp(5.6rem, 10vw, 7.2rem);
+  }
+
+  .console__beam-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .console__beam-row span {
+    inline-size: 0.58rem;
+    block-size: 0.58rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--speed-from), var(--speed-to));
+    box-shadow:
+      0 0 0 6px color-mix(in srgb, var(--signal) 10%, transparent),
+      0 0 24px color-mix(in srgb, var(--signal) 22%, transparent);
+  }
+
+  .console__beam-row p {
+    margin: 0;
+    padding-block: 0.55rem;
+    border-block-end: 1px solid color-mix(in srgb, white 10%, transparent);
+    font-size: 0.95rem;
+    font-weight: 560;
+  }
+
+  .console__metrics {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .console__metric {
+    padding: 0.9rem;
+    border-radius: calc(var(--radius-sm) + 2px);
+    background: color-mix(in srgb, white 7%, transparent);
+    border: 1px solid color-mix(in srgb, white 8%, transparent);
+    backdrop-filter: blur(10px);
+  }
+
+  .console__metric span,
+  .console__metric strong {
+    display: block;
+  }
+
+  .console__metric span {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, white 64%, transparent);
+    margin-block-end: 0.45rem;
+  }
+
+  .console__metric strong {
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    letter-spacing: var(--tracking-display);
+  }
+
+  .case-nav {
+    position: sticky;
+    inset-block-start: 68px;
+    z-index: calc(var(--z-nav) - 1);
+    background: color-mix(in srgb, var(--surface) 82%, transparent);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    backdrop-filter: saturate(180%) blur(14px);
+    border-block: 1px solid color-mix(in srgb, var(--hairline) 82%, transparent);
+  }
+
+  .case-nav__inner ul {
+    display: flex;
+    gap: 0.75rem;
+    list-style: none;
+    margin: 0;
+    padding: 0.7rem 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .case-nav__inner a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 40px;
+    padding-inline: 0.95rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    color: var(--graphite);
+    background: color-mix(in srgb, var(--surface) 64%, transparent);
+    border: 1px solid color-mix(in srgb, var(--hairline) 82%, transparent);
+    transition:
+      color var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out),
+      background var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
+  }
+
+  .case-nav__inner a:hover,
+  .case-nav__inner a.is-active {
+    color: var(--ink);
+    border-color: color-mix(in srgb, var(--signal) 34%, var(--hairline));
+    background: color-mix(in srgb, var(--signal) 8%, var(--surface));
+    transform: translateY(-1px);
+  }
+
+  .case-track {
+    padding-block: clamp(2.2rem, 5vw, 4rem) var(--section-pad);
+  }
+
+  .case-track__header {
+    margin-block-end: clamp(2.2rem, 5vw, 3.6rem);
+  }
+
+  .case-track__grid {
+    display: grid;
+    grid-template-columns: minmax(290px, 0.78fr) minmax(0, 1.22fr);
+    gap: clamp(1.25rem, 3vw, 2rem);
+    align-items: stretch;
+  }
+
+  .case-preview-wrap {
+    position: relative;
+    align-self: stretch;
+  }
+
+  .case-preview {
+    position: sticky;
+    inset-block-start: 132px;
+    padding: clamp(1.25rem, 2.5vw, 1.6rem);
+    background:
+      radial-gradient(
+        240px circle at 50% 22%,
+        color-mix(in srgb, var(--signal) 14%, transparent),
+        transparent 68%
+      ),
+      linear-gradient(180deg, color-mix(in srgb, var(--ink-surface) 90%, transparent), var(--ink-surface));
+    color: var(--on-ink);
+    border: 1px solid color-mix(in srgb, white 9%, transparent);
+  }
+
+  .case-preview__visual {
+    position: relative;
+    aspect-ratio: 1.08;
+    margin-block-end: 1.2rem;
+  }
+
+  .case-preview__ring,
+  .case-preview__node,
+  .case-preview__sweep {
+    position: absolute;
+  }
+
+  .case-preview__ring {
+    inset: 50%;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--speed-from) 26%, transparent);
+    transform: translate(-50%, -50%);
+  }
+
+  .case-preview__ring--outer {
+    inline-size: 84%;
+    block-size: 84%;
+  }
+
+  .case-preview__ring--middle {
+    inline-size: 58%;
+    block-size: 58%;
+  }
+
+  .case-preview__ring--inner {
+    inline-size: 32%;
+    block-size: 32%;
+  }
+
+  .case-preview__node {
+    inline-size: 0.7rem;
+    block-size: 0.7rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--speed-from), var(--speed-to));
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--signal) 11%, transparent);
+  }
+
+  .case-preview__node--top {
+    inset-inline-start: 50%;
+    inset-block-start: 8%;
+    transform: translateX(-50%);
+  }
+
+  .case-preview__node--right {
+    inset-inline-end: 11%;
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+  }
+
+  .case-preview__node--bottom {
+    inset-inline-start: 50%;
+    inset-block-end: 8%;
+    transform: translateX(-50%);
+  }
+
+  .case-preview__node--left {
+    inset-inline-start: 11%;
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+  }
+
+  .case-preview__sweep {
+    inset: 50%;
+    inline-size: 43%;
+    block-size: 2px;
+    background: linear-gradient(90deg, transparent, var(--speed-from), transparent);
+    transform-origin: left center;
+    transform: translate(0, -50%) rotate(-26deg);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--signal) 34%, transparent);
+  }
+
+  .case-preview__panels {
+    position: relative;
+    min-block-size: 18.2rem;
+  }
+
+  .case-panel {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transform: translateY(14px);
+    pointer-events: none;
+    transition:
+      opacity var(--dur-med) var(--ease-luxe),
+      transform var(--dur-med) var(--ease-luxe);
+  }
+
+  .case-panel.is-active {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .case-panel__kicker {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, white 72%, transparent);
+  }
+
+  .case-panel__value {
+    display: block;
+    margin-block-end: 0.7rem;
+    font-size: clamp(1.45rem, 3vw, 2.15rem);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-display);
+  }
+
+  .case-panel__copy {
+    margin: 0 0 1rem;
+    color: color-mix(in srgb, white 78%, transparent);
+  }
+
+  .case-panel__signals,
+  .case-card__signals {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .case-panel__signals li,
+  .case-card__signals li,
+  .case-card__services a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 34px;
+    padding-inline: 0.8rem;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    white-space: nowrap;
+  }
+
+  .case-panel__signals li {
+    background: color-mix(in srgb, white 8%, transparent);
+    border: 1px solid color-mix(in srgb, white 9%, transparent);
+    color: color-mix(in srgb, white 82%, transparent);
+  }
+
+  .case-preview__progress {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.45rem;
+    margin-block-start: 1.2rem;
+  }
+
+  .case-preview__step {
+    block-size: 3px;
+    border-radius: 999px;
+    background: color-mix(in srgb, white 16%, transparent);
+    transition:
+      background var(--dur-med) var(--ease-out),
+      transform var(--dur-med) var(--ease-out);
+  }
+
+  .case-preview__step.is-active {
+    background: linear-gradient(90deg, var(--speed-from), var(--speed-to));
+    transform: scaleY(1.35);
+  }
+
+  .case-list {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .case-list__rail {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 2rem;
+    inline-size: 1px;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--signal) 0%, transparent),
+      color-mix(in srgb, var(--signal) 22%, transparent) 12%,
+      color-mix(in srgb, var(--signal) 18%, transparent) 88%,
+      color-mix(in srgb, var(--signal) 0%, transparent)
+    );
+    pointer-events: none;
+  }
+
+  .case-card {
+    scroll-margin-block-start: 138px;
+    margin-inline-start: clamp(1.1rem, 2.4vw, 1.9rem);
+    padding: clamp(1.25rem, 3vw, 1.65rem);
+    background:
+      linear-gradient(145deg, color-mix(in srgb, var(--surface) 98%, transparent), var(--surface-2));
+    border: 1px solid color-mix(in srgb, var(--hairline) 86%, transparent);
+    transition:
+      transform var(--dur-med) var(--ease-luxe),
+      box-shadow var(--dur-med) var(--ease-luxe),
+      border-color var(--dur-med) var(--ease-luxe);
+  }
+
+  .case-card.is-active {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: color-mix(in srgb, var(--signal) 28%, var(--hairline));
+  }
+
+  .case-card::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: -1.55rem;
+    inset-block-start: 1.65rem;
+    inline-size: 0.8rem;
+    block-size: 0.8rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--speed-from), var(--speed-to));
+    box-shadow:
+      0 0 0 8px color-mix(in srgb, var(--signal) 9%, transparent),
+      0 0 20px color-mix(in srgb, var(--signal) 18%, transparent);
+  }
+
+  .case-card__header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: start;
+    margin-block-end: 1rem;
+  }
+
+  .case-card__index,
+  .case-card__kicker,
+  .case-card__stat span {
+    margin: 0;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+  }
+
+  .case-card__index {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--signal-text);
+    margin-block-end: 0.4rem;
+  }
+
+  .case-card__kicker,
+  .case-card__stat span {
+    font-size: 0.75rem;
+    letter-spacing: 0.055em;
+    color: var(--graphite);
+  }
+
+  .case-card__stat {
+    text-align: right;
+  }
+
+  .case-card__stat strong {
+    display: block;
+    margin-block-start: 0.4rem;
+    font-size: 1rem;
+    letter-spacing: var(--tracking-display);
+  }
+
+  .case-card__headline {
+    font-size: clamp(1.45rem, 3vw, 2rem);
+    line-height: 1.12;
+    margin-block-end: 0.75rem;
+    max-inline-size: 18em;
+  }
+
+  .case-card__summary,
+  .case-card__outcome {
+    color: var(--graphite);
+  }
+
+  .case-card__summary {
+    margin-block-end: 0.85rem;
+  }
+
+  .case-card__outcome {
+    margin-block-end: 1rem;
+    color: var(--ink);
+  }
+
+  .case-card__services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-block-start: 1rem;
+  }
+
+  .case-card__services a {
+    color: var(--signal-text);
+    background: color-mix(in srgb, var(--signal) 7%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--signal) 18%, var(--hairline));
+  }
+
+  .case-card__services a:hover {
+    color: var(--signal-hover);
+    border-color: color-mix(in srgb, var(--signal) 34%, var(--hairline));
+  }
+
+  .work-close {
+    padding-block-end: var(--section-pad);
+  }
+
+  .work-close__surface {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(1.2rem, 3vw, 2rem);
+    align-items: end;
+    padding: clamp(1.5rem, 4vw, 2.8rem);
+    background:
+      radial-gradient(
+        420px circle at 82% 18%,
+        color-mix(in srgb, var(--signal) 14%, transparent),
+        transparent 64%
+      ),
+      linear-gradient(145deg, color-mix(in srgb, var(--surface) 96%, transparent), var(--surface-2));
+    border: 1px solid color-mix(in srgb, var(--hairline) 86%, transparent);
+  }
+
+  .work-close__headline {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.08;
+    margin-block-end: 0.75rem;
+  }
+
+  .work-close__body {
+    max-inline-size: 44rem;
+    margin: 0;
+    color: var(--graphite);
+  }
+
+  .work-close__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    gap: 0.75rem;
+  }
+
   .reserved {
     padding-block: var(--section-pad);
   }
+
   .reserved__note {
     color: var(--graphite);
     font-family: var(--font-mono);
     font-size: 0.875rem;
+  }
+
+  @media (max-width: 1080px) {
+    .case-track__grid {
+      grid-template-columns: minmax(250px, 0.68fr) minmax(0, 1.32fr);
+    }
+
+    .work-close__surface {
+      grid-template-columns: 1fr;
+      align-items: start;
+    }
+
+    .work-close__actions {
+      justify-content: start;
+    }
+  }
+
+  @media (max-width: 920px) {
+    .work-hero__inner,
+    .case-track__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .work-hero__headline {
+      max-inline-size: 11em;
+    }
+
+    .case-preview {
+      inset-block-start: 122px;
+    }
+
+    .case-preview__visual {
+      aspect-ratio: 2.2;
+    }
+
+    .case-preview__ring--outer {
+      inline-size: min(88%, 18rem);
+      block-size: min(88%, 18rem);
+    }
+
+    .case-preview__ring--middle {
+      inline-size: min(60%, 12rem);
+      block-size: min(60%, 12rem);
+    }
+
+    .case-preview__ring--inner {
+      inline-size: min(34%, 7rem);
+      block-size: min(34%, 7rem);
+    }
+
+    .case-preview__panels {
+      min-block-size: 14.4rem;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .work-hero {
+      padding-block: clamp(2.4rem, 11vw, 3.6rem) clamp(2.1rem, 10vw, 3.2rem);
+    }
+
+    .work-hero__copy,
+    .work-hero__console,
+    .case-preview,
+    .case-card,
+    .work-close__surface {
+      border-radius: 18px;
+    }
+
+    .work-hero__copy {
+      padding: 1.3rem;
+    }
+
+    .work-hero__headline {
+      font-size: clamp(2rem, 10vw, 2.7rem);
+      line-height: 1;
+      margin-block-end: 0.8rem;
+    }
+
+    .work-hero__lede {
+      font-size: 1rem;
+      line-height: 1.55;
+      margin-block-end: 1.1rem;
+    }
+
+    .work-hero__actions {
+      flex-direction: column;
+      margin-block-end: 1rem;
+    }
+
+    .work-hero__cta,
+    .work-close__link {
+      inline-size: 100%;
+    }
+
+    .work-hero__console {
+      padding: 1rem;
+    }
+
+    .console__head {
+      flex-direction: column;
+      align-items: start;
+    }
+
+    .console__beam {
+      margin-block-start: 4.9rem;
+      gap: 0.55rem;
+    }
+
+    .console__beam-row p {
+      font-size: 0.9rem;
+      padding-block: 0.45rem;
+    }
+
+    .console__metrics {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+    }
+
+    .console__metric {
+      padding: 0.75rem;
+    }
+
+    .case-nav {
+      inset-block-start: 64px;
+    }
+
+    .case-nav__inner ul {
+      padding-block: 0.6rem;
+    }
+
+    .case-nav__inner a {
+      min-block-size: 38px;
+      padding-inline: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .case-track {
+      padding-block: 1.75rem var(--section-pad);
+    }
+
+    .case-track__header {
+      margin-block-end: 1.75rem;
+    }
+
+    .case-preview {
+      inset-block-start: 116px;
+      padding: 1rem;
+    }
+
+    .case-preview__visual {
+      margin-block-end: 0.8rem;
+    }
+
+    .case-preview__panels {
+      min-block-size: 15rem;
+    }
+
+    .case-panel__value {
+      font-size: 1.4rem;
+      margin-block-end: 0.55rem;
+    }
+
+    .case-panel__copy {
+      font-size: 0.98rem;
+      line-height: 1.5;
+      margin-block-end: 0.75rem;
+    }
+
+    .case-panel__signals li,
+    .case-card__signals li,
+    .case-card__services a {
+      min-block-size: 32px;
+      padding-inline: 0.72rem;
+      font-size: 0.82rem;
+    }
+
+    .case-list {
+      gap: 0.85rem;
+    }
+
+    .case-list__rail {
+      inset-inline-start: 1.2rem;
+    }
+
+    .case-card {
+      scroll-margin-block-start: 126px;
+      margin-inline-start: 0.65rem;
+      padding: 1rem;
+    }
+
+    .case-card::before {
+      inset-inline-start: -0.94rem;
+      inset-block-start: 1.35rem;
+      inline-size: 0.68rem;
+      block-size: 0.68rem;
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--signal) 9%, transparent);
+    }
+
+    .case-card__header {
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-block-end: 0.85rem;
+    }
+
+    .case-card__stat {
+      text-align: left;
+    }
+
+    .case-card__headline {
+      font-size: clamp(1.35rem, 7vw, 1.75rem);
+      margin-block-end: 0.65rem;
+    }
+
+    .case-card__summary,
+    .case-card__outcome {
+      font-size: 0.98rem;
+      line-height: 1.55;
+    }
+
+    .work-close__surface {
+      padding: 1.2rem;
+    }
+
+    .work-close__headline {
+      font-size: clamp(1.65rem, 8vw, 2.2rem);
+      margin-block-end: 0.65rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .case-preview__sweep {
+      animation: case-sweep 4.2s linear infinite;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .case-panel {
+      transition: none;
+    }
+  }
+
+  @keyframes case-sweep {
+    from {
+      transform: translate(0, -50%) rotate(-26deg);
+      opacity: 0.6;
+    }
+    50% {
+      transform: translate(0, -50%) rotate(18deg);
+      opacity: 1;
+    }
+    to {
+      transform: translate(0, -50%) rotate(334deg);
+      opacity: 0.6;
+    }
   }
 </style>

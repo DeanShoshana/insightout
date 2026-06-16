@@ -1,5 +1,6 @@
 ---
-import { navItems, ctaContact } from '../content/ui';
+import { getNavItems, ctaContact } from '../content/ui';
+import { siteConfig } from '../../site.config';
 import { withBase } from '../lib/url';
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -8,6 +9,7 @@ const isActive = (href: string) => {
   return target === pathname;
 };
 
+const navItems = getNavItems(siteConfig.flags);
 const homeHref = withBase('/');
 const contactHref = `${withBase('/')}#contact`;
 const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');

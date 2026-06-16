@@ -1,10 +1,11 @@
 ---
-import { navItems } from '../content/ui';
+import { getNavItems } from '../content/ui';
 import { siteConfig } from '../../site.config';
 import { withBase } from '../lib/url';
 
 const year = new Date().getFullYear();
 const logoSrc = withBase('/brand/claritix/claritix-wordmark.webp');
+const navItems = getNavItems(siteConfig.flags);
 ---
 
 <!-- The #contact anchor now lives on the home ContactCTA section (nav CTA
