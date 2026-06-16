@@ -184,6 +184,7 @@ import { withBase } from '../lib/url';
 
   const scene = document.querySelector('[data-engine-scene]');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mobileScene = window.matchMedia('(max-width: 719px)');
 
   if (scene && !reduce) {
     gsap.registerPlugin(ScrollTrigger);
@@ -193,10 +194,13 @@ import { withBase } from '../lib/url';
       scrollTrigger: {
         trigger: scene,
         start: 'top top',
-        end: '+=130%',
+        // Mobile gets more scroll runway so the decision-first sequence
+        // breathes instead of compressing into a few touch-scroll beats.
+        end: () => (mobileScene.matches ? '+=170%' : '+=130%'),
         pin: true,
         scrub: 1,
         anticipatePin: 1,
+        invalidateOnRefresh: true,
       },
     });
 
