@@ -7,4 +7,7 @@ export default defineConfig({
   base: '/',
   output: 'static',
   trailingSlash: 'ignore',
+  redirects: {
+    '/work': '/case-studies',
+  },
 });
