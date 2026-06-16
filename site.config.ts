@@ -11,7 +11,7 @@ export interface SiteConfig {
   flags: {
     /** Advisory Circle / expert network at the bottom of Approach (SPEC §4). Needs signed MOUs. */
     showNetwork: boolean;
-    /** Case Studies - reserved route /work, unlinked until 2–3 engagements exist (SPEC §4). */
+    /** Case Studies page. Public route is /case-studies; legacy /work redirects there. */
     showWork: boolean;
     /** Blog / Insights - reserved route /insights, unlinked at launch (SPEC §4). */
     showInsights: boolean;
@@ -38,7 +38,7 @@ export const siteConfig: SiteConfig = {
 
   flags: {
     showNetwork: false,
-    // Case Studies launched on /work in the current milestone.
+    // Case Studies are live on /case-studies; /work stays as a legacy redirect.
     showWork: true,
     showInsights: false,
   },

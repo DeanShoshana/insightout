@@ -84,7 +84,7 @@ Home  ·  Services  ·  Industries  ·  Approach  ·  About  ·  [Let's talk]
 ```
 
 - **Contact is a CTA button**, not a tab. Opens contact section/modal or scrolls to footer form.
-- **No Case Studies tab** at launch - added when 2–3 anonymized engagements exist. Reserve the route (`/work`) in the codebase, unlinked.
+- **No Case Studies tab** at launch - added when 2–3 anonymized engagements exist. The live route is `/case-studies`; legacy `/work` redirects there.
 - **No Blog/Insights tab** at launch - reserve `/insights`, unlinked.
 - **Advisory Circle / expert network** - PARKED. Build as a feature-flagged section at the bottom of Approach (`showNetwork: false` in config). Section label TBD (front-runners: *Advisory Circle*; two-layer *Advisory Board + delivery network* if relationships support it). Requires signed one-page MOUs (consent, rates, confidentiality, non-circumvention) before flag flips on.
 

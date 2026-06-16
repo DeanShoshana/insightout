@@ -1,5 +1,5 @@
-// Case Studies page copy. This page is now live on /work and nav-linked as
-// "Case Studies". All copy remains draft until content lock.
+// Case Studies page copy. This page is live on /case-studies, with /work kept
+// as a legacy redirect. All copy remains draft until content lock.
 //
 // DRAFT COPY - everything below is placeholder until content lock (M5).
 

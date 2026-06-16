@@ -28,7 +28,7 @@ export const getNavItems = ({
   const items = [...baseNavItems];
 
   if (showWork) {
-    items.splice(3, 0, { label: 'Case Studies', href: '/work' });
+    items.splice(3, 0, { label: 'Case Studies', href: '/case-studies' });
   }
 
   if (showInsights) {
