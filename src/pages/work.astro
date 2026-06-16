@@ -37,37 +37,51 @@ const { hero, cases, closing } = work;
             </div>
 
             <aside
-              class="work-hero__console"
+              class="work-hero__studio"
               data-reveal
               data-spotlight
               style="--reveal-delay: 120ms"
-              aria-label="Case study signal map"
+              aria-label="Illustrative decision build"
             >
-              <div class="console__frame">
-                <div class="console__head">
-                  <p>Signal lattice</p>
-                  <span>Anonymized where needed</span>
+              <div class="studio__frame">
+                <div class="studio__head">
+                  <p>{hero.motionLabel}</p>
+                  <strong>{hero.motionValue}</strong>
                 </div>
 
-                <div class="console__orbits" aria-hidden="true">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
+                <div class="studio__stage" aria-hidden="true">
+                  <div class="studio__inputs">
+                    {
+                      hero.rails.map((rail, i) => (
+                        <article class="studio__input" style={`--studio-index: ${i}`}>
+                          <span class="studio__input-dot"></span>
+                          <div class="studio__input-copy">
+                            <p>{rail}</p>
+                            <span></span>
+                          </div>
+                          <div class="studio__input-flow">
+                            <i></i>
+                          </div>
+                        </article>
+                      ))
+                    }
+                  </div>
 
-                <div class="console__beam" aria-hidden="true">
-                  {hero.rails.map((rail) => (
-                    <div class="console__beam-row">
+                  <article class="studio__decision">
+                    <span class="studio__decision-kicker">Decision frame</span>
+                    <strong>{hero.decisionTitle}</strong>
+                    <p>{hero.decisionBody}</p>
+                    <div class="studio__decision-bars">
                       <span></span>
-                      <p>{rail}</p>
+                      <span></span>
+                      <span></span>
                     </div>
-                  ))}
+                  </article>
                 </div>
 
-                <div class="console__metrics">
+                <div class="studio__metrics">
                   {hero.metrics.map((metric) => (
-                    <article class="console__metric">
+                    <article class="studio__metric">
                       <span>{metric.label}</span>
                       <strong>{metric.value}</strong>
                     </article>
@@ -329,7 +343,7 @@ const { hero, cases, closing } = work;
   }
 
   .work-hero__copy,
-  .work-hero__console,
+  .work-hero__studio,
   .case-preview,
   .case-card,
   .work-close__surface {
@@ -348,7 +362,7 @@ const { hero, cases, closing } = work;
   }
 
   .work-hero__copy::after,
-  .work-hero__console::after,
+  .work-hero__studio::after,
   .case-preview::after,
   .case-card::after,
   .work-close__surface::after {
@@ -432,17 +446,17 @@ const { hero, cases, closing } = work;
     color: var(--graphite);
   }
 
-  .work-hero__console {
+  .work-hero__studio {
     min-block-size: 100%;
     padding: clamp(1.4rem, 3vw, 1.9rem);
     background:
       radial-gradient(
-        320px circle at 24% 18%,
+        300px circle at 24% 16%,
         color-mix(in srgb, var(--signal) 18%, transparent),
         transparent 68%
       ),
       radial-gradient(
-        280px circle at 82% 78%,
+        260px circle at 86% 24%,
         color-mix(in srgb, var(--glass-lo) 18%, transparent),
         transparent 70%
       ),
@@ -451,14 +465,14 @@ const { hero, cases, closing } = work;
     border: 1px solid color-mix(in srgb, white 9%, transparent);
   }
 
-  .console__frame {
+  .studio__frame {
     position: relative;
     min-block-size: 100%;
     display: grid;
     gap: 1.3rem;
   }
 
-  .console__head {
+  .studio__head {
     position: relative;
     z-index: 1;
     display: flex;
@@ -467,8 +481,8 @@ const { hero, cases, closing } = work;
     align-items: center;
   }
 
-  .console__head p,
-  .console__head span {
+  .studio__head p,
+  .studio__head strong {
     margin: 0;
     font-family: var(--font-mono);
     font-size: 0.76rem;
@@ -476,87 +490,182 @@ const { hero, cases, closing } = work;
     text-transform: uppercase;
   }
 
-  .console__head span {
-    color: color-mix(in srgb, white 68%, transparent);
+  .studio__head p {
+    color: color-mix(in srgb, white 72%, transparent);
   }
 
-  .console__orbits {
-    position: absolute;
-    inset: 3.25rem 1.2rem auto;
-    block-size: 42%;
-    pointer-events: none;
-    opacity: 0.88;
-  }
-
-  .console__orbits span {
-    position: absolute;
-    inset: 0;
-    border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--speed-from) 30%, transparent);
-    transform: rotate(calc(var(--orbit-index, 0) * 16deg));
-  }
-
-  .console__orbits span:nth-child(1) {
-    --orbit-index: -1;
-  }
-
-  .console__orbits span:nth-child(2) {
-    --orbit-index: 1;
-    inset: 11% 8%;
-  }
-
-  .console__orbits span:nth-child(3) {
-    --orbit-index: 2;
-    inset: 22% 16%;
-  }
-
-  .console__orbits span:nth-child(4) {
-    --orbit-index: -2;
-    inset: 33% 24%;
-  }
-
-  .console__beam {
-    position: relative;
-    z-index: 1;
-    display: grid;
-    gap: 0.8rem;
-    margin-block-start: clamp(5.6rem, 10vw, 7.2rem);
-  }
-
-  .console__beam-row {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  .console__beam-row span {
-    inline-size: 0.58rem;
-    block-size: 0.58rem;
-    border-radius: 999px;
-    background: linear-gradient(135deg, var(--speed-from), var(--speed-to));
-    box-shadow:
-      0 0 0 6px color-mix(in srgb, var(--signal) 10%, transparent),
-      0 0 24px color-mix(in srgb, var(--signal) 22%, transparent);
-  }
-
-  .console__beam-row p {
-    margin: 0;
-    padding-block: 0.55rem;
-    border-block-end: 1px solid color-mix(in srgb, white 10%, transparent);
-    font-size: 0.95rem;
+  .studio__head strong {
+    color: var(--on-ink);
     font-weight: 560;
   }
 
-  .console__metrics {
+  .studio__stage {
+    position: absolute;
+    inset: 4rem 0 auto;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(200px, 0.9fr);
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .studio__inputs {
+    display: grid;
+    gap: 0.78rem;
+  }
+
+  .studio__input {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) minmax(40px, 0.7fr);
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.78rem 0.85rem;
+    border-radius: 18px;
+    background:
+      linear-gradient(
+        130deg,
+        color-mix(in srgb, white 10%, transparent),
+        color-mix(in srgb, white 4%, transparent)
+      );
+    border: 1px solid color-mix(in srgb, white 10%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, white 8%, transparent);
+  }
+
+  .studio__input-dot {
+    inline-size: 0.6rem;
+    block-size: 0.6rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--speed-from), var(--speed-to));
+    box-shadow:
+      0 0 0 6px color-mix(in srgb, var(--signal) 11%, transparent),
+      0 0 20px color-mix(in srgb, var(--signal) 22%, transparent);
+  }
+
+  .studio__input-copy {
+    min-inline-size: 0;
+  }
+
+  .studio__input-copy p {
+    margin: 0 0 0.35rem;
+    font-size: 0.94rem;
+    font-weight: 560;
+  }
+
+  .studio__input-copy span {
+    display: block;
+    block-size: 1px;
+    background: color-mix(in srgb, white 14%, transparent);
+  }
+
+  .studio__input-flow {
+    position: relative;
+    block-size: 2px;
+    border-radius: 999px;
+    background: color-mix(in srgb, white 12%, transparent);
+    overflow: hidden;
+  }
+
+  .studio__input-flow i {
+    position: absolute;
+    inset-block: 0;
+    inline-size: 34%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, transparent, var(--speed-from), transparent);
+    box-shadow: 0 0 16px color-mix(in srgb, var(--signal) 28%, transparent);
+  }
+
+  .studio__decision {
+    position: relative;
+    padding: 1.15rem;
+    border-radius: 22px;
+    background:
+      radial-gradient(
+        220px circle at 82% 12%,
+        color-mix(in srgb, var(--signal) 15%, transparent),
+        transparent 62%
+      ),
+      linear-gradient(
+        145deg,
+        color-mix(in srgb, white 10%, transparent),
+        color-mix(in srgb, white 4%, transparent)
+      );
+    border: 1px solid color-mix(in srgb, white 10%, transparent);
+    box-shadow:
+      0 18px 36px color-mix(in srgb, black 12%, transparent),
+      inset 0 1px 0 color-mix(in srgb, white 10%, transparent);
+  }
+
+  .studio__decision::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: -1rem;
+    inset-block-start: 50%;
+    inline-size: 1.4rem;
+    block-size: 1px;
+    background: linear-gradient(90deg, color-mix(in srgb, white 18%, transparent), var(--speed-from));
+  }
+
+  .studio__decision-kicker {
+    display: block;
+    margin-block-end: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, white 72%, transparent);
+  }
+
+  .studio__decision strong {
+    display: block;
+    margin-block-end: 0.65rem;
+    font-size: clamp(1.35rem, 2.6vw, 1.95rem);
+    line-height: 1.05;
+    letter-spacing: var(--tracking-display);
+  }
+
+  .studio__decision p {
+    margin: 0;
+    font-size: 0.96rem;
+    color: color-mix(in srgb, white 78%, transparent);
+  }
+
+  .studio__decision-bars {
+    display: grid;
+    gap: 0.5rem;
+    margin-block-start: 1rem;
+  }
+
+  .studio__decision-bars span {
+    display: block;
+    block-size: 5px;
+    border-radius: 999px;
+    background: color-mix(in srgb, white 12%, transparent);
+    overflow: hidden;
+  }
+
+  .studio__decision-bars span:nth-child(1) {
+    inline-size: 92%;
+  }
+
+  .studio__decision-bars span:nth-child(2) {
+    inline-size: 68%;
+  }
+
+  .studio__decision-bars span:nth-child(3) {
+    inline-size: 84%;
+  }
+
+  .studio__metrics {
     position: relative;
     z-index: 1;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.8rem;
+    margin-block-start: 19.2rem;
   }
 
-  .console__metric {
+  .studio__metric {
     padding: 0.9rem;
     border-radius: calc(var(--radius-sm) + 2px);
     background: color-mix(in srgb, white 7%, transparent);
@@ -564,12 +673,12 @@ const { hero, cases, closing } = work;
     backdrop-filter: blur(10px);
   }
 
-  .console__metric span,
-  .console__metric strong {
+  .studio__metric span,
+  .studio__metric strong {
     display: block;
   }
 
-  .console__metric span {
+  .studio__metric span {
     font-family: var(--font-mono);
     font-size: 0.74rem;
     letter-spacing: 0.05em;
@@ -578,7 +687,7 @@ const { hero, cases, closing } = work;
     margin-block-end: 0.45rem;
   }
 
-  .console__metric strong {
+  .studio__metric strong {
     font-size: clamp(1.2rem, 2vw, 1.7rem);
     letter-spacing: var(--tracking-display);
   }
@@ -1107,31 +1216,52 @@ const { hero, cases, closing } = work;
       inline-size: 100%;
     }
 
-    .work-hero__console {
+    .work-hero__studio {
       padding: 1rem;
     }
 
-    .console__head {
-      flex-direction: column;
+    .studio__stage {
+      position: relative;
+      inset: auto;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+    }
+
+    .studio__head {
       align-items: start;
     }
 
-    .console__beam {
-      margin-block-start: 4.9rem;
-      gap: 0.55rem;
+    .studio__input {
+      grid-template-columns: auto minmax(0, 1fr);
     }
 
-    .console__beam-row p {
-      font-size: 0.9rem;
-      padding-block: 0.45rem;
+    .studio__input-flow {
+      display: none;
     }
 
-    .console__metrics {
+    .studio__decision::before {
+      display: none;
+    }
+
+    .studio__decision {
+      padding: 1rem;
+    }
+
+    .studio__decision strong {
+      font-size: 1.4rem;
+    }
+
+    .studio__decision p {
+      font-size: 0.93rem;
+    }
+
+    .studio__metrics {
       grid-template-columns: 1fr 1fr;
       gap: 0.65rem;
+      margin-block-start: 0;
     }
 
-    .console__metric {
+    .studio__metric {
       padding: 0.75rem;
     }
 
@@ -1243,6 +1373,20 @@ const { hero, cases, closing } = work;
   }
 
   @media (prefers-reduced-motion: no-preference) {
+    .studio__input {
+      animation: studio-card-breathe 5.2s var(--ease-luxe) infinite;
+      animation-delay: calc(var(--studio-index, 0) * 220ms);
+    }
+
+    .studio__input-flow i {
+      animation: studio-flow 3.2s linear infinite;
+      animation-delay: calc(var(--studio-index, 0) * 380ms);
+    }
+
+    .studio__decision {
+      animation: studio-decision-float 5.8s var(--ease-luxe) infinite;
+    }
+
     .case-preview__sweep {
       animation: case-sweep 4.2s linear infinite;
     }
@@ -1266,6 +1410,51 @@ const { hero, cases, closing } = work;
     to {
       transform: translate(0, -50%) rotate(334deg);
       opacity: 0.6;
+    }
+  }
+
+  @keyframes studio-flow {
+    from {
+      transform: translateX(-120%);
+      opacity: 0.2;
+    }
+    18% {
+      opacity: 1;
+    }
+    82% {
+      opacity: 1;
+    }
+    to {
+      transform: translateX(260%);
+      opacity: 0.15;
+    }
+  }
+
+  @keyframes studio-card-breathe {
+    0%,
+    100% {
+      transform: translateY(0);
+      border-color: color-mix(in srgb, white 10%, transparent);
+    }
+    50% {
+      transform: translateY(-4px);
+      border-color: color-mix(in srgb, var(--signal) 20%, transparent);
+    }
+  }
+
+  @keyframes studio-decision-float {
+    0%,
+    100% {
+      transform: translateY(0);
+      box-shadow:
+        0 18px 36px color-mix(in srgb, black 12%, transparent),
+        inset 0 1px 0 color-mix(in srgb, white 10%, transparent);
+    }
+    50% {
+      transform: translateY(-6px);
+      box-shadow:
+        0 24px 42px color-mix(in srgb, black 16%, transparent),
+        inset 0 1px 0 color-mix(in srgb, white 12%, transparent);
     }
   }
 </style>
