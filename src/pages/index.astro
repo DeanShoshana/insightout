@@ -212,39 +212,42 @@ import { withBase } from '../lib/url';
       if (!node || !pulse || !out || !artifact) return;
 
       // Initial states - JS-only, so non-animated visitors see the final state.
+      // Negative dash offsets let the paths draw from their end points, so the
+      // scene can now build decision-first and then branch back out.
       streams.forEach((p) => {
         const len = p.getTotalLength();
-        gsap.set(p, { strokeDasharray: len, strokeDashoffset: len });
+        gsap.set(p, { strokeDasharray: len, strokeDashoffset: -len });
       });
       const outLen = out.getTotalLength();
-      gsap.set(out, { strokeDasharray: outLen, strokeDashoffset: outLen });
+      gsap.set(out, { strokeDasharray: outLen, strokeDashoffset: -outLen });
       gsap.set(labels, { opacity: 0 });
       gsap.set(node, { scale: 0 });
       gsap.set(artifact, { opacity: 0, y: 12, scale: 0.96 });
 
-      // 1) Streams draw in sequentially, each label resolving with its stream.
-      streams.forEach((p, i) => {
-        tl.to(p, { strokeDashoffset: 0, duration: 1.2, ease: 'power3.inOut' }, i * 0.8);
-        if (labels[i]) tl.to(labels[i], { opacity: 1, duration: 0.5, ease: 'power2.out' }, i * 0.8 + 0.55);
-      });
+      // 1) THE DECISION resolves in first...
+      tl.to(artifact, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power3.out' }, 0);
 
-      // 2) Convergence: the node lands with weight.
-      tl.to(node, { scale: 1, duration: 0.45, ease: 'back.out(2.5)' }, 2.75);
+      // 2) ...then the accent line pulls back toward the convergence point...
+      tl.to(out, { strokeDashoffset: 0, duration: 0.85, ease: 'power2.inOut' }, 0.45);
 
-      // 3) The accent line runs out toward the decision…
-      tl.to(out, { strokeDashoffset: 0, duration: 0.85, ease: 'power2.inOut' }, 3.2);
+      // 3) ...the node lands with weight...
+      tl.to(node, { scale: 1, duration: 0.45, ease: 'back.out(2.5)' }, 1.1);
 
-      // 4) …the node pulses once on the accent (immediateRender off: the
-      // ring must stay invisible until the playhead actually reaches it)…
+      // 4) ...and pulses once before the input streams branch in.
       tl.fromTo(
         pulse,
         { opacity: 0.7, scale: 1 },
         { opacity: 0, scale: 3, duration: 0.7, ease: 'power2.out', immediateRender: false },
-        3.3
+        1.2
       );
 
-      // 5) …and THE DECISION resolves in.
-      tl.to(artifact, { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power3.out' }, 3.7);
+      // 5) Behavior, Data, and Market then draw in sequentially, each label
+      // resolving as its stream reaches full length.
+      streams.forEach((p, i) => {
+        const at = 1.55 + i * 0.8;
+        tl.to(p, { strokeDashoffset: 0, duration: 1.2, ease: 'power3.inOut' }, at);
+        if (labels[i]) tl.to(labels[i], { opacity: 1, duration: 0.5, ease: 'power2.out' }, at + 0.55);
+      });
     });
   }
 </script>
