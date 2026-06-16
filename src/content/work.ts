@@ -23,14 +23,18 @@ export const work = {
     headline: 'Where scattered signal becomes business direction.',
     lede:
       'These engagements show the shape of the work: product questions clarified, opportunity framed, time-to-insight compressed, ICP logic sharpened, public narrative decoded, and ambiguous ambition turned into something a team can actually build.',
-    note: 'Anonymized where the work requires it. The through-line stays the same: evidence becomes a usable decision system.',
+    note: 'Specific company details stay private. The pattern is what matters: evidence becomes a usable decision system.',
+    motionLabel: 'How one case comes together',
+    motionValue: 'Signal to decision',
     rails: [
-      'Product logic',
-      'Behavioral evidence',
+      'Product question',
+      'Behavioral signal',
       'Operating data',
-      'Market pressure',
-      'Executive decision',
+      'Market context',
     ],
+    decisionTitle: 'Board-ready direction',
+    decisionBody:
+      'Separate streams stop competing for attention and resolve into one usable move for product, GTM, and leadership.',
     metrics: [
       { label: 'Operating frames', value: '06' },
       { label: 'Commercial upside framed', value: '$15M+' },
@@ -63,7 +67,7 @@ export const work = {
     },
     {
       id: 'opportunity',
-      navLabel: '$15M+',
+      navLabel: 'Opportunity',
       kicker: 'Opportunity Discovery',
       title: 'Turn fragmented behavioral, GTM, and product evidence into a commercial case with weight.',
       summary:
@@ -83,7 +87,7 @@ export const work = {
     },
     {
       id: 'velocity',
-      navLabel: '75% Faster',
+      navLabel: 'Insight speed',
       kicker: 'Decision Velocity',
       title: 'Compress the time between analysis happening and analysis becoming usable.',
       summary:
